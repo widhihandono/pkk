@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KelompokDasaWisma_Activity">
+
+    <com.shuhart.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:sv_selectedCircleColor="@color/blue"
+        app:sv_selectedTextColor="#fff"
+        app:sv_stepLineWidth="1dp"
+        app:sv_stepPadding="4dp"
+        app:sv_nextTextColor="@color/colorAccent"
+        app:sv_nextStepLineColor="@color/colorAccent"
+        app:sv_doneCircleColor="@color/young_blue"
+        app:sv_doneStepLineColor="@color/young_blue"
+        app:sv_doneCircleRadius="12dp"
+        app:sv_selectedCircleRadius="16dp"
+        app:sv_selectedStepNumberColor="@color/white"
+        app:sv_stepViewStyle="@style/StepView"
+        app:sv_doneStepMarkColor="#fff"
+        app:sv_stepNumberTextSize="12sp"
+        app:sv_animationType="All"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih Dasawisma"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="#000"
+            android:layout_below="@id/step_view"
+            android:id="@+id/text"
+            android:layout_marginLeft="20dp"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rvKelompokDasawisma"
+        android:layout_below="@id/text"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/tvBack"
+        android:gravity="center"
+        android:drawableRight="@drawable/ic_back_white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_blue"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_alignParentLeft="true"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="Next"
+        android:id="@+id/tvNext"
+        android:gravity="center"
+        android:drawableRight="@drawable/ic_next"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_blue"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_alignParentRight="true"
+        android:textSize="18dp"
+        android:layout_marginRight="20dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Edit.Edit_Cari_No_Rtm_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/header_layout"
+        android:orientation="vertical"
+        android:id="@+id/lnHeader"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_arrow_back"
+                android:id="@+id/tvBack"
+                android:background="@drawable/button_click"
+                android:layout_marginRight="10dp"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="Edit Anggota RTM"
+                android:gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lnHeader"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:id="@+id/lnTambahKk">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List Anggota Keluarga"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="#000"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah KK"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_blue"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:layout_alignParentRight="true"
+            android:textSize="18dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/tvTambahKK"/>
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lnTambahKk">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvPemilihanAnggota"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvPemilihanAnggota_baru"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNext"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="Next"
+        android:gravity="center"
+        android:drawableRight="@drawable/ic_next"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_blue"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_alignParentRight="true"
+        android:textSize="18dp"
+        android:layout_marginRight="20dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.supradesa.supradesa_pkk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Edit.Edit_Kelompok_Dasawisma_Activity"></activity>
+        <activity android:name=".Ambil_DataActivity" />
+        <activity android:name=".Data_Belum_Upload_Activity" />
+        <activity android:name=".Step_Wizard_Activity" />
+        <activity android:name=".Ubah_Akun_Activity" />
+        <activity android:name=".Edit.Edit_Kepala_Rtm_Activity" />
+        <activity android:name=".Edit.Edit_Rtm_Activity" />
+        <activity android:name=".Edit.Edit_Cari_No_Rtm_Activity" />
+        <activity
+            android:name=".Edit.Edit_Cari_No_KK_Activity"
+            android:launchMode="standard" />
+        <activity android:name=".Upload_Data_Activity" />
+        <activity android:name=".KelompokDasaWisma_Activity" />
+        <activity android:name=".Kepala_Rtm_Activity" />
+        <activity android:name=".Catatan_Keluarga_Activity" />
+        <activity android:name=".Fasilitas_Rtm_Activity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity android:name=".Cari_No_KK_Activity" />
+        <activity android:name=".Pemilihan_KK_Activity" />
+        <activity android:name=".Profile_Activity" />
+        <activity android:name=".Data_Penduduk_Activity" />
+        <activity
+            android:name=".Login_Activity"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

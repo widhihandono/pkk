@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fasilitas_Rtm_Activity">
+
+    <com.shuhart.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:sv_selectedCircleColor="@color/blue"
+        app:sv_selectedTextColor="#fff"
+        app:sv_stepLineWidth="1dp"
+        app:sv_stepPadding="4dp"
+        app:sv_nextTextColor="@color/colorAccent"
+        app:sv_nextStepLineColor="@color/colorAccent"
+        app:sv_doneCircleColor="@color/young_blue"
+        app:sv_doneStepLineColor="@color/young_blue"
+        app:sv_doneCircleRadius="12dp"
+        app:sv_selectedCircleRadius="16dp"
+        app:sv_selectedStepNumberColor="@color/white"
+        app:sv_stepViewStyle="@style/StepView"
+        app:sv_doneStepMarkColor="#fff"
+        app:sv_stepNumberTextSize="12sp"
+        app:sv_animationType="All"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kebutuhan Rumah Tangga"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textColor="#000"
+        android:layout_below="@id/step_view"
+        android:id="@+id/text"
+        android:layout_marginLeft="20dp"/>
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/text"
+    android:id="@+id/scroll">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rvFasilitasRtm"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnJamban"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jamban "
+                android:textColor="#000"
+                android:layout_alignParentLeft="true"
+                android:textSize="17dp"
+                android:layout_centerVertical="true"/>
+
+            <com.travijuu.numberpicker.library.NumberPicker
+                android:id="@+id/number_picker_jamban"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnMakananPokok"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Makanan Pokok : "
+                android:textColor="#000"
+                android:textSize="17dp"/>
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rgMakananPokok">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beras"
+                    android:id="@+id/rbBeras"
+                    android:layout_marginRight="10dp"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Non Beras"
+                    android:id="@+id/rbNonBeras"
+                    android:layout_marginLeft="10dp"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lnSumberAir"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sumber Air : "
+                android:textColor="#000"
+                android:textSize="17dp"/>
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/rgSumberAir">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PDAM"
+                    android:id="@+id/rbPdam"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sumur"
+                    android:id="@+id/rbSumur"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sungai"
+                    android:id="@+id/rbSungai"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lainnya"
+                    android:id="@+id/rbLainnya"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/kriteria_rumah"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="65dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kriteria Rumah : "
+                android:textColor="#000"
+                android:textSize="17dp"/>
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rgKriteriaRumah">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Layak Huni"
+                    android:id="@+id/rbLayakHuni"
+                    android:layout_marginRight="10dp"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tidak Layak Huni"
+                    android:id="@+id/rbTidakLayakHuni"
+                    android:layout_marginLeft="10dp"
+                    />
+            </RadioGroup>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/tvBack"
+        android:gravity="center"
+        android:drawableRight="@drawable/ic_back_white"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_blue"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_alignParentLeft="true"
+        android:textSize="18dp"
+        android:layout_marginLeft="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:text="Save  "
+        android:id="@+id/tvSave"
+        android:gravity="center"
+        android:drawableRight="@drawable/ic_save_24dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_blue"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:layout_alignParentRight="true"
+        android:textSize="18dp"
+        android:layout_marginRight="20dp"/>
+</RelativeLayout>

@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FCFCFC"
+    tools:context=".Profile_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/header_layout"
+        android:orientation="vertical"
+        android:id="@+id/lnHeader"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="left">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/logo"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="70dp"
+                android:gravity="center"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:text="Profil"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lnHeader">
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/user_profile_photo"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/background_lingkaran"
+                    android:elevation="4dp"
+                    android:src="@drawable/user_icon" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_rounded"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:id="@+id/lnProfile">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="25dp"
+                        android:padding="8dp">
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TableRow android:weightSum="3">
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Nik "
+                                        android:textStyle="bold"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:text=": "
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="1">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:id="@+id/tvNik"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                            </TableRow>
+
+                            <TableRow android:weightSum="3"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp">
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Nama "
+                                        android:textStyle="bold"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text=": "
+                                        android:textStyle="bold"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="1">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:id="@+id/tvNama"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                            </TableRow>
+
+                            <TableRow android:weightSum="3"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp">
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:text="Jenis Kelamin "
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text=": "
+                                        android:textStyle="bold"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="1">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:id="@+id/tvJenisKelamin"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                            </TableRow>
+
+                            <TableRow android:weightSum="3"
+                                android:paddingTop="2dp"
+                                android:paddingBottom="2dp">
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Alamat "
+                                        android:textStyle="bold"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="0">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text=": "
+                                        android:textStyle="bold"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                                <TableLayout
+                                    android:layout_weight="1">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textStyle="bold"
+                                        android:id="@+id/tvAlamat"
+                                        android:textColor="#000"/>
+                                </TableLayout>
+
+                            </TableRow>
+                        </TableLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="45dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_below="@+id/lnProfile">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MENU"
+                        android:textColor="#000"
+                        android:textSize="19dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_user"
+                            android:text="    Ubah akun login"
+                            android:textColor="#000"
+                            android:id="@+id/tvUbah"
+                            android:gravity="center"
+                            android:layout_marginLeft="20dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="5dp"
+                            android:src="@drawable/dotted"/>
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_info"
+                            android:text="    Versi"
+                            android:gravity="center"
+                            android:textColor="#000"
+                            android:layout_marginLeft="20dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text="1.0"
+                            android:id="@+id/tvVersi"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="20dp"/>
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="5dp"
+                            android:layout_height="5dp"
+
+                            android:src="@drawable/dotted"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/lnLogOut_profile">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_power"
+                            android:text="    Logout"
+                            android:textColor="#000"
+                            android:gravity="center"
+                            android:id="@+id/tvLogout"
+                            android:layout_marginLeft="20dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottom_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:backgroundTint="#fff"
+            app:fabAlignmentMode="center">
+        </com.google.android.material.bottomappbar.BottomAppBar>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#6070D3"
+            android:src="@drawable/ic_menu"
+            app:backgroundTint="#6070D3"
+            android:drawableTint="@color/white"
+            android:tint="@color/white"
+            app:layout_anchor="@id/bottom_app_bar" />
+
+
+        <TextView
+            android:id="@+id/tvHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|bottom"
+            android:drawableTop="@drawable/ic_home"
+            android:text="Home"
+            android:gravity="center"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="40dp"/>
+
+        <TextView
+            android:id="@+id/tvProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_profile"
+            android:gravity="center"
+            android:layout_gravity="right|bottom"
+            android:text="Profile"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="40dp"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginLeft="110dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pendataan"
+            android:text="Pendataan"
+            android:textAlignment="center"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:padding="7dp"
+            android:background="@drawable/shape_lable"
+            android:textColor="@android:color/black"
+            android:visibility="invisible"
+            android:layout_marginBottom="3dp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPendataan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:pressedTranslationZ="12dp"
+            app:fabSize="normal"
+            app:tint="@color/white"
+            android:src="@drawable/ic_add_24"
+            app:backgroundTint="@color/green"
+            android:visibility="invisible"
+            app:elevation="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit"
+            android:text="Edit Data"
+            android:textAlignment="center"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:padding="7dp"
+            android:background="@drawable/shape_lable"
+            android:textColor="@android:color/black"
+            android:visibility="invisible"
+            android:layout_marginBottom="3dp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabDoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:pressedTranslationZ="12dp"
+            app:fabSize="normal"
+            app:tint="@color/white"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_doc"
+            app:backgroundTint="@color/yellow"
+            android:visibility="invisible"
+            app:elevation="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="110dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/upload"
+            android:text="Upload"
+            android:textAlignment="center"
+            android:textSize="14dp"
+            android:background="@drawable/shape_lable"
+            android:textStyle="bold"
+            android:padding="7dp"
+            android:visibility="invisible"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="3dp"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sync"
+            app:backgroundTint="@color/orange"
+            app:tint="@color/white"
+            app:elevation="5dp"
+            app:fabSize="normal"
+            android:visibility="invisible"
+            app:pressedTranslationZ="12dp"
+            android:id="@+id/fabSync"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

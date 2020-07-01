@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Step_Wizard_Activity">
+
+    <com.shuhart.stepview.StepView
+        android:id="@+id/step_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:sv_selectedCircleColor="@color/blue"
+        app:sv_selectedTextColor="#fff"
+        app:sv_stepLineWidth="1dp"
+        app:sv_stepPadding="4dp"
+        app:sv_nextTextColor="@color/colorAccent"
+        app:sv_nextStepLineColor="@color/colorAccent"
+        app:sv_doneCircleColor="@color/young_blue"
+        app:sv_doneStepLineColor="@color/young_blue"
+        app:sv_doneCircleRadius="12dp"
+        app:sv_selectedCircleRadius="16dp"
+        app:sv_selectedStepNumberColor="@color/white"
+        app:sv_stepViewStyle="@style/StepView"
+        app:sv_doneStepMarkColor="#fff"
+        app:sv_stepNumberTextSize="12sp"
+        app:sv_animationType="Line"/>
+</RelativeLayout>
