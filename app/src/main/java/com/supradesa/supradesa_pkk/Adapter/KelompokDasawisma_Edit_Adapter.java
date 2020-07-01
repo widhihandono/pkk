@@ -51,6 +51,7 @@ List_Temporary list_temporary;
             list_temporary.dasawismaPosition = position;
             selectedPosition = position;
             list_temporary.id_dasawisma = list_kelompok_dasawisma.get(position).getId_dasa_wisma();
+            crudPkk.update_pkk_kelompok_dasawisma("id_dasa_wisma",list_kelompok_dasawisma.get(position).getId_dasa_wisma(),no_rtm);
 //            Toast.makeText(context,"Selected Item : "+ selectedPosition,Toast.LENGTH_LONG).show();
             notifyDataSetChanged();
         });

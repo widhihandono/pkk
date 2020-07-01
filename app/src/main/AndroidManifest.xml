@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Edit.Edit_Kelompok_Dasawisma_Activity"></activity>
+        <activity android:name=".Edit.Catatan_Keluarga_Edit_Activity"></activity>
+        <activity android:name=".Edit.Edit_Kelompok_Dasawisma_Activity" />
         <activity android:name=".Ambil_DataActivity" />
         <activity android:name=".Data_Belum_Upload_Activity" />
         <activity android:name=".Step_Wizard_Activity" />
