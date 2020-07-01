@@ -19,6 +19,7 @@ import com.supradesa.supradesa_pkk.Pemilihan_KK_Activity;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
+import com.supradesa.supradesa_pkk.SQLite.Helper;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 
 import java.text.SimpleDateFormat;
@@ -132,7 +133,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                                 ep.setId_kelompok_umur("27");
                             }
 
-                            if (crudPkk.InsertData_pkk_catatan_keluarga_detail(ep) > 0) {
+                            if (crudPkk.update_pkk_catatan_keluarga_detail(Helper.ID_KELOMPOK_UMUR,ep.getId_kelompok_umur(),ep.getId_detail_cat()) > 0) {
                                 Log.i("simpan", "sukses");
                             } else {
 //                                Toast.makeText(this, "Gagal Simpan Data Pkk Catatan Keluarga Detail", Toast.LENGTH_LONG).show();

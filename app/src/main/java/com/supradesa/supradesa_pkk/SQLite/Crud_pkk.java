@@ -215,6 +215,42 @@ public class Crud_pkk {
         return listPresence;
     }
 
+    public List<Ent_PkkCatatanKeluargaDetail> getData_pkk_catatan_keluarga_detail(String nik)
+    {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail WHERE upload = 'no' AND nik = '"+nik+"'",null);
+        List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            Ent_PkkCatatanKeluargaDetail ckd = new Ent_PkkCatatanKeluargaDetail();
+            ckd.setId_detail_cat(cursor.getString(cursor.getColumnIndex(Helper.ID_DETAIL_CAT)));
+            ckd.setNik(cursor.getString(cursor.getColumnIndex(Helper.NIK)));
+            ckd.setBerkebutuhan_khusus(cursor.getString(cursor.getColumnIndex(Helper.BERKEBUTUHAN_KHUSUS)));
+            ckd.setPenghayatan_dan_pengamalan_pancasila(cursor.getString(cursor.getColumnIndex(Helper.PENGHAYATAN_DAN_PENGAMALAN_PANCASILA)));
+            ckd.setGotong_royong(cursor.getString(cursor.getColumnIndex(Helper.GOTONG_ROYONG)));
+            ckd.setPendidikan_ketrampilan(cursor.getString(cursor.getColumnIndex(Helper.PENDIDIKAN_KETRAMPILAN)));
+            ckd.setPengembangan_kehidupan_berkoperasi(cursor.getString(cursor.getColumnIndex(Helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI)));
+            ckd.setPangan(cursor.getString(cursor.getColumnIndex(Helper.PANGAN)));
+            ckd.setSandang(cursor.getString(cursor.getColumnIndex(Helper.SANDANG)));
+            ckd.setKesehatan(cursor.getString(cursor.getColumnIndex(Helper.KESEHATAN)));
+            ckd.setPerencanaan_sehat(cursor.getString(cursor.getColumnIndex(Helper.PERENCANAAN_SEHAT)));
+            ckd.setId_kelompok_umur(cursor.getString(cursor.getColumnIndex(Helper.ID_KELOMPOK_UMUR)));
+            ckd.setUsia_subur(cursor.getString(cursor.getColumnIndex(Helper.USIA_SUBUR)));
+            ckd.setIbu_hamil(cursor.getString(cursor.getColumnIndex(Helper.IBU_HAMIL)));
+            ckd.setMenyusui(cursor.getString(cursor.getColumnIndex(Helper.MENYUSUI)));
+            ckd.setNifas(cursor.getString(cursor.getColumnIndex(Helper.NIFAS)));
+            ckd.setButa_baca(cursor.getString(cursor.getColumnIndex(Helper.BUTA_BACA)));
+            ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
+            ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
+
+
+            listPresence.add(ckd);
+
+        }
+        return listPresence;
+    }
+
 
     public List<Ent_PkkCatatanKeluargaDetail> getData_pkk_catatan_keluarga_detail()
     {

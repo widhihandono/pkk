@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.shuhart.stepview.StepView;
+import com.supradesa.supradesa_pkk.Adapter.Catatan_Keluarga_Edit_Adapter;
 import com.supradesa.supradesa_pkk.Adapter.KelompokDasawisma_Adapter;
 import com.supradesa.supradesa_pkk.Adapter.KelompokDasawisma_Edit_Adapter;
 import com.supradesa.supradesa_pkk.Catatan_Keluarga_Activity;
@@ -58,10 +59,9 @@ public class Edit_Kelompok_Dasawisma_Activity extends AppCompatActivity {
             if(crudPkk.Input_kelompok_dasawisma(helper.ID_DASAWISMA,list_temporary.id_dasawisma,"08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk)) > 0)
             {
                 Toast.makeText(getApplicationContext(),"Sukses Input",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Catatan_Keluarga_Activity.class);
+                Intent intent = new Intent(this, Catatan_Keluarga_Edit_Activity.class);
                 startActivity(intent);
                 Animatoo.animateFade(this);
-                finish();
             }
             else
             {

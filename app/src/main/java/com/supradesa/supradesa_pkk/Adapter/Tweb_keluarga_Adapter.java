@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,7 +51,8 @@ private List<Ent_twebKeluarga> filterList;
         holder.tvNo_kk.setText(list_twebKeluarga.get(position).getNama()); //no_kk / nama Kepala Keluarga
         holder.tvRtRw.setText("RT "+list_twebKeluarga.get(position).getRt()+"/ RW "+list_twebKeluarga.get(position).getRw());
         holder.itemView.setOnClickListener(l->{
-            list_temporary.listAllAnggota.addAll(crud.getData_tweb_penduduk(list_twebKeluarga.get(position).getId()));
+//            Toast.makeText(context,""+crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()).size(),Toast.LENGTH_SHORT).show();
+            list_temporary.listAllAnggota.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
             Intent intent = new Intent(context,Pemilihan_KK_Activity.class);
             intent.putExtra("id_kk",list_twebKeluarga.get(position).getId());
             intent.putExtra("no_kk",list_twebKeluarga.get(position).getNo_kk());

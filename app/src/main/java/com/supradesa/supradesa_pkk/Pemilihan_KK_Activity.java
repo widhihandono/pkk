@@ -49,6 +49,10 @@ StepView stepView;
         anggota_rtm_adapter = new Ambil_Anggota_Rtm_Adapter(this,list_temporary.listAllAnggota);
         rvPemilihanAnggota.setAdapter(anggota_rtm_adapter);
 
+        if(list_temporary.listAllAnggota.size() > 0)
+        {
+            Toast.makeText(this,list_temporary.listAllAnggota.get(0).getNama(),Toast.LENGTH_SHORT).show();
+        }
 
         stepView.getState()
                 .selectedTextColor(ContextCompat.getColor(this, R.color.white))
