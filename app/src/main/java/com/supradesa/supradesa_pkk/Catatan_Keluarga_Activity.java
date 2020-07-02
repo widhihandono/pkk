@@ -81,12 +81,6 @@ public class Catatan_Keluarga_Activity extends AppCompatActivity {
 
         stepView.go(3,false);
 
-        stepView.setOnClickListener(l->{
-
-            startActivity(new Intent(this,Fasilitas_Rtm_Activity.class));
-            Animatoo.animateFade(this);
-
-        });
 
 
         tvBack.setOnClickListener(l->{

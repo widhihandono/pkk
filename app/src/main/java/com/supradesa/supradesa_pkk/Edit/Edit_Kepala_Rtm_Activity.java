@@ -1,6 +1,7 @@
 package com.supradesa.supradesa_pkk.Edit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.shuhart.stepview.StepView;
 import com.supradesa.supradesa_pkk.Adapter.Edit_Kepala_Rtm_Adapter;
 import com.supradesa.supradesa_pkk.Adapter.Kepala_Rtm_Adapter;
 import com.supradesa.supradesa_pkk.KelompokDasaWisma_Activity;
@@ -28,12 +31,13 @@ import java.util.Date;
 
 public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
     private RecyclerView rvEditKepalaRtm;
-    private TextView tvBackEditKepalaRtm,tvNext;
+    private TextView tvNext,tvBack;
     private RecyclerView.LayoutManager layoutManager;
     Crud crud;
     Crud_pkk crudPkk;
     List_Temporary list_temporary;
     Edit_Kepala_Rtm_Adapter editKepalaRtmAdapter;
+    StepView stepView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,9 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         crudPkk = new Crud_pkk(this);
         list_temporary = new List_Temporary();
 
-        tvBackEditKepalaRtm = findViewById(R.id.tvBackEditKepalaRtm);
         tvNext = findViewById(R.id.tvNext);
+        tvBack = findViewById(R.id.tvBack);
+        stepView = findViewById(R.id.step_view);
 
         rvEditKepalaRtm = findViewById(R.id.rvEditKepalaRtm);
         rvEditKepalaRtm.setHasFixedSize(true);
@@ -57,11 +62,33 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         rvEditKepalaRtm.setAdapter(editKepalaRtmAdapter);
 
 
-        tvBackEditKepalaRtm.setOnClickListener(l->{
+        stepView.getState()
+                .selectedTextColor(ContextCompat.getColor(this, R.color.white))
+                .animationType(StepView.ANIMATION_ALL)
+                .selectedCircleColor(ContextCompat.getColor(this, R.color.blue))
+                .selectedStepNumberColor(ContextCompat.getColor(this, R.color.white))
+                // You should specify only stepsNumber or steps array of strings.
+                // In case you specify both steps array is chosen.
+//                .steps(new ArrayList<String>() {{
+//                    add("First step");
+//                    add("Second step");
+//                    add("Third step");
+//                    add("Fourth step");
+//                }})
+                // You should specify only steps number or steps array of strings.
+                // In case you specify both steps array is chosen.
+                .stepsNumber(5)
+                .animationDuration(200)
+                // other state methods are equal to the corresponding xml attributes
+                .commit();
+
+        stepView.go(1,false);
+
+        tvBack.setOnClickListener(l->{
 //            crud.delete_rtm_by_id(list_temporary.id_penduduk);
 //            crud.updateData_tweb_penduduk_id_rtm("0",list_temporary.nik,list_temporary.id_penduduk);
-            Intent intent = new Intent(this, Edit_Rtm_Activity.class);
-            startActivity(intent);
+            startActivity(new Intent(Edit_Kepala_Rtm_Activity.this,Edit_Rtm_Activity.class));
+            Animatoo.animateFade(this);
             finish();
         });
 
@@ -144,7 +171,6 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                             Intent intent = new Intent(this, Edit_Kelompok_Dasawisma_Activity.class);
                             intent.putExtra("no_rtm","08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk));
                             startActivity(intent);
-                            finish();
                         } else {
                             Toast.makeText(this, "Gagal Simpan Data dan update data", Toast.LENGTH_LONG).show();
                         }
@@ -193,8 +219,8 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,Pemilihan_KK_Activity.class);
-        startActivity(intent);
+        startActivity(new Intent(Edit_Kepala_Rtm_Activity.this,Edit_Rtm_Activity.class));
+        Animatoo.animateFade(this);
         finish();
     }
 }

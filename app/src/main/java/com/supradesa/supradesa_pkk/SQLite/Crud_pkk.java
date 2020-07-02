@@ -394,10 +394,6 @@ public class Crud_pkk {
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] coloumn = {Helper.ID_DK,Helper.NO_KK,Helper.MAKANAN_POKOK,Helper.JML_MAKANAN_POKOK,Helper.JAMBAN,
-                Helper.JML_JAMBAN,Helper.SUMBER_AIR,Helper.JML_SUMBER_AIR,Helper.TEMPAT_SAMPAH,Helper.JML_TEMPAT_SAMPAH,
-                Helper.SALURAN_PEMBUANGAN_AIR,Helper.JML_SALURAN_PEMBUANGAN_AIR,Helper.STIKER_P4K,Helper.JML_STIKER_P4K,
-                Helper.KRITERIA_RUMAH,Helper.JML_KRITERIA_RUMAH,Helper.UP2K,Helper.JML_UP2K,Helper.KEG_SEHAT_LINGKUNGAN,Helper.JML_KEG_SEHAT_LINGKUNGAN};
         Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_PKK_DATA_KELUARGA+" WHERE no_kk = '"+no_rtm+"'",null);
         List<Ent_PkkDataKeluarga> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
@@ -405,6 +401,26 @@ public class Crud_pkk {
             Ent_PkkDataKeluarga pkd = new Ent_PkkDataKeluarga();
             pkd.setId_dk(cursor.getString(cursor.getColumnIndex(Helper.ID_DK)));
             pkd.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
+            pkd.setMakanan_pokok(cursor.getString(cursor.getColumnIndex(Helper.MAKANAN_POKOK)));
+            pkd.setJml_makanan_pokok(cursor.getString(cursor.getColumnIndex(Helper.JML_MAKANAN_POKOK)));
+            pkd.setJamban(cursor.getString(cursor.getColumnIndex(Helper.JAMBAN)));
+            pkd.setJml_jamban(cursor.getString(cursor.getColumnIndex(Helper.JML_JAMBAN)));
+            pkd.setSumber_air(cursor.getString(cursor.getColumnIndex(Helper.SUMBER_AIR)));
+            pkd.setJml_sumber_air(cursor.getString(cursor.getColumnIndex(Helper.JML_SUMBER_AIR)));
+            pkd.setTempat_sampah(cursor.getString(cursor.getColumnIndex(Helper.TEMPAT_SAMPAH)));
+            pkd.setJml_tempat_sampah(cursor.getString(cursor.getColumnIndex(Helper.JML_TEMPAT_SAMPAH)));
+            pkd.setSaluran_pembuangan_air(cursor.getString(cursor.getColumnIndex(Helper.SALURAN_PEMBUANGAN_AIR)));
+            pkd.setJml_saluran_pembuangan_air(cursor.getString(cursor.getColumnIndex(Helper.JML_SALURAN_PEMBUANGAN_AIR)));
+            pkd.setStiker_p4k(cursor.getString(cursor.getColumnIndex(Helper.STIKER_P4K)));
+            pkd.setJml_stiker_p4k(cursor.getString(cursor.getColumnIndex(Helper.JML_STIKER_P4K)));
+            pkd.setKriteria_rumah(cursor.getString(cursor.getColumnIndex(Helper.KRITERIA_RUMAH)));
+            pkd.setJml_kriteria_rumah(cursor.getString(cursor.getColumnIndex(Helper.JML_KRITERIA_RUMAH)));
+            pkd.setUp2k(cursor.getString(cursor.getColumnIndex(Helper.UP2K)));
+            pkd.setJml_up2k(cursor.getString(cursor.getColumnIndex(Helper.JML_UP2K)));
+            pkd.setKeg_sehat_lingkungan(cursor.getString(cursor.getColumnIndex(Helper.KEG_SEHAT_LINGKUNGAN)));
+            pkd.setJml_keg_sehat_lingkungan(cursor.getString(cursor.getColumnIndex(Helper.JML_KEG_SEHAT_LINGKUNGAN)));
+            pkd.setPtp(cursor.getString(cursor.getColumnIndex(Helper.PTP)));
+            pkd.setIndustri_rt(cursor.getString(cursor.getColumnIndex(Helper.INDUSTRI_RT)));
 
             listPresence.add(pkd);
 

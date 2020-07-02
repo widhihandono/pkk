@@ -62,7 +62,7 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
             startActivity(new Intent(this,Login_Activity.class));
             finish();
         }
-        Toast.makeText(MainActivity.this,sharedPref.sp.getString("no_hp",""),Toast.LENGTH_LONG).show();
+//        Toast.makeText(MainActivity.this,sharedPref.sp.getString("no_hp",""),Toast.LENGTH_LONG).show();
 
         tvHome = findViewById(R.id.tvHome);
         tvProfile = findViewById(R.id.tvProfile);

@@ -26,6 +26,7 @@ public class Catatan_Keluarga_Edit_Activity extends AppCompatActivity {
     Crud crud;
     List_Temporary list_temporary;
     Catatan_Keluarga_Edit_Adapter catatanKeluargaEditAdapter;
+    StepView stepView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class Catatan_Keluarga_Edit_Activity extends AppCompatActivity {
 
         tvBack = findViewById(R.id.tvBack);
         tvNext = findViewById(R.id.tvNext);
+        stepView = findViewById(R.id.step_view);
 
         rvCatatanKeluarga = findViewById(R.id.rvCatatanKeluarga);
         layoutManager = new LinearLayoutManager(this);
@@ -47,8 +49,31 @@ public class Catatan_Keluarga_Edit_Activity extends AppCompatActivity {
         rvCatatanKeluarga.setAdapter(catatanKeluargaEditAdapter);
 
 
+        stepView.getState()
+                .selectedTextColor(ContextCompat.getColor(this, R.color.white))
+                .animationType(StepView.ANIMATION_ALL)
+                .selectedCircleColor(ContextCompat.getColor(this, R.color.blue))
+                .selectedStepNumberColor(ContextCompat.getColor(this, R.color.white))
+                // You should specify only stepsNumber or steps array of strings.
+                // In case you specify both steps array is chosen.
+//                .steps(new ArrayList<String>() {{
+//                    add("First step");
+//                    add("Second step");
+//                    add("Third step");
+//                    add("Fourth step");
+//                }})
+                // You should specify only steps number or steps array of strings.
+                // In case you specify both steps array is chosen.
+                .stepsNumber(5)
+                .animationDuration(200)
+                // other state methods are equal to the corresponding xml attributes
+                .commit();
+
+        stepView.go(3,false);
+
+
         tvNext.setOnClickListener(l->{
-            Intent intent = new Intent(this, Fasilitas_Rtm_Activity.class);
+            Intent intent = new Intent(this, Fasilitas_Rtm_Edit_Activity.class);
             startActivity(intent);
             Animatoo.animateFade(this);
 
@@ -65,6 +90,7 @@ public class Catatan_Keluarga_Edit_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Animatoo.animateFade(this);
     }
 
 }

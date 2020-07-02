@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.supradesa.supradesa_pkk.Adapter.Data_Belum_Upload_Adapter;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 
@@ -36,12 +38,16 @@ private TextView tvBack;
 
 //        Toast.makeText(this,crud.getData_tweb_rtm().get(0).getNo_kk(),Toast.LENGTH_LONG).show();
         tvBack.setOnClickListener(l->{
-            onBackPressed();
+            startActivity(new Intent(Data_Belum_Upload_Activity.this,MainActivity.class));
+            Animatoo.animateFade(this);
+            finish();
         });
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(Data_Belum_Upload_Activity.this,MainActivity.class));
+        Animatoo.animateFade(this);
+        finish();
     }
 }

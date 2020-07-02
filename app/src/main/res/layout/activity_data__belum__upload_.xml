@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search..."
-            android:focusable="false"
+            android:background="@null"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="45dp"
             android:id="@+id/etCari"/>

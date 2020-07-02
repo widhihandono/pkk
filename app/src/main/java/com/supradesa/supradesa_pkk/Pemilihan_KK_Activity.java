@@ -75,17 +75,6 @@ StepView stepView;
                 .commit();
 
 
-        stepView.setOnClickListener(l->{
-                stepView.go(1,true);
-
-                startActivity(new Intent(Pemilihan_KK_Activity.this,Kepala_Rtm_Activity.class));
-                Animatoo.animateFade(this);
-                finish();
-
-
-        });
-
-
 
         tvTambahKK.setOnClickListener(l->{
             startActivity(new Intent(Pemilihan_KK_Activity.this,Cari_No_KK_Activity.class));

@@ -70,12 +70,7 @@ StepView stepView;
                 // other state methods are equal to the corresponding xml attributes
                 .commit();
         stepView.go(2,false);
-        stepView.setOnClickListener(l->{
-                startActivity(new Intent(this,Catatan_Keluarga_Activity.class));
-                Animatoo.animateFade(this);
-                finish();
 
-        });
 
 
         tvNext.setOnClickListener(l->{

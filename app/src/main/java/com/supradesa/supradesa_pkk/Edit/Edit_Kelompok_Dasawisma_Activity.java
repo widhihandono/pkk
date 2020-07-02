@@ -30,8 +30,9 @@ public class Edit_Kelompok_Dasawisma_Activity extends AppCompatActivity {
     private Crud_pkk crudPkk;
     private Crud crud;
     private RecyclerView.LayoutManager layoutManager;
-    private TextView tvNext,tvBack,tvBackEditKepalaRtm;
+    private TextView tvNext,tvBack;
     Helper helper;
+    StepView stepView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +46,35 @@ public class Edit_Kelompok_Dasawisma_Activity extends AppCompatActivity {
         rvKelompokDasawisma = findViewById(R.id.rvKelompokDasawisma);
         tvNext = findViewById(R.id.tvNext);
         tvBack = findViewById(R.id.tvBack);
-        tvBackEditKepalaRtm = findViewById(R.id.tvBackEditKepalaRtm);
         crudPkk = new Crud_pkk(this);
         layoutManager = new LinearLayoutManager(this);
+        stepView = findViewById(R.id.step_view);
 
         rvKelompokDasawisma.setLayoutManager(layoutManager);
         kelompokDasawisma_edit_adapter = new KelompokDasawisma_Edit_Adapter(this,crudPkk.getPkk_dasa_wisma(),getIntent().getExtras().getString("no_rtm",""));
         rvKelompokDasawisma.setAdapter(kelompokDasawisma_edit_adapter);
 
+        stepView.getState()
+                .selectedTextColor(ContextCompat.getColor(this, R.color.white))
+                .animationType(StepView.ANIMATION_ALL)
+                .selectedCircleColor(ContextCompat.getColor(this, R.color.blue))
+                .selectedStepNumberColor(ContextCompat.getColor(this, R.color.white))
+                // You should specify only stepsNumber or steps array of strings.
+                // In case you specify both steps array is chosen.
+//                .steps(new ArrayList<String>() {{
+//                    add("First step");
+//                    add("Second step");
+//                    add("Third step");
+//                    add("Fourth step");
+//                }})
+                // You should specify only steps number or steps array of strings.
+                // In case you specify both steps array is chosen.
+                .stepsNumber(5)
+                .animationDuration(200)
+                // other state methods are equal to the corresponding xml attributes
+                .commit();
+
+        stepView.go(2,false);
 
 
         tvNext.setOnClickListener(l->{
@@ -69,9 +91,8 @@ public class Edit_Kelompok_Dasawisma_Activity extends AppCompatActivity {
             }
         });
 
-        tvBackEditKepalaRtm.setOnClickListener(l->{
-            Intent intent = new Intent(this, Edit_Kepala_Rtm_Activity.class);
-            startActivity(intent);
+        tvBack.setOnClickListener(l->{
+            startActivity(new Intent(Edit_Kelompok_Dasawisma_Activity.this,Edit_Kepala_Rtm_Activity.class));
             Animatoo.animateFade(this);
             finish();
         });
@@ -80,8 +101,7 @@ public class Edit_Kelompok_Dasawisma_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,Edit_Kepala_Rtm_Activity.class);
-        startActivity(intent);
+        startActivity(new Intent(Edit_Kelompok_Dasawisma_Activity.this,Edit_Kepala_Rtm_Activity.class));
         Animatoo.animateFade(this);
         finish();
     }

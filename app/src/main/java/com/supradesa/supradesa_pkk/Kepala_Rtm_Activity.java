@@ -78,13 +78,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
                 // other state methods are equal to the corresponding xml attributes
                 .commit();
         stepView.go(1,false);
-        stepView.setOnClickListener(l->{
 
-                startActivity(new Intent(this,KelompokDasaWisma_Activity.class));
-                Animatoo.animateFade(this);
-                finish();
-
-        });
 
 
         tvBack.setOnClickListener(l->{
@@ -168,7 +162,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
                             }
 
 
-                        Toast.makeText(this, "Sukses Simpan Data dan update data", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "Sukses Simpan Data dan update data", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, KelompokDasaWisma_Activity.class);
                         startActivity(intent);
                         Animatoo.animateFade(this);
