@@ -376,6 +376,31 @@ public class Crud {
         return list_rtm;
     }
 
+
+    public List<Ent_twebRtm> getData_tweb_rtm_join_penduduk()
+    {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] coloumn = {Helper.ID_RTM,Helper.NIK_KEPALA,Helper.NO_KK,Helper.TGL_DAFTAR,Helper.KELAS_SOSIAL};
+        Cursor cursor = db.rawQuery("SELECT tweb_rtm.*,tweb_penduduk.nama FROM tweb_penduduk JOIN tweb_rtm ON tweb_penduduk.id = tweb_rtm.nik_kepala",null);
+        List<Ent_twebRtm> listPresence = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            Ent_twebRtm rtm = new Ent_twebRtm();
+            rtm.setId(cursor.getString(cursor.getColumnIndex(Helper.ID_RTM)));
+            rtm.setNik_kepala(cursor.getString(cursor.getColumnIndex(Helper.NIK_KEPALA)));
+            rtm.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
+            rtm.setTgl_daftar(cursor.getString(cursor.getColumnIndex(Helper.TGL_DAFTAR)));
+            rtm.setKelas_sosial(cursor.getString(cursor.getColumnIndex(Helper.KELAS_SOSIAL)));
+            rtm.setNama(cursor.getString(cursor.getColumnIndex(Helper.NAMA)));
+
+
+            listPresence.add(rtm);
+
+        }
+        return listPresence;
+    }
+
     public List<Ent_twebRtm> getData_tweb_rtm()
     {
 

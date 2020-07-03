@@ -31,6 +31,10 @@ public class Ent_twebRtm {
     @Expose
     private String kelas_sosial;
 
+    @SerializedName("nama")
+    @Expose
+    private String nama;
+
     @SerializedName("response")
     @Expose
     private int response;
@@ -38,6 +42,15 @@ public class Ent_twebRtm {
     @SerializedName("data")
     @Expose
     private List<Ent_twebRtm> data;
+
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
 
     public int getResponse() {
         return response;

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -12,22 +14,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.supradesa.supradesa_pkk.Edit.Edit_Rtm_Activity;
+import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
 import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Data_Belum_Upload_Adapter extends RecyclerView.Adapter<Data_Belum_Upload_Adapter.Holder> {
+public class Data_Belum_Upload_Adapter extends RecyclerView.Adapter<Data_Belum_Upload_Adapter.Holder> implements Filterable {
 private Context context;
 private List<Ent_twebRtm> listRtm;
 private Crud crud;
 private List_Temporary list_temporary;
+private List<Ent_twebRtm> filterList;
 
     public Data_Belum_Upload_Adapter(Context context, List<Ent_twebRtm> listRtm) {
         this.context = context;
         this.listRtm = listRtm;
+        this.filterList = listRtm;
         this.crud = new Crud(context);
         list_temporary = new List_Temporary();
     }
@@ -43,9 +49,9 @@ private List_Temporary list_temporary;
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.tvNoRtm.setText(listRtm.get(position).getNo_kk());
-        if(crud.getData_tweb_penduduk_nama_kk(listRtm.get(position).getNo_kk()).size() > 0)
+        if(!listRtm.get(position).getNama().equals("") || listRtm.get(position).getNama() != null)
         {
-            holder.tvNamaKepalaKeluarga.setText(crud.getData_tweb_penduduk_nama_kk(listRtm.get(position).getNo_kk()).get(0).getNama());
+            holder.tvNamaKepalaKeluarga.setText(listRtm.get(position).getNama());
         }
         else
         {
@@ -67,6 +73,44 @@ private List_Temporary list_temporary;
     public int getItemCount() {
         return listRtm.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String cari = constraint.toString();
+                if(cari.isEmpty())
+                {
+                    listRtm = filterList;
+                }
+                else
+                {
+                    List<Ent_twebRtm> mListTwebRtm = new ArrayList<>();
+
+                    for(Ent_twebRtm data:filterList)
+                    {
+                        if(data.getNama().toLowerCase().contains(cari))
+                        {
+                            mListTwebRtm.add(data);
+                        }
+                    }
+                    listRtm = mListTwebRtm;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = listRtm;
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                listRtm = (List<Ent_twebRtm>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     public class Holder extends RecyclerView.ViewHolder {
         private TextView tvNoRtm,tvNamaKepalaKeluarga,tvJumlah;

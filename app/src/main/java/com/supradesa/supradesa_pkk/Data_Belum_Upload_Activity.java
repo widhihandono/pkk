@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +25,7 @@ private RecyclerView rvDataBelumUpload;
 private Data_Belum_Upload_Adapter dataBelumUploadAdapter;
 private Crud crud;
 private TextView tvBack;
+private EditText etCari;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,9 @@ private TextView tvBack;
         rvDataBelumUpload.setLayoutManager(layoutManager);
         crud = new Crud(this);
         tvBack = findViewById(R.id.tvBack);
+        etCari = findViewById(R.id.etCari);
 
-        dataBelumUploadAdapter = new Data_Belum_Upload_Adapter(this,crud.getData_tweb_rtm());
+        dataBelumUploadAdapter = new Data_Belum_Upload_Adapter(this,crud.getData_tweb_rtm_join_penduduk());
         rvDataBelumUpload.setAdapter(dataBelumUploadAdapter);
 
 //        Toast.makeText(this,crud.getData_tweb_rtm().get(0).getNo_kk(),Toast.LENGTH_LONG).show();
@@ -41,6 +48,23 @@ private TextView tvBack;
             startActivity(new Intent(Data_Belum_Upload_Activity.this,MainActivity.class));
             Animatoo.animateFade(this);
             finish();
+        });
+
+        etCari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                dataBelumUploadAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
     }
 
@@ -50,4 +74,5 @@ private TextView tvBack;
         Animatoo.animateFade(this);
         finish();
     }
+
 }

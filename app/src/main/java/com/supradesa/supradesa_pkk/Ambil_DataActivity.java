@@ -814,7 +814,6 @@ public class Ambil_DataActivity extends AppCompatActivity {
                         progressListener));
 
 
-                httpResponse = httpClient.execute(httpPost);
                 httpClient.getConnectionManager().closeExpiredConnections();
                 httpEntity = httpResponse.getEntity();
 
