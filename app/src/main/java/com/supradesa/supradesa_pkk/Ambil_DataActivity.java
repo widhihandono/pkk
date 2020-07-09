@@ -28,6 +28,7 @@ import com.supradesa.supradesa_pkk.Api.Api_Interface;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_master_tweb;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
+import com.supradesa.supradesa_pkk.Util.JSONParser;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 import com.supradesa.supradesa_pkk.Util.MyHttpEntity;
 import com.supradesa.supradesa_pkk.Util.MySSLSocketFactory;
@@ -46,20 +47,27 @@ import com.supradesa.supradesa_pkk.Model.Ent_twebPendudukPendidikanKK;
 import com.supradesa.supradesa_pkk.Model.Ent_twebPendudukUmur;
 import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
 
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
@@ -69,10 +77,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -92,6 +108,10 @@ public class Ambil_DataActivity extends AppCompatActivity {
     private LinearLayout lnKeluarga,lnPenduduk,lnRtm,lnPendudukPendidikanKk,lnPendudukPekerjaan,lnPendudukUmur,
             lnPendudukAgama,lnPendudukHubungan,lnPkkCatatanKeluarga,lnPkkCatatanKeluargaDetail,
             lnPkkDataKeluarga,lnPkkKelompokDasawisma,lnPkkDasawisma,lnLogOut;
+
+    JSONParser jsonParser = new JSONParser();
+
+    private ProgressDialog dialog;
 
 
     @Override
@@ -126,7 +146,26 @@ public class Ambil_DataActivity extends AppCompatActivity {
 
 
         lnPenduduk.setOnClickListener(l->{
-            getPenduduk();
+//            penduduk();
+
+
+//            JSONObject jsonObject = new JSONObject();
+//            try {
+//                jsonObject.put("kd_desa","1243");
+//                jsonObject.put("dusun","jasdff");
+                GetPenduduk productTask = new GetPenduduk();
+                productTask.execute();
+//
+//                Log.v("Data",jsonObject.toString());
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+
+
+//                postPenduduk();
+//            Get_Penduduk_Async getAsync = new Get_Penduduk_Async(this,sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+//            getAsync.execute();
         });
 
         lnRtm.setOnClickListener(l->{
@@ -202,14 +241,130 @@ public class Ambil_DataActivity extends AppCompatActivity {
 
     }
 
+    private void penduduk()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OutputStream os = null;
+                InputStream is = null;
+                HttpURLConnection conn = null;
+                try {
+                    //constants
+                    URL url = new URL("https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("kd_desa", "3308012011");
+                    jsonObject.put("dusun", "JEBENGAN");
+                    String message = jsonObject.toString();
+
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setReadTimeout( 10000 /*milliseconds*/ );
+                    conn.setConnectTimeout( 15000 /* milliseconds */ );
+                    conn.setRequestMethod("POST");
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+                    conn.setFixedLengthStreamingMode(message.getBytes().length);
+
+                    //make some HTTP header nicety
+                    conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                    conn.setRequestProperty("KEY","25f9e794323b453885f5181f1b624d0b");
+                    conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+                    //open
+                    conn.connect();
+
+                    //setup send
+                    os = new BufferedOutputStream(conn.getOutputStream());
+                    os.write(message.getBytes());
+                    //clean up
+                    os.flush();
+
+                    //do somehting with response
+                    is = conn.getInputStream();
+
+                    BufferedReader br = new BufferedReader(new InputStreamReader( (conn.getInputStream())));
+
+                    String output;
+                    StringBuffer response = new StringBuffer();
+                    String line;
+                    while ((line = br.readLine()) != null)
+                    {
+                        response.append(line);
+                    }
+
+//                    Log.v("Response","Kode : "+new JSONObject(response.toString()).getString("data"));
+//                    Log.v("Response","Kode : "+new JSONObject(br.readLine()).getString("data"));
+                    JSONObject myJ = new JSONObject(response.toString());
+                    JSONArray Jarray = myJ.getJSONArray("data");
+
+                    Ent_twebPenduduk etp = new Ent_twebPenduduk();
+                    for (int a=0;a<Jarray.length();a++)
+                    {
+                        JSONObject jOb = Jarray.getJSONObject(a);
+                        etp.setRt(jOb.getString("rt"));
+                        etp.setRw(jOb.getString("rw"));
+                        etp.setId(jOb.getString("id"));
+                        etp.setNama(jOb.getString("nama"));
+                        etp.setNik(jOb.getString("nik"));
+                        etp.setId_kk(jOb.getString("id_kk"));
+                        etp.setKk_level(jOb.getString("kk_level"));
+                        etp.setId_rtm(jOb.getString("id_rtm"));
+                        etp.setRtm_level(jOb.getString("rtm_level"));
+                        etp.setSex(jOb.getString("sex"));
+                        etp.setTempatlahir(jOb.getString("tempatlahir"));
+                        etp.setTanggallahir(jOb.getString("tanggallahir"));
+                        etp.setAgama_id(jOb.getString("agama_id"));
+                        etp.setPendidikan_kk_id(jOb.getString("pendidikan_kk_id"));
+                        etp.setPekerjaan_id(jOb.getString("pekerjaan_id"));
+                        etp.setStatus_kawin(jOb.getString("status_kawin"));
+                        etp.setId_cluster(jOb.getString("id_cluster"));
+                        etp.setAlamat_sekarang(jOb.getString("alamat_sekarang"));
+                        etp.setCacat_id(jOb.getString("cacat_id"));
+
+                        crudSqlite.InsertData_tweb_penduduk(etp);
+
+                    }
+
+
+                    Log.v("Response","Kode : "+myJ.getInt("response"));
+
+                    //String contentAsString = readIt(is,len);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } finally {
+                    //clean up
+                    try {
+                        os.close();
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    conn.disconnect();
+                }
+            }
+        }).start();
+    }
+
+
     private void getPenduduk()
     {
         if(crudSqlite.getData_tweb_penduduk().size() > 0)
         {
             if(crudSqlite.delete_all_penduduk())
             {
-                Get_Penduduk_Async getAsync = new Get_Penduduk_Async(this,sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
-                getAsync.execute();
+                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                params.add(new BasicNameValuePair("kd_desa", "3308012011"));
+                params.add(new BasicNameValuePair("dusun", "JEBENGAN"));
+
+                GetPenduduk productTask = new GetPenduduk();
+                productTask.execute();
+
+//                sendPost(sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+//                Get_Penduduk_Async getAsync = new Get_Penduduk_Async(this,sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+//                getAsync.execute();
             }
             else
             {
@@ -218,8 +373,16 @@ public class Ambil_DataActivity extends AppCompatActivity {
         }
         else
         {
-            Get_Penduduk_Async getAsync = new Get_Penduduk_Async(this,sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
-            getAsync.execute();
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("kd_desa", "3308012011"));
+            params.add(new BasicNameValuePair("dusun", "JEBENGAN"));
+
+            GetPenduduk productTask = new GetPenduduk();
+            productTask.execute();
+
+//            sendPost(sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+//            Get_Penduduk_Async getAsync = new Get_Penduduk_Async(this,sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),"https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+//            getAsync.execute();
         }
 
     }
@@ -790,91 +953,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             List<Ent_PkkKelompokDasawisma> data = new ArrayList<>();
             Ent_twebPenduduk etp = new Ent_twebPenduduk();
 
-            try {
-                URI url = new URI(SERVER_PATH);
-                HttpPost httpPost = new HttpPost(url);
-                httpPost.addHeader("KEY","25f9e794323b453885f5181f1b624d0b");
-                MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
 
-                // Add the file to be uploaded
-                multipartEntityBuilder.addTextBody("kd_desa", kd_desa);
-                multipartEntityBuilder.addTextBody("dusun", dusun);
-
-                // Progress listener - updates task's progress
-                MyHttpEntity.ProgressListener progressListener =
-                        new MyHttpEntity.ProgressListener() {
-                            @Override
-                            public void transferred(float progress) {
-                                publishProgress((int) progress);
-                            }
-                        };
-
-                // POST
-                httpPost.setEntity(new MyHttpEntity(multipartEntityBuilder.build(),
-                        progressListener));
-
-
-                httpClient.getConnectionManager().closeExpiredConnections();
-                httpEntity = httpResponse.getEntity();
-
-                int statusCode = httpResponse.getStatusLine().getStatusCode();
-
-                if (statusCode == 200) {
-                    // Server response
-                    //cek respone
-
-                    JSONObject myObject = new JSONObject(EntityUtils.toString(httpEntity));
-                    JSONArray Jarray = myObject.getJSONArray("data");
-
-
-                    for (int a=0;a<Jarray.length();a++)
-                    {
-                        JSONObject jsonObject = Jarray.getJSONObject(a);
-                        etp.setRt(jsonObject.getString("rt"));
-                        etp.setRw(jsonObject.getString("rw"));
-                        etp.setId(jsonObject.getString("id"));
-                        etp.setNama(jsonObject.getString("nama"));
-                        etp.setNik(jsonObject.getString("nik"));
-                        etp.setId_kk(jsonObject.getString("id_kk"));
-                        etp.setKk_level(jsonObject.getString("kk_level"));
-                        etp.setId_rtm(jsonObject.getString("id_rtm"));
-                        etp.setRtm_level(jsonObject.getString("rtm_level"));
-                        etp.setSex(jsonObject.getString("sex"));
-                        etp.setTempatlahir(jsonObject.getString("tempatlahir"));
-                        etp.setTanggallahir(jsonObject.getString("tanggallahir"));
-                        etp.setAgama_id(jsonObject.getString("agama_id"));
-                        etp.setPendidikan_kk_id(jsonObject.getString("pendidikan_kk_id"));
-                        etp.setPekerjaan_id(jsonObject.getString("pekerjaan_id"));
-                        etp.setStatus_kawin(jsonObject.getString("status_kawin"));
-                        etp.setId_cluster(jsonObject.getString("id_cluster"));
-                        etp.setAlamat_sekarang(jsonObject.getString("alamat_sekarang"));
-                        etp.setCacat_id(jsonObject.getString("cacat_id"));
-
-                        crudSqlite.InsertData_tweb_penduduk(etp);
-
-                    }
-//
-//                    Toast.makeText(Ambil_DataActivity.this,"Sukses ambil data",Toast.LENGTH_LONG).show();
-
-
-//                    Log.i("BERHASIL CUY", jsonObject.getString("no_kk"));
-
-                    responseInt = myObject.getInt("response");
-                    keterangan = myObject.getString("pesan");
-                } else {
-                    responseInt = statusCode;
-                }
-            } catch (UnsupportedEncodingException | ClientProtocolException e) {
-//                    e.printStackTrace();
-//                    Log.e("SAVE", e.getMessage());
-//                    this.exception = e;
-            } catch (IOException e) {
-//                    e.printStackTrace();
-            } catch (JSONException e) {
-//                    e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
 
             return responseInt;
         }
@@ -883,13 +962,13 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute() {
 
             // Init and show dialog
-            this.progressDialog = new ProgressDialog(this.context);
-            if(this.progressDialog != null)
-            {
-                this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                this.progressDialog.setCancelable(false);
-                this.progressDialog.show();
-            }
+//            this.progressDialog = new ProgressDialog(this.context);
+//            if(this.progressDialog != null)
+//            {
+//                this.progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//                this.progressDialog.setCancelable(false);
+//                this.progressDialog.show();
+//            }
 
         }
 
@@ -897,18 +976,18 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPostExecute(Integer result) {
 
             // Close dialog
-            if (result == 1) {
-                this.progressDialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
-
-            }
-            else if (result == 2) {
-                showDialogKeyAccess(keterangan);
+//            if (result == 1) {
 //                this.progressDialog.dismiss();
-            } else {
-                Toast.makeText(Ambil_DataActivity.this,"response : ",Toast.LENGTH_LONG).show();
-                this.progressDialog.dismiss();
-            }
+//                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+//
+//            }
+//            else if (result == 2) {
+//                showDialogKeyAccess(keterangan);
+////                this.progressDialog.dismiss();
+//            } else {
+//                Toast.makeText(Ambil_DataActivity.this,"response : ",Toast.LENGTH_LONG).show();
+//                this.progressDialog.dismiss();
+//            }
 
         }
 
@@ -920,6 +999,171 @@ public class Ambil_DataActivity extends AppCompatActivity {
         }
 
     }
+
+
+    class GetPenduduk extends AsyncTask<String, String, JSONObject>
+    {
+        List<NameValuePair> params;
+
+        public GetPenduduk()
+        {
+            this.params = params;
+        }
+
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            dialog = new ProgressDialog(Ambil_DataActivity.this);
+            dialog.setMessage("We are Logging in. Please wait . . .");
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        protected JSONObject doInBackground(String... args)
+        {
+            JSONObject json = null;
+            OutputStream os = null;
+            InputStream is = null;
+            HttpURLConnection conn = null;
+            try {
+                //constants
+                URL url = new URL("https://pkk.magelangkab.go.id/Api_pkk/getPenduduk");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("kd_desa", "3308012011");
+                jsonObject.put("dusun", "JEBENGAN");
+                String message = jsonObject.toString();
+
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout( 10000 /*milliseconds*/ );
+                conn.setConnectTimeout( 15000 /* milliseconds */ );
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setFixedLengthStreamingMode(message.getBytes().length);
+
+                //make some HTTP header nicety
+                conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                conn.setRequestProperty("KEY","25f9e794323b453885f5181f1b624d0b");
+                conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+                //open
+                conn.connect();
+
+                //setup send
+                os = new BufferedOutputStream(conn.getOutputStream());
+                os.write(message.getBytes());
+                //clean up
+                os.flush();
+
+                //do somehting with response
+                is = conn.getInputStream();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader( (conn.getInputStream())));
+
+                String output;
+                StringBuffer response = new StringBuffer();
+                String line;
+                while ((line = br.readLine()) != null)
+                {
+                    response.append(line);
+                }
+
+//                    Log.v("Response","Kode : "+new JSONObject(response.toString()).getString("data"));
+//                    Log.v("Response","Kode : "+new JSONObject(br.readLine()).getString("data"));
+                json = new JSONObject(response.toString());
+                JSONArray Jarray = json.getJSONArray("data");
+
+                Ent_twebPenduduk etp = new Ent_twebPenduduk();
+                for (int a=0;a<Jarray.length();a++)
+                {
+                    JSONObject jOb = Jarray.getJSONObject(a);
+                    etp.setRt(jOb.getString("rt"));
+                    etp.setRw(jOb.getString("rw"));
+                    etp.setId(jOb.getString("id"));
+                    etp.setNama(jOb.getString("nama"));
+                    etp.setNik(jOb.getString("nik"));
+                    etp.setId_kk(jOb.getString("id_kk"));
+                    etp.setKk_level(jOb.getString("kk_level"));
+                    etp.setId_rtm(jOb.getString("id_rtm"));
+                    etp.setRtm_level(jOb.getString("rtm_level"));
+                    etp.setSex(jOb.getString("sex"));
+                    etp.setTempatlahir(jOb.getString("tempatlahir"));
+                    etp.setTanggallahir(jOb.getString("tanggallahir"));
+                    etp.setAgama_id(jOb.getString("agama_id"));
+                    etp.setPendidikan_kk_id(jOb.getString("pendidikan_kk_id"));
+                    etp.setPekerjaan_id(jOb.getString("pekerjaan_id"));
+                    etp.setStatus_kawin(jOb.getString("status_kawin"));
+                    etp.setId_cluster(jOb.getString("id_cluster"));
+                    etp.setAlamat_sekarang(jOb.getString("alamat_sekarang"));
+                    etp.setCacat_id(jOb.getString("cacat_id"));
+
+                    crudSqlite.InsertData_tweb_penduduk(etp);
+
+                }
+
+
+                Log.v("Response","Kode : "+json.getInt("response"));
+
+
+                //String contentAsString = readIt(is,len);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                //clean up
+                try {
+                    os.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                conn.disconnect();
+            }
+
+            return json;
+        }
+
+        protected void onPostExecute(JSONObject result)
+        {
+            dialog.dismiss();
+            //this assumes that the response looks like this:
+            //{"success" : true }
+            String message = null;
+            try {
+                message = result.getString("pesan");
+            } catch (JSONException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            int success = 0;
+            try {
+                success = result.getInt("response");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (success == 1) {
+                dialog.dismiss();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+
+            }
+            else if (success == 2) {
+                showDialogKeyAccess(message);
+//                this.progressDialog.dismiss();
+            } else {
+                Toast.makeText(Ambil_DataActivity.this,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+//            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
+//                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 
     //Async Keluarga
     private class Get_Keluarga_Async extends AsyncTask<Void, Integer, Integer> {
@@ -967,8 +1211,16 @@ public class Ambil_DataActivity extends AppCompatActivity {
                             }
                         };
 
+                JSONObject jsonobj = new JSONObject();
+
+                jsonobj.put("kd_desa", kd_desa);
+                jsonobj.put("dusun", dusun);
+
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("req", jsonobj.toString()));
+
                 // POST
-                httpPost.setEntity(new MyHttpEntity(multipartEntityBuilder.build(),
+                httpPost.setEntity(new MyHttpEntity(new UrlEncodedFormEntity(nameValuePairs),
                         progressListener));
 
 
@@ -1056,7 +1308,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 showDialogKeyAccess(keterangan);
 //                this.progressDialog.dismiss();
             } else {
-                Toast.makeText(Ambil_DataActivity.this,"response : ",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"response : "+result,Toast.LENGTH_LONG).show();
                 this.progressDialog.dismiss();
             }
 
@@ -1070,6 +1322,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
         }
 
     }
+
 
     //Async RTM
     private class Get_Rtm_Async extends AsyncTask<Void, Integer, Integer> {
