@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.shuhart.stepview.StepView;
@@ -97,12 +98,14 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
 
         no_rtm = "08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk);
 
+        Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
+
         tvBack.setOnClickListener(l->{
             super.onBackPressed();
             Animatoo.animateFade(this);
         });
 
-        if(!crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getMakanan_pokok().equals("") || !crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getMakanan_pokok().equals(null))
+        if(!crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getMakanan_pokok().equals("") || !crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getMakanan_pokok().equals(null))
         {
             rbBeras.setChecked(true);
         }
@@ -112,28 +115,28 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
         }
 
 
-        if(!crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("") || !crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals(null))
+        if(!crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("") || !crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals(null))
         {
-            if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("PDAM"))
+            if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("PDAM"))
             {
                 rbPdam.setChecked(true);
             }
-            else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("Sumur"))
+            else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("Sumur"))
             {
                 rbSumur.setChecked(true);
             }
-            else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("Sungai"))
+            else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("Sungai"))
             {
                 rbSungai.setChecked(true);
             }
-            else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("Lainnya"))
+            else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSumber_air().equals("Lainnya"))
             {
                 rbLainnya.setChecked(true);
             }
 
         }
 
-        if(!crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getKriteria_rumah().equals("") || !crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getKriteria_rumah().equals(null))
+        if(!crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getKriteria_rumah().equals("") || !crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getKriteria_rumah().equals(null))
         {
             rbLayakHuni.setChecked(true);
         }
@@ -142,9 +145,9 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
             rbTidakLayakHuni.setChecked(true);
         }
 
-        if((!crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getJamban().equals("") || !crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getJamban().equals(null)) && Integer.parseInt(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getJml_jamban()) > 0)
+        if((!crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getJamban().equals("") || !crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getJamban().equals(null)) && Integer.parseInt(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getJml_jamban()) > 0)
         {
-            number_picker_jamban.setValue(Integer.parseInt(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getJml_jamban()));
+            number_picker_jamban.setValue(Integer.parseInt(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getJml_jamban()));
 //            rbBeras.setChecked(true);
         }
         else

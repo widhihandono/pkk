@@ -87,6 +87,10 @@ public class Ent_PkkCatatanKeluargaDetail {
     @Expose
     private String buta_hitung;
 
+    @SerializedName("stunting")
+    @Expose
+    private String stunting;
+
     @SerializedName("response")
     @Expose
     private boolean response;
@@ -95,6 +99,14 @@ public class Ent_PkkCatatanKeluargaDetail {
     @Expose
     private List<Ent_PkkCatatanKeluargaDetail> data;
 
+
+    public String getStunting() {
+        return stunting;
+    }
+
+    public void setStunting(String stunting) {
+        this.stunting = stunting;
+    }
 
     public String getButa_baca() {
         return buta_baca;

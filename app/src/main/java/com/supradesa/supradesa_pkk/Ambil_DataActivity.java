@@ -109,8 +109,6 @@ public class Ambil_DataActivity extends AppCompatActivity {
             lnPendudukAgama,lnPendudukHubungan,lnPkkCatatanKeluarga,lnPkkCatatanKeluargaDetail,
             lnPkkDataKeluarga,lnPkkKelompokDasawisma,lnPkkDasawisma,lnLogOut;
 
-    JSONParser jsonParser = new JSONParser();
-
     private ProgressDialog dialog;
 
 
@@ -1629,6 +1627,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     ekd.setButa_baca(jOb.getString("buta_baca"));
                     ekd.setButa_tulis(jOb.getString("buta_tulis"));
                     ekd.setButa_hitung(jOb.getString("buta_hitung"));
+                    ekd.setStunting(jOb.getString("stunting"));
 
                     if(crudPkk.InsertData_pkk_catatan_keluarga_detail(ekd) > 0 )
                     {

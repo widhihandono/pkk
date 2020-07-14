@@ -52,7 +52,8 @@ boolean status;
                         new Sub_Catatan_keluarga("13","Nifas"),
                         new Sub_Catatan_keluarga("14","Buta Baca"),
                         new Sub_Catatan_keluarga("15","Buta Tulis"),
-                        new Sub_Catatan_keluarga("16","Buta Hitung")
+                        new Sub_Catatan_keluarga("16","Buta Hitung"),
+                        new Sub_Catatan_keluarga("17","Stunting")
                 };
     }
 

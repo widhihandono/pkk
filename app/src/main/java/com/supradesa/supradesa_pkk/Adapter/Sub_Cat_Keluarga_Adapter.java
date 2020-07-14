@@ -120,6 +120,10 @@ Helper helper;
             {
                 crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"ya",list_temporary.getListAnggotaRtm().get(posisi).getId());
             }
+            else if(data[position].getNama().equals("Stunting"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"ya",list_temporary.getListAnggotaRtm().get(posisi).getId());
+            }
         }
         else
         {
@@ -186,6 +190,10 @@ Helper helper;
             else if(data[position].getNama().equals("Buta Hitung"))
             {
                 crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"tidak",list_temporary.getListAnggotaRtm().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Stunting"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"tidak",list_temporary.getListAnggotaRtm().get(posisi).getId());
             }
         }
 
@@ -259,6 +267,10 @@ Helper helper;
                     {
                         crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"ya",list_temporary.getListAnggotaRtm().get(posisi).getId());
                     }
+                    else if(data[position].getNama().equals("Stunting"))
+                    {
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"ya",list_temporary.getListAnggotaRtm().get(posisi).getId());
+                    }
 
 
 //                    Toast.makeText(context,list_temporary.getListPenduduk().get(posisi).getNama(),Toast.LENGTH_LONG).show();
@@ -329,6 +341,10 @@ Helper helper;
                     else if(data[position].getNama().equals("Buta Hitung"))
                     {
                         crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"tidak",list_temporary.getListAnggotaRtm().get(posisi).getId());
+                    }
+                    else if(data[position].getNama().equals("Stunting"))
+                    {
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"tidak",list_temporary.getListAnggotaRtm().get(posisi).getId());
                     }
 //                    list_temporary.getListSub().remove(data[position]);
 //                    Toast.makeText(context,data[position].getNama(),Toast.LENGTH_LONG).show();

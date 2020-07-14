@@ -52,31 +52,31 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.tvListCatatan.setText(data[position].getNama());
 
-        if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getTempat_sampah().equals("Ya") && data[position].getNama().equals("Tempat Sampah"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getTempat_sampah().equals("Ya") && data[position].getNama().equals("Tempat Sampah"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getSaluran_pembuangan_air().equals("Ya") && data[position].getNama().equals("Saluran Pembuangan Air"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSaluran_pembuangan_air().equals("Ya") && data[position].getNama().equals("Saluran Pembuangan Air"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getStiker_p4k().equals("Ya") && data[position].getNama().equals("Stiker P4K"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getStiker_p4k().equals("Ya") && data[position].getNama().equals("Stiker P4K"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getUp2k().equals("Ya") && data[position].getNama().equals("Aktifitas UP2K"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getUp2k().equals("Ya") && data[position].getNama().equals("Aktifitas UP2K"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getKeg_sehat_lingkungan().equals("Ya") && data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getKeg_sehat_lingkungan().equals("Ya") && data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getPtp().equals("Ya") && data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getPtp().equals("Ya") && data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getDataKeluarga_by_id(no_rtm).get(0).getIndustri_rt().equals("Ya") && data[position].getNama().equals("Industri Rumah Tangga"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getIndustri_rt().equals("Ya") && data[position].getNama().equals("Industri Rumah Tangga"))
         {
             holder.cbListCatatan.setChecked(true);
         }

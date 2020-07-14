@@ -87,14 +87,14 @@ public class Crud {
         return update;
     }
 
-    public List<Ent_twebPenduduk> getData_tweb_penduduk_by_id_rtm_and_rtm_level()
+    public List<Ent_twebPenduduk> getData_tweb_penduduk_by_id_rtm_and_rtm_level(String id_rtm)
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] coloumn = {Helper.ID,Helper.NAMA,Helper.NIK,Helper.ID_KK,Helper.KK_LEVEL,Helper.ID_RTM,Helper.RTM_LEVEL,Helper.SEX,
                 Helper.TEMPATLAHIR,Helper.TANGGALLAHIR,Helper.AGAMA_ID,Helper.PENDIDIKAN_KK_ID,Helper.PEKERJAAN_ID,Helper.STATUS_KAWIN,
                 Helper.ID_CLUSTER,Helper.ALAMAT_SEKARANG,Helper.CACAT_ID};
-        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_TWEB_PENDUDUK+" WHERE (id_rtm != 'null' OR rtm_level != 'null') AND upload = 'no'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tweb_penduduk WHERE id_rtm = '"+id_rtm+"' AND upload = 'no'",null);
         List<Ent_twebPenduduk> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {

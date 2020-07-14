@@ -102,6 +102,7 @@ public class Helper extends SQLiteOpenHelper {
     public static final String BUTA_BACA = "buta_baca";
     public static final String BUTA_TULIS = "buta_tulis";
     public static final String BUTA_HITUNG = "buta_hitung";
+    public static final String STUNTING = "stunting";
 
 
     //PKK_DATA_KELUARGA
@@ -199,7 +200,8 @@ public class Helper extends SQLiteOpenHelper {
             PANGAN+" VARCHAR(3), "+SANDANG+" VARCHAR(3), "+KESEHATAN +" VARCHAR(3), "+PERENCANAAN_SEHAT+" VARCHAR(3), "+
             ID_KELOMPOK_UMUR+" VARCHAR(3), "+USIA_SUBUR+" VARCHAR(15), "+
             IBU_HAMIL+" VARCHAR(15), "+MENYUSUI+" VARCHAR(15), "+NIFAS+" VARCHAR(15), "+BUTA_BACA+" VARCHAR(15)," +
-            BUTA_TULIS+" VARCHAR(15),"+BUTA_HITUNG+" VARCHAR(15), "+UPLOAD+" VARCHAR(8));";
+            BUTA_TULIS+" VARCHAR(15),"+BUTA_HITUNG+" VARCHAR(15), "+STUNTING+" VARCHAR(15),"+
+            UPLOAD+" VARCHAR(8));";
     public static final String DROP_TABLE_PKK_CATATAN_KELUARGA_DETAIL = "DROP TABLE IF EXISTS "+TABLE_PKK_CATATAN_KELUARGA_DETAIL;
 
     //pkk_data_keluarga

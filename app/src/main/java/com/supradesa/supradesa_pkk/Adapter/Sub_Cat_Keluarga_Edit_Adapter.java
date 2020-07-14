@@ -120,6 +120,10 @@ String nik;
         {
             holder.cbListCatatan.setChecked(true);
         }
+        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getStunting().equals("ya") && data[position].getNama().equals("Stunting"))
+        {
+            holder.cbListCatatan.setChecked(true);
+        }
 
 
 //        if(holder.cbListCatatan.isChecked())
@@ -327,6 +331,10 @@ String nik;
                     {
                         crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
                     }
+                    else if(data[position].getNama().equals("Stunting"))
+                    {
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                    }
 
 
 //                    Toast.makeText(context,list_temporary.getListPenduduk().get(posisi).getNama(),Toast.LENGTH_LONG).show();
@@ -397,6 +405,10 @@ String nik;
                     else if(data[position].getNama().equals("Buta Hitung"))
                     {
                         crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                    }
+                    else if(data[position].getNama().equals("Stunting"))
+                    {
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
                     }
 //                    list_temporary.getListSub().remove(data[position]);
 //                    Toast.makeText(context,data[position].getNama(),Toast.LENGTH_LONG).show();
