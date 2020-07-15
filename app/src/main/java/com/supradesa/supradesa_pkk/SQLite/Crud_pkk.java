@@ -97,6 +97,7 @@ public class Crud_pkk {
         contentValues.put(Helper.BUTA_BACA,ckd.getButa_baca());
         contentValues.put(Helper.BUTA_TULIS,ckd.getButa_tulis());
         contentValues.put(Helper.BUTA_HITUNG,ckd.getButa_hitung());
+        contentValues.put(Helper.STUNTING,ckd.getStunting());
         contentValues.put(Helper.UPLOAD,"no");
 
         long id_insert_pkk_catatan_keluarga_detail = dbb.insertWithOnConflict(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,null,contentValues,SQLiteDatabase.CONFLICT_REPLACE);
@@ -282,6 +283,7 @@ public class Crud_pkk {
             ckd.setButa_baca(cursor.getString(cursor.getColumnIndex(Helper.BUTA_BACA)));
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
+            ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
 
 
             listPresence.add(ckd);

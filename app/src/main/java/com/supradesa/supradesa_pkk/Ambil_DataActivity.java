@@ -108,6 +108,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
     private LinearLayout lnKeluarga,lnPenduduk,lnRtm,lnPendudukPendidikanKk,lnPendudukPekerjaan,lnPendudukUmur,
             lnPendudukAgama,lnPendudukHubungan,lnPkkCatatanKeluarga,lnPkkCatatanKeluargaDetail,
             lnPkkDataKeluarga,lnPkkKelompokDasawisma,lnPkkDasawisma,lnLogOut;
+    private TextView tvSyncAll;
 
     private ProgressDialog dialog;
 
@@ -141,6 +142,12 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPkkKelompokDasawisma = findViewById(R.id.lnPkkKelompokDasawisma);
         lnPkkDasawisma = findViewById(R.id.lnPkkDasawisma);
         lnLogOut = findViewById(R.id.lnLogOut);
+        tvSyncAll = findViewById(R.id.tvSyncAll);
+
+        dialog = new ProgressDialog(Ambil_DataActivity.this);
+        dialog.setMessage("Getting Data From Server. Please wait . . .");
+        dialog.setIndeterminate(false);
+        dialog.setCancelable(false);
 
 
         lnPenduduk.setOnClickListener(l->{
@@ -192,6 +199,19 @@ public class Ambil_DataActivity extends AppCompatActivity {
 
         lnPkkDasawisma.setOnClickListener(l->{
             getPkkDasaWisma();
+        });
+
+        tvSyncAll.setOnClickListener(l->{
+            dialog.show();
+            getPenduduk();
+            getRtm();
+            getKeluarga();
+            getPkkCatatanKeluarga();
+            getPkkCatatanKeluargaDetail();
+            getPkkDataKeluarga();
+            getPkkKelompokDasaWisma();
+            getPkkDasaWisma();
+
         });
 
         lnLogOut.setOnClickListener(l->{
@@ -497,6 +517,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             {
                 Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
                 getUseAsyncTask.execute();
+
             }
             else
             {
@@ -507,6 +528,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
         {
             Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
             getUseAsyncTask.execute();
+
+
         }
 
 
@@ -584,11 +607,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -702,7 +731,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Kelompok Dasawisma",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
@@ -730,11 +759,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -847,9 +882,12 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
 
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Dasawisma",Toast.LENGTH_LONG).show();
+                if(dialog.isShowing())
+                {
+                    dialog.dismiss();
+                }
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);
@@ -929,11 +967,18 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1063,7 +1108,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Penduduk",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
@@ -1093,11 +1138,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1218,7 +1269,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Keluarga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
@@ -1248,11 +1299,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1367,7 +1424,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Rumah Tangga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
@@ -1396,11 +1453,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1514,7 +1577,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Catatan Keluarga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
@@ -1543,11 +1606,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1684,7 +1753,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Catatan Keluarga Detail",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
@@ -1714,11 +1783,17 @@ public class Ambil_DataActivity extends AppCompatActivity {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(Ambil_DataActivity.this);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            if(dialog.isShowing())
+            {
+                dialog.dismiss();
+            }
+            else
+            {
+
+
+                dialog.show();
+            }
+
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1779,7 +1854,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 for (int a=0;a<Jarray.length();a++)
                 {
                     JSONObject jOb = Jarray.getJSONObject(a);
-                    dk.setId_dk(jOb.getString("id_kk"));
+                    dk.setId_dk(jOb.getString("id_dk"));
                     dk.setNo_kk(jOb.getString("no_kk"));
                     dk.setMakanan_pokok(jOb.getString("makanan_pokok"));
                     dk.setJml_makanan_pokok(jOb.getString("jml_makanan_pokok"));
@@ -1850,7 +1925,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(Ambil_DataActivity.this,"Sukses Ambil Data Keluarga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {

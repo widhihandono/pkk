@@ -102,6 +102,11 @@ private List<Ent_twebRtm> filterList;
         });
 
         holder.imgUpload.setOnClickListener(l->{
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Upload Data. Please wait . . .");
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
+            dialog.show();
 //            Toast.makeText(context,""+crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getNo_kk(),Toast.LENGTH_LONG).show();
             Upload_Rtm_Async upload = new Upload_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),crud.getData_tweb_rtm().get(position).getNik_kepala(),
                     crud.getData_tweb_rtm().get(position).getNo_kk(),crud.getData_tweb_rtm().get(position).getTgl_daftar(),
@@ -221,11 +226,11 @@ private List<Ent_twebRtm> filterList;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            dialog = new ProgressDialog(context);
-            dialog.setMessage("We are Logging in. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+//            dialog = new ProgressDialog(context);
+//            dialog.setMessage("Upload Data. Please wait . . .");
+//            dialog.setIndeterminate(false);
+//            dialog.setCancelable(false);
+//            dialog.show();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -315,7 +320,7 @@ private List<Ent_twebRtm> filterList;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
+//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -498,7 +503,7 @@ private List<Ent_twebRtm> filterList;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
+//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -640,7 +645,7 @@ private List<Ent_twebRtm> filterList;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
+//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -658,7 +663,7 @@ private List<Ent_twebRtm> filterList;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+//                dialog.dismiss();
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show();
 
             }
@@ -826,7 +831,7 @@ private List<Ent_twebRtm> filterList;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
+//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -844,7 +849,7 @@ private List<Ent_twebRtm> filterList;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+//                dialog.dismiss();
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show();
 
             }
@@ -1010,7 +1015,7 @@ private List<Ent_twebRtm> filterList;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
+//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;

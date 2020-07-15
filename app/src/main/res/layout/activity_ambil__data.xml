@@ -36,10 +36,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="All"
+                    android:id="@+id/tvSyncAll"
+                    android:background="@drawable/btn"
                     android:textColor="#000"
                     android:drawableRight="@drawable/ic_sync"
                     android:textSize="12dp"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:layout_alignParentRight="true"
                     android:textStyle="bold"/>
             </RelativeLayout>
