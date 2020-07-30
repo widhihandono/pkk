@@ -35,6 +35,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
     Kepala_Rtm_Adapter kepalaRtmAdapter;
     StepView stepView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,12 +89,15 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
         });
 
 
+        list_temporary.no_rtm = crud.getData_config_code().get(0).getKode_kabupaten()+
+                crud.getData_config_code().get(0).getKode_kecamatan()+
+                crud.getData_config_code().get(0).getKode_desa()+crud.getData_tweb_rtm().size()+1;
 
         tvNext.setOnClickListener(l->{
             Ent_twebRtm rtm = new Ent_twebRtm();
             rtm.setId(list_temporary.id_penduduk);
             rtm.setNik_kepala(list_temporary.id_penduduk);
-            rtm.setNo_kk("08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk)); //no_kk atau no_rtm
+            rtm.setNo_kk(list_temporary.no_rtm); //no_kk atau no_rtm
             rtm.setTgl_daftar(tanggal());
             rtm.setKelas_sosial("0");
 
@@ -102,7 +106,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
                 Toast.makeText(this,"Sukses Simpan Data",Toast.LENGTH_LONG).show();
                 for (int i=0;i<list_temporary.listAnggotaRtm.size();i++)
                 {
-                    if (crud.updateData_tweb_penduduk_id_rtm("08" + crud.getData_tweb_rtm_id_kk(list_temporary.listAnggotaRtm.get(i).getId_kk()),
+                    if (crud.updateData_tweb_penduduk_id_rtm(list_temporary.no_rtm,
                             list_temporary.listAnggotaRtm.get(i).getNik(),list_temporary.listAnggotaRtm.get(i).getId()) > 0)
                     {
                             Ent_PkkCatatanKeluargaDetail ep = new Ent_PkkCatatanKeluargaDetail();

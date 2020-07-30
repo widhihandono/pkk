@@ -77,9 +77,6 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         fabSync = findViewById(R.id.fabSync);
         fabDoc = findViewById(R.id.fabDoc);
         myFab = (FloatingActionButton) findViewById(R.id.fab);
-        pendataan = findViewById(R.id.pendataan);
-        upload = findViewById(R.id.upload);
-        edit = findViewById(R.id.edit);
 
 
         myFab.setColorFilter(Color.WHITE);
@@ -98,6 +95,13 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
 //        tvJmlButa.setText("Jumlah : "+String.valueOf(crudPkk.getData_pkk_catatan_keluarga_detail_tiga_buta().size()));
 //        tvJmlLansia.setText("Jumlah : "+getLansia_Penduduk());
 
+
+        for (Drawable drawable : tvHome.getCompoundDrawables()) {
+            if (drawable != null) {
+                drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(tvHome.getContext(), R.color.blue), PorterDuff.Mode.SRC_IN));
+            }
+        }
+        tvHome.setTextColor(ContextCompat.getColor(this,R.color.blue));
 
         tvHome.setOnClickListener(l->{
             for (Drawable drawable : tvHome.getCompoundDrawables()) {
@@ -157,7 +161,12 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
             startActivity(intent);
         });
 
+//        Crud crud = new Crud(this);
+//        String no_rtm = crud.getData_config_code().get(0).getKode_kabupaten()+
+//                crud.getData_config_code().get(0).getKode_kecamatan()+
+//                crud.getData_config_code().get(0).getKode_desa()+crud.getData_tweb_rtm().size()+1;
 
+//        Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
 //        getPenduduk();
     }
 

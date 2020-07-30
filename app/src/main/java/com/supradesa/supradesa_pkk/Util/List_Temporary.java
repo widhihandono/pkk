@@ -2,6 +2,7 @@ package com.supradesa.supradesa_pkk.Util;
 
 import android.content.Context;
 
+import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
 import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
 import com.supradesa.supradesa_pkk.Model.Sub_Catatan_keluarga;
 
@@ -11,14 +12,32 @@ import java.util.List;
 public class List_Temporary {
     public static final List<Ent_twebPenduduk> listAnggotaRtm = new ArrayList<>();
     public static final List<Ent_twebPenduduk> listAnggotaRtm_Edit = new ArrayList<>();
+    public static final List<Ent_twebPenduduk> listAnggotaRtm_Edit_tampung = new ArrayList<>();
     public static final List<Ent_twebPenduduk> list_AmbilAnggotaRtm_Edit = new ArrayList<>();
     public static final List<Ent_twebPenduduk> listAllAnggota = new ArrayList<>();
     public static final List<Ent_twebPenduduk> listPenduduk_Detail = new ArrayList<>();
+    public static final List<Ent_twebPenduduk> listAllAnggota_sementara = new ArrayList<>();
     public static final List<Sub_Catatan_keluarga> listSub = new ArrayList<>();
 
 
-    public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="";
+    public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",no_rtm="";
     public static int dasawismaPosition = -1,kepalaRtm = -1;
+
+    public static List<Ent_twebPenduduk> getListAllAnggota_sementara() {
+        return listAllAnggota_sementara;
+    }
+
+    public static String getNo_rtm() {
+        return no_rtm;
+    }
+
+    public static void setNo_rtm(String no_rtm) {
+        List_Temporary.no_rtm = no_rtm;
+    }
+
+    public static List<Ent_twebPenduduk> getListAnggotaRtm_Edit_tampung() {
+        return listAnggotaRtm_Edit_tampung;
+    }
 
     public static List<Ent_twebPenduduk> getList_AmbilAnggotaRtm_Edit() {
         return list_AmbilAnggotaRtm_Edit;

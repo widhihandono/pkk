@@ -170,6 +170,9 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
                 crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(0),"08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk));
             }
 
+            list_temporary.no_rtm = "";
+            list_temporary.listAnggotaRtm_Edit_tampung.clear();
+            list_temporary.listAnggotaRtm_Edit.clear();
             list_temporary.listAnggotaRtm.clear();
             list_temporary.listAllAnggota.clear();
             list_temporary.dasawismaPosition = -1;

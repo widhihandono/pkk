@@ -31,6 +31,7 @@ import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
 import com.supradesa.supradesa_pkk.Upload_Data_Activity;
+import com.supradesa.supradesa_pkk.Util.Get_Data_From_Server;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 import com.supradesa.supradesa_pkk.Util.SharedPref;
 
@@ -59,6 +60,7 @@ private List_Temporary list_temporary;
 private List<Ent_twebRtm> filterList;
     private ProgressDialog dialog;
     SharedPref sharedPref;
+    Get_Data_From_Server get_data_from_server;
 
     public Data_Belum_Upload_Adapter(Context context, List<Ent_twebRtm> listRtm) {
         this.context = context;
@@ -68,6 +70,7 @@ private List<Ent_twebRtm> filterList;
         this.crudPkk = new Crud_pkk(context);
         list_temporary = new List_Temporary();
         sharedPref = new SharedPref(context);
+        get_data_from_server = new Get_Data_From_Server(context);
 
     }
 
@@ -108,26 +111,28 @@ private List<Ent_twebRtm> filterList;
             dialog.setCancelable(false);
             dialog.show();
 //            Toast.makeText(context,""+crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getNo_kk(),Toast.LENGTH_LONG).show();
-            Upload_Rtm_Async upload = new Upload_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),crud.getData_tweb_rtm().get(position).getNik_kepala(),
+            Upload_Rtm_Async upload = new Upload_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),
+                    crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                    crud.getData_tweb_rtm().get(position).getNik_kepala(),
                     crud.getData_tweb_rtm().get(position).getNo_kk(),crud.getData_tweb_rtm().get(position).getTgl_daftar(),
                     crud.getData_tweb_rtm().get(position).getKelas_sosial(),crud.getData_tweb_rtm().get(position).getId(),
                     "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_rtm");
 
             try {
                 upload.execute().get().getInt("response");
-
-//                Toast.makeText(context,""+crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).size(),Toast.LENGTH_LONG).show();
+//                Toast.makeText(context,upload.get().getString("no_rtm"),Toast.LENGTH_LONG).show();
                 if(upload.getResponse() == 1)
                 {
                     for(int a=0;a<crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).size(); a++)
                     {
 //                        Toast.makeText(context,crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),Toast.LENGTH_LONG).show();
                         Upload_tweb_penduduk_Async upload_pdd = new Upload_tweb_penduduk_Async(context,sharedPref.sp.getString("kode_desa",""),
+                                crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
                                 crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),
                                 crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNik(),
                                 crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_kk(),
                                 crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getKk_level(),
-                                crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_rtm(),
+                                upload.get().getString("no_rtm"),
                                 crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getRtm_level(),
                                         crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getSex(),
                                         crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getTempatlahir(),
@@ -144,13 +149,14 @@ private List<Ent_twebRtm> filterList;
                     }
 
                     Upload_PkkKelompokDasawisma_Async upload_pkd = new Upload_PkkKelompokDasawisma_Async(context,sharedPref.sp.getString("kode_desa",""),
-                            crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getNo_kk(),
+                            crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                            upload.get().getString("no_rtm"),
                             crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getId_dasa_wisma(),
                             "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_kelompok_dasawisma");
                     upload_pkd.execute();
 
-                    Upload_PkkDataKeluarga upload_dk = new Upload_PkkDataKeluarga(context, sharedPref.sp.getString("kode_desa", ""),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getNo_kk(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getMakanan_pokok(),
+                    Upload_PkkDataKeluarga upload_dk = new Upload_PkkDataKeluarga(context, sharedPref.sp.getString("kode_desa", ""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                            upload.get().getString("no_rtm"), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getMakanan_pokok(),
                             crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_makanan_pokok(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJamban(),
                             crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_jamban(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getSumber_air(),
                             crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_sumber_air(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getTempat_sampah(),
@@ -166,7 +172,7 @@ private List<Ent_twebRtm> filterList;
 
                     for(int a=0 ; a < crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).size() ; a++)
                     {
-                        Upload_pkk_catatan_keluarga_detail upload_ckd = new Upload_pkk_catatan_keluarga_detail(context,sharedPref.sp.getString("kode_desa",""),
+                        Upload_pkk_catatan_keluarga_detail upload_ckd = new Upload_pkk_catatan_keluarga_detail(context,sharedPref.sp.getString("kode_desa",""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
                                 crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNik(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getBerkebutuhan_khusus(),
                                 crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPenghayatan_dan_pengamalan_pancasila(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getGotong_royong(),
                                 crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPendidikan_ketrampilan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPengembangan_kehidupan_berkoperasi()
@@ -181,7 +187,8 @@ private List<Ent_twebRtm> filterList;
                         upload_ckd.execute();
                     }
 
-
+                    get_data_from_server.getAll();
+                    notifyDataSetChanged();
                 }
             } catch (ExecutionException e) {
                 e.printStackTrace();
@@ -203,12 +210,15 @@ private List<Ent_twebRtm> filterList;
         private ProgressDialog progressDialog = null;
         String keterangan = "";
         String SERVER_PATH;
-        String kd_desa,nik_kepala,no_kk,tgl_daftar,kelas_sosial,id_rtm;
+        String kd_desa,kd_kecamatan,kd_kabupaten,nik_kepala,no_kk,tgl_daftar,kelas_sosial,id_rtm;
         int response;
+        String no_rtm_fix;
 
-        private Upload_Rtm_Async(Context context,String kd_desa,String nik_kepala,String no_kk,String tgl_daftar,String kelas_sosial,String id_rtm,String SERVER_PATH) {
+        private Upload_Rtm_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String nik_kepala,String no_kk,String tgl_daftar,String kelas_sosial,String id_rtm,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
+            this.kd_kecamatan = kd_kecamatan;
+            this.kd_kabupaten = kd_kabupaten;
             this.nik_kepala = nik_kepala;
             this.no_kk = no_kk;
             this.tgl_daftar = tgl_daftar;
@@ -222,7 +232,9 @@ private List<Ent_twebRtm> filterList;
         public void setResponse(int response) {
             this.response = response;
         }
-
+        public void setNo_rtm_fix(String no_rtm_fix) {
+            this.no_rtm_fix = no_rtm_fix;
+        }
         protected void onPreExecute()
         {
             super.onPreExecute();
@@ -244,6 +256,8 @@ private List<Ent_twebRtm> filterList;
                 URL url = new URL(SERVER_PATH);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("kd_desa", kd_desa);
+                jsonObject.put("kd_kecamatan", kd_kecamatan);
+                jsonObject.put("kd_kabupaten", kd_kabupaten);
                 jsonObject.put("nik_kepala", nik_kepala);
                 jsonObject.put("no_kk", no_kk);
                 jsonObject.put("tgl_daftar", tgl_daftar);
@@ -314,6 +328,10 @@ private List<Ent_twebRtm> filterList;
             return json;
         }
 
+        public String getNo_rtm_fix() {
+            return no_rtm_fix;
+        }
+
         public int getResponse() {
             return response;
         }
@@ -331,8 +349,10 @@ private List<Ent_twebRtm> filterList;
                 e1.printStackTrace();
             }
             int success = 0;
+            String no_rtm = "";
             try {
                 success = result.getInt("response");
+                no_rtm = result.getString("no_rtm");
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -340,6 +360,7 @@ private List<Ent_twebRtm> filterList;
             if (success == 1) {
 //                dialog.dismiss();
                 setResponse(success);
+                setNo_rtm_fix(no_rtm);
                 Toast.makeText(context,"Sukses Kirim Data",Toast.LENGTH_LONG).show();
 
             }
@@ -370,15 +391,17 @@ private List<Ent_twebRtm> filterList;
         private ProgressDialog progressDialog = null;
         String keterangan = "";
         String SERVER_PATH;
-        String kd_desa,nama,nik,id_kk,kk_level,id_rtm,rtm_level,sex,tempatlahir,tanggallahir,agama_id,
+        String kd_desa,kd_kecamatan,kd_kabupaten,nama,nik,id_kk,kk_level,id_rtm,rtm_level,sex,tempatlahir,tanggallahir,agama_id,
                 pendidikan_kk_id,pekerjaan_id,status_kawin,id_cluster,alamat_sekarang,cacat_id;
 
-        private Upload_tweb_penduduk_Async(Context context,String kd_desa,String nama,String nik,String id_kk,String kk_level,String id_rtm,
+        private Upload_tweb_penduduk_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String nama,String nik,String id_kk,String kk_level,String id_rtm,
                                            String rtm_level,String sex,String tempatlahir,String tanggallahir,String agama_id,
                                            String pendidikan_kk_id,String pekerjaan_id,String status_kawin,String id_cluster,
                                            String alamat_sekarang,String cacat_id,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
+            this.kd_kecamatan = kd_kecamatan;
+            this.kd_kabupaten = kd_kabupaten;
             this.nama = nama;
             this.nik = nik;
             this.id_kk = id_kk;
@@ -420,6 +443,8 @@ private List<Ent_twebRtm> filterList;
                 URL url = new URL(SERVER_PATH);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("kd_desa", kd_desa);
+                jsonObject.put("kd_kecamatan", kd_kecamatan);
+                jsonObject.put("kd_kabupaten", kd_kabupaten);
                 jsonObject.put("nama", nama);
                 jsonObject.put("nik", nik);
                 jsonObject.put("id_kk", id_kk);
@@ -545,16 +570,19 @@ private List<Ent_twebRtm> filterList;
         private ProgressDialog progressDialog = null;
         String keterangan = "";
         String SERVER_PATH;
-        String kd_desa,no_kk,id_dasa_wisma;
+        String kd_desa,kd_kecamatan,kd_kabupaten,no_kk,id_dasa_wisma;
 
-        private Upload_PkkKelompokDasawisma_Async(Context context,String kd_desa,String no_kk,String id_dasa_wisma,String SERVER_PATH) {
+        private Upload_PkkKelompokDasawisma_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String no_kk,String id_dasa_wisma,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
+            this.kd_kecamatan = kd_kecamatan;
+            this.kd_kabupaten = kd_kabupaten;
             this.no_kk = no_kk;
             this.id_dasa_wisma = id_dasa_wisma;
 
             this.SERVER_PATH = SERVER_PATH;
         }
+
         protected void onPreExecute()
         {
             super.onPreExecute();
@@ -576,6 +604,8 @@ private List<Ent_twebRtm> filterList;
                 URL url = new URL(SERVER_PATH);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("kd_desa", kd_desa);
+                jsonObject.put("kd_kecamatan", kd_kecamatan);
+                jsonObject.put("kd_kabupaten", kd_kabupaten);
                 jsonObject.put("no_kk", no_kk);
                 jsonObject.put("id_dasa_wisma", id_dasa_wisma);
                 String message = jsonObject.toString();
@@ -687,16 +717,18 @@ private List<Ent_twebRtm> filterList;
         private ProgressDialog progressDialog = null;
         String keterangan = "";
         String SERVER_PATH;
-        String kd_desa,no_kk,makanan_pokok,jml_makanan_pokok,jamban,jml_jamban,sumber_air,jml_sumber_air,tempat_sampah,jml_tempat_sampah,
+        String kd_desa,kd_kecamatan,kd_kabupaten,no_kk,makanan_pokok,jml_makanan_pokok,jamban,jml_jamban,sumber_air,jml_sumber_air,tempat_sampah,jml_tempat_sampah,
                 saluran_pembuangan_air,jml_saluran_pembuangan_air,stiker_p4k,jml_stiker_p4k
                 ,kriteria_rumah,jml_kriteria_rumah,up2k,jml_up2k,keg_sehat_lingkungan,jml_keg_sehat_lingkungan,ptp,Industri_rt;
 
-        private Upload_PkkDataKeluarga(Context context,String kd_desa,String no_kk,String makanan_pokok,String jml_makanan_pokok
+        private Upload_PkkDataKeluarga(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String no_kk,String makanan_pokok,String jml_makanan_pokok
                 ,String jamban,String jml_jamban,String sumber_air,String jml_sumber_air,String tempat_sampah,String jml_tempat_sampah,String saluran_pembuangan_air
                 ,String jml_saluran_pembuangan_air,String stiker_p4k,String jml_stiker_p4k,String kriteria_rumah,String jml_kriteria_rumah,String up2k
                 ,String jml_up2k,String keg_sehat_lingkungan,String jml_keg_sehat_lingkungan,String ptp,String Industri_rt,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
+            this.kd_kecamatan = kd_kecamatan;
+            this.kd_kabupaten = kd_kabupaten;
             this.no_kk = no_kk;
             this.makanan_pokok = makanan_pokok;
             this.jml_makanan_pokok = jml_makanan_pokok;
@@ -743,6 +775,8 @@ private List<Ent_twebRtm> filterList;
                 URL url = new URL(SERVER_PATH);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("kd_desa", kd_desa);
+                jsonObject.put("kd_kecamatan", kd_kecamatan);
+                jsonObject.put("kd_kabupaten", kd_kabupaten);
                 jsonObject.put("no_kk", no_kk);
                 jsonObject.put("makanan_pokok", makanan_pokok);
                 jsonObject.put("jml_makanan_pokok", jml_makanan_pokok);
@@ -873,16 +907,18 @@ private List<Ent_twebRtm> filterList;
         private ProgressDialog progressDialog = null;
         String keterangan = "";
         String SERVER_PATH;
-        String kd_desa,nik,berkebutuhan_khusus,penghayatan_dan_pengamalan_pancasila,gotong_royong,pendidikan_ketrampilan,pengembangan_kehidupan_berkoperasi,pangan,
+        String kd_desa,kd_kecamatan,kd_kabupaten,nik,berkebutuhan_khusus,penghayatan_dan_pengamalan_pancasila,gotong_royong,pendidikan_ketrampilan,pengembangan_kehidupan_berkoperasi,pangan,
                 sandang,kesehatan,perencanaan_sehat,id_kelompok_umur,usia_subur,ibu_hamil,
                 menyusui,nifas,buta_baca,buta_tulis,buta_hitung,id_detail_cat,stunting;
 
-        private Upload_pkk_catatan_keluarga_detail(Context context,String kd_desa,String nik,String berkebutuhan_khusus,String penghayatan_dan_pengamalan_pancasila
+        private Upload_pkk_catatan_keluarga_detail(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String nik,String berkebutuhan_khusus,String penghayatan_dan_pengamalan_pancasila
                 ,String gotong_royong,String pendidikan_ketrampilan,String pengembangan_kehidupan_berkoperasi,String pangan,String sandang,String kesehatan,String perencanaan_sehat
                 ,String id_kelompok_umur,String usia_subur,String ibu_hamil,String menyusui,String nifas,String buta_baca
                 ,String buta_tulis,String buta_hitung,String id_detail_cat,String stunting,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
+            this.kd_kecamatan = kd_kecamatan;
+            this.kd_kabupaten = kd_kabupaten;
             this.nik = nik;
             this.berkebutuhan_khusus = berkebutuhan_khusus;
             this.penghayatan_dan_pengamalan_pancasila = penghayatan_dan_pengamalan_pancasila;
@@ -929,6 +965,8 @@ private List<Ent_twebRtm> filterList;
                 URL url = new URL(SERVER_PATH);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("kd_desa", kd_desa);
+                jsonObject.put("kd_kecamatan", kd_kecamatan);
+                jsonObject.put("kd_kabupaten", kd_kabupaten);
                 jsonObject.put("nik", nik);
                 jsonObject.put("berkebutuhan_khusus", berkebutuhan_khusus);
                 jsonObject.put("penghayatan_dan_pengamalan_pancasila", penghayatan_dan_pengamalan_pancasila);

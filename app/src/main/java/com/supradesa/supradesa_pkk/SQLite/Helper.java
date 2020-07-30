@@ -23,6 +23,7 @@ public class Helper extends SQLiteOpenHelper {
     public static final String TABLE_PKK_DATA_KELUARGA = "pkk_data_keluarga";
     public static final String TABLE_PKK_KELOMPOK_DASAWISMA = "pkk_kelompok_dasawisma";
     public static final String TABLE_PKK_DASA_WISMA = "pkk_dasa_wisma";
+    public static final String TABLE_CONFIG_CODE = "config_code";
     public static final int DATABASE_Version = 1;
 //    public static final String UID = "id";
     //Penduduk
@@ -135,6 +136,17 @@ public class Helper extends SQLiteOpenHelper {
     public static final String ID_KEPALA = "id_kepala"; // atau id_penduduk
     public static final String NAMA_DASA_WISMA = "nama_dasa_wisma";
 
+    //CONFIG CODE
+    public static final String KODE_DESA = "kode_desa";
+    public static final String KODE_KECAMATAN = "kode_kecamatan";
+    public static final String KODE_KABUPATEN = "kode_kabupaten";
+
+
+    //Config code
+    public static final String CREATE_TABLE_CONFIG_CODE = "CREATE TABLE "+TABLE_CONFIG_CODE+
+            "("+KODE_DESA+" VARCHAR(50) PRIMARY KEY, "+KODE_KECAMATAN+" VARCHAR(30), "+
+            KODE_KABUPATEN+" VARCHAR(5));";
+    public static final String DROP_CONFIG_CODE = "DROP TABLE IF EXISTS "+TABLE_CONFIG_CODE;
 
     //Penduduk
     public static final String CREATE_TABLE = "CREATE TABLE "+TABLE_TWEB_PENDUDUK+
@@ -252,6 +264,7 @@ public class Helper extends SQLiteOpenHelper {
             db.execSQL(CREATE_TABLE_PKK_DATA_KELUARGA);
             db.execSQL(CREATE_TABLE_PKK_KELOMPOK_DASAWISMA);
             db.execSQL(CREATE_TABLE_PKK_DASA_WISMA);
+            db.execSQL(CREATE_TABLE_CONFIG_CODE);
 
         }catch (Exception e)
         {

@@ -46,21 +46,30 @@ Crud crud;
         holder.tvNik.setText(list_anggota_rtm.get(position).getTanggallahir());
         holder.tvNama.setText(list_anggota_rtm.get(position).getNama());
 
+
+
         holder.cb_list_pilih_kk.setChecked(true);
+
+        if(holder.cb_list_pilih_kk.isChecked())
+        {
+            list_temporary.listAnggotaRtm_Edit_tampung.add(list_anggota_rtm.get(position));
+        }
+
         holder.cb_list_pilih_kk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    list_temporary.listAnggotaRtm_Edit.add(list_anggota_rtm.get(position));
+                    list_temporary.listAnggotaRtm_Edit_tampung.add(list_anggota_rtm.get(position));
                 }
                 else
                 {
-                    list_temporary.listAnggotaRtm_Edit.remove(position);
+                    list_temporary.listAnggotaRtm_Edit_tampung.remove(list_anggota_rtm.get(position));
 
 //                    list_temporary.listAnggotaRtm.remove(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm_Edit.remove(position);
                 }
+//                Toast.makeText(context,""+list_temporary.listAnggotaRtm_Edit.size(),Toast.LENGTH_LONG).show();
 
             }
         });

@@ -86,7 +86,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Profile_Activity extends AppCompatActivity {
-    private TextView tvHome,tvProfile;
+    private TextView tvHome,tvProfile,tvNik,tvNama,tvJenisKelamin,tvAlamat;
     SharedPref sharedPref;
     Crud crudSqlite;
     Crud_master_tweb crudMasterTweb;
@@ -120,6 +120,10 @@ public class Profile_Activity extends AppCompatActivity {
         fabPendataan = findViewById(R.id.fabPendataan);
         fabSync = findViewById(R.id.fabSync);
         fabDoc = findViewById(R.id.fabDoc);
+        tvNik = findViewById(R.id.tvNik);
+        tvNama = findViewById(R.id.tvNama);
+        tvAlamat = findViewById(R.id.tvAlamat);
+        tvJenisKelamin = findViewById(R.id.tvJenisKelamin);
         lnLogOut_profile = findViewById(R.id.lnLogOut_profile);
         myFab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -144,6 +148,10 @@ public class Profile_Activity extends AppCompatActivity {
 
         myFab.setColorFilter(Color.WHITE);
 
+
+        tvNik.setText(sharedPref.sp.getString("nik",""));
+        tvNama.setText(sharedPref.sp.getString("email",""));
+        tvAlamat.setText(sharedPref.sp.getString("dusun",""));
 
         tvHome.setOnClickListener(l->{
             for (Drawable drawable : tvHome.getCompoundDrawables()) {

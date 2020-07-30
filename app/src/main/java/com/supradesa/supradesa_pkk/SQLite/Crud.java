@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import com.supradesa.supradesa_pkk.Model.Ent_ConfigCode;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 import com.supradesa.supradesa_pkk.Util.SharedPref;
 import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
@@ -25,6 +26,73 @@ public class Crud {
         sharedPref = new SharedPref(context);
         listTemporary = new List_Temporary();
     }
+
+    //Config Code
+    public long InsertData_config_code(Ent_ConfigCode ecc)
+    {
+
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Helper.KODE_DESA,ecc.getKode_desa());
+        contentValues.put(Helper.KODE_KECAMATAN,ecc.getKode_kecamatan());
+        contentValues.put(Helper.KODE_KABUPATEN,ecc.getKode_kabupaten());
+
+
+        if(cek_data_config_code(ecc.getKode_desa()).size() > 0)
+        {
+            long id_insert_config_code = 0;
+            if(dbb.delete(Helper.TABLE_CONFIG_CODE, Helper.KODE_DESA + "=?", new String[]{ecc.getKode_desa()}) > 0)
+            {
+                id_insert_config_code = dbb.insert(Helper.TABLE_CONFIG_CODE,null,contentValues);
+
+            }
+            return id_insert_config_code;
+        }
+        else
+        {
+
+
+            long id_insert_config_code = dbb.insert(Helper.TABLE_CONFIG_CODE,null,contentValues);
+            return id_insert_config_code;
+        }
+    }
+
+    public List<Ent_ConfigCode> cek_data_config_code(String kode_desa)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_CONFIG_CODE+" WHERE kode_desa = '"+kode_desa+"'",null);
+        List<Ent_ConfigCode> list_ecc = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            Ent_ConfigCode ecc = new Ent_ConfigCode();
+            ecc.setKode_desa(cursor.getString(cursor.getColumnIndex(Helper.KODE_DESA)));
+            ecc.setKode_kecamatan(cursor.getString(cursor.getColumnIndex(Helper.KODE_KECAMATAN)));
+            ecc.setKode_kabupaten(cursor.getString(cursor.getColumnIndex(Helper.KODE_KABUPATEN)));
+
+            list_ecc.add(ecc);
+        }
+        return list_ecc;
+    }
+
+    public List<Ent_ConfigCode> getData_config_code()
+    {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_CONFIG_CODE,null);
+        List<Ent_ConfigCode> list_ecc = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            Ent_ConfigCode ecc = new Ent_ConfigCode();
+            ecc.setKode_desa(cursor.getString(cursor.getColumnIndex(Helper.KODE_DESA)));
+            ecc.setKode_kecamatan(cursor.getString(cursor.getColumnIndex(Helper.KODE_KECAMATAN)));
+            ecc.setKode_kabupaten(cursor.getString(cursor.getColumnIndex(Helper.KODE_KABUPATEN)));
+
+            list_ecc.add(ecc);
+
+        }
+        return list_ecc;
+    }
+
 
     public long InsertData_tweb_penduduk(Ent_twebPenduduk etp)
     {

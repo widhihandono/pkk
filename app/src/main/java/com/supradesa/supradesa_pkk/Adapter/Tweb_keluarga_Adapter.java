@@ -29,6 +29,7 @@ private List<Ent_twebKeluarga> list_twebKeluarga;
 List_Temporary list_temporary;
 Crud crud;
 private List<Ent_twebKeluarga> filterList;
+boolean status;
 
     public Tweb_keluarga_Adapter(Context context,List<Ent_twebKeluarga> list_twebKeluarga) {
         this.context = context;
@@ -36,6 +37,7 @@ private List<Ent_twebKeluarga> filterList;
         this.filterList = list_twebKeluarga;
         list_temporary = new List_Temporary();
         crud = new Crud(context);
+        status = false;
     }
 
     @NonNull
@@ -51,8 +53,30 @@ private List<Ent_twebKeluarga> filterList;
         holder.tvNo_kk.setText(list_twebKeluarga.get(position).getNama()); //no_kk / nama Kepala Keluarga
         holder.tvRtRw.setText("RT "+list_twebKeluarga.get(position).getRt()+"/ RW "+list_twebKeluarga.get(position).getRw());
         holder.itemView.setOnClickListener(l->{
-//            Toast.makeText(context,""+crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()).size(),Toast.LENGTH_SHORT).show();
-            list_temporary.listAllAnggota.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
+
+            if(list_temporary.listAllAnggota.size() == 0)
+            {
+                list_temporary.listAllAnggota_sementara.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
+            }
+            else
+            {
+                for(int a=0;a<list_temporary.listAllAnggota.size();a++)
+                {
+                    if(!list_temporary.listAllAnggota.get(a).getId_kk().equals(list_twebKeluarga.get(position).getId()))
+                    {
+                        status = true;
+
+                    }
+                }
+            }
+
+            if(status)
+            {
+                list_temporary.listAllAnggota_sementara.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
+                Toast.makeText(context,""+list_temporary.listAllAnggota.size(),Toast.LENGTH_LONG).show();
+            }
+
+
             Intent intent = new Intent(context,Pemilihan_KK_Activity.class);
             intent.putExtra("id_kk",list_twebKeluarga.get(position).getId());
             intent.putExtra("no_kk",list_twebKeluarga.get(position).getNo_kk());

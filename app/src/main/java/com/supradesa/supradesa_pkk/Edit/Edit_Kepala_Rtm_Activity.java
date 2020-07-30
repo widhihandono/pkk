@@ -58,6 +58,8 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvEditKepalaRtm.setLayoutManager(layoutManager);
 
+        Toast.makeText(this,"size "+list_temporary.getListAnggotaRtm_Edit().size(),Toast.LENGTH_LONG).show();
+
         editKepalaRtmAdapter = new Edit_Kepala_Rtm_Adapter(this,list_temporary.getListAnggotaRtm_Edit());
         rvEditKepalaRtm.setAdapter(editKepalaRtmAdapter);
 
@@ -85,6 +87,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         stepView.go(1,false);
 
         tvBack.setOnClickListener(l->{
+//            list_temporary.listAnggotaRtm_Edit.clear();
 //            crud.delete_rtm_by_id(list_temporary.id_penduduk);
 //            crud.updateData_tweb_penduduk_id_rtm("0",list_temporary.nik,list_temporary.id_penduduk);
             startActivity(new Intent(Edit_Kepala_Rtm_Activity.this,Edit_Rtm_Activity.class));
@@ -219,6 +222,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        list_temporary.listAnggotaRtm_Edit.clear();
         startActivity(new Intent(Edit_Kepala_Rtm_Activity.this,Edit_Rtm_Activity.class));
         Animatoo.animateFade(this);
         finish();
