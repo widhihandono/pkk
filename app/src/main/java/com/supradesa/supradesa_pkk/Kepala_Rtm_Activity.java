@@ -100,7 +100,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
             rtm.setNo_kk(list_temporary.no_rtm); //no_kk atau no_rtm
             rtm.setTgl_daftar(tanggal());
             rtm.setKelas_sosial("0");
-
+//            Toast.makeText(this,list_temporary.id_penduduk+","+list_temporary.no_rtm+","+tanggal(),Toast.LENGTH_LONG).show();
             if(crud.InsertData_tweb_rtm(rtm) > 0)
             {
                 Toast.makeText(this,"Sukses Simpan Data",Toast.LENGTH_LONG).show();
@@ -179,12 +179,9 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(this,crud.cek_data_rtm_by_id(rtm.getNo_kk()).get(0).getId(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,""+crud.cek_data_rtm_by_id(rtm.getNo_kk()).size(),Toast.LENGTH_LONG).show();
             }
-//            Toast.makeText(this,crud.getData_tweb_rtm_no_kk(list_temporary.id_kk)+" , "+list_temporary.id_penduduk,Toast.LENGTH_LONG).show();
-//            Intent intent = new Intent(this,Catatan_Keluarga_Activity.class);
-//            startActivity(intent);
-//            finish();
+
 
         });
     }

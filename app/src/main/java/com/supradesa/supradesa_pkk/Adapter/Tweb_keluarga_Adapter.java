@@ -2,6 +2,7 @@ package com.supradesa.supradesa_pkk.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
@@ -54,28 +56,8 @@ boolean status;
         holder.tvRtRw.setText("RT "+list_twebKeluarga.get(position).getRt()+"/ RW "+list_twebKeluarga.get(position).getRw());
         holder.itemView.setOnClickListener(l->{
 
-            if(list_temporary.listAllAnggota.size() == 0)
-            {
-                list_temporary.listAllAnggota_sementara.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
-            }
-            else
-            {
-                for(int a=0;a<list_temporary.listAllAnggota.size();a++)
-                {
-                    if(!list_temporary.listAllAnggota.get(a).getId_kk().equals(list_twebKeluarga.get(position).getId()))
-                    {
-                        status = true;
-
-                    }
-                }
-            }
-
-            if(status)
-            {
-                list_temporary.listAllAnggota_sementara.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
-                Toast.makeText(context,""+list_temporary.listAllAnggota.size(),Toast.LENGTH_LONG).show();
-            }
-
+            list_temporary.listAllAnggota_sementara.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
+            list_temporary.list_no_kk.add(list_twebKeluarga.get(position).getId());
 
             Intent intent = new Intent(context,Pemilihan_KK_Activity.class);
             intent.putExtra("id_kk",list_twebKeluarga.get(position).getId());
@@ -84,6 +66,18 @@ boolean status;
             l.getContext().startActivity(intent);
 
         });
+
+        if(list_temporary.list_no_kk.size() != 0 )
+        {
+            for(int a=0;a<list_temporary.list_no_kk.size();a++)
+            {
+                if(list_temporary.list_no_kk.get(a).equals(list_twebKeluarga.get(position).getId()))
+                {
+                    holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
+                    holder.itemView.setEnabled(false);
+                }
+            }
+        }
     }
 
     @Override

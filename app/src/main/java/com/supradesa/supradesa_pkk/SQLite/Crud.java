@@ -20,8 +20,10 @@ public class Crud {
     Helper helper;
     SharedPref sharedPref;
     List_Temporary listTemporary;
+    Context context;
 
     public Crud(Context context) {
+        this.context = context;
         helper = new Helper(context);
         sharedPref = new SharedPref(context);
         listTemporary = new List_Temporary();
@@ -393,24 +395,34 @@ public class Crud {
         contentValues.put(Helper.KELAS_SOSIAL,rtm.getKelas_sosial());
         contentValues.put(Helper.UPLOAD,"no");
 
-
-        if(cek_data_rtm_by_id(rtm.getNo_kk()).size() > 0)
+        long insert = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
+        if(insert < 0)
         {
-            long id_insert_tweb_penduduk = 0;
-            if(dbb.delete(Helper.TABLE_TWEB_RTM, Helper.NO_KK + "=?", new String[]{rtm.getNo_kk()}) > 0)
-            {
-                id_insert_tweb_penduduk = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
-
-            }
-            return id_insert_tweb_penduduk;
+            long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,Helper.NO_KK + " = ? OR " + Helper.ID_RTM + " = ?",
+                    new String[]{rtm.getNo_kk(), rtm.getId()});
+            return update;
         }
         else
         {
-
-
-             long id_insert_tweb_penduduk = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
-            return id_insert_tweb_penduduk;
+            return insert;
         }
+
+//        if(cek_data_rtm_by_id(rtm.getNo_kk()).size() > 0)
+//        {
+//            long id_insert_tweb_penduduk = 0;
+//            if(dbb.delete(Helper.TABLE_TWEB_RTM, Helper.NO_KK + "=?", new String[]{rtm.getNo_kk()}) > 0)
+//            {
+//                id_insert_tweb_penduduk = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
+//
+//            }
+//            return id_insert_tweb_penduduk;
+//        }
+//        else
+//        {
+//            long id_insert_tweb_penduduk = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
+//            return id_insert_tweb_penduduk;
+//        }
+
 
 
 
@@ -536,8 +548,16 @@ public class Crud {
         contentValues.put(Helper.RW,etk.getRw());
         contentValues.put(Helper.UPLOAD,"no");
 
-        long id_insert_tweb_penduduk = dbb.insert(Helper.TABLE_TWEB_KELUARGA,null,contentValues);
-        return id_insert_tweb_penduduk;
+        long id_insert_tweb_keluarga = dbb.insert(Helper.TABLE_TWEB_KELUARGA,null,contentValues);
+        if(id_insert_tweb_keluarga < 0)
+        {
+            long update = dbb.update(Helper.TABLE_TWEB_KELUARGA,contentValues,Helper.ID_KK+"="+etk.getId(),null);
+            return update;
+        }
+        else
+        {
+            return id_insert_tweb_keluarga;
+        }
     }
 
     public List<Ent_twebKeluarga> getData_tweb_keluarga()

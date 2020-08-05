@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.supradesa.supradesa_pkk.Data_Belum_Upload_Activity;
 import com.supradesa.supradesa_pkk.Edit.Edit_Rtm_Activity;
 import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
 import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
@@ -103,6 +104,7 @@ private List<Ent_twebRtm> filterList;
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             l.getContext().startActivity(intent);
         });
+
 
         holder.imgUpload.setOnClickListener(l->{
             dialog = new ProgressDialog(context);
@@ -362,6 +364,7 @@ private List<Ent_twebRtm> filterList;
                 setResponse(success);
                 setNo_rtm_fix(no_rtm);
                 Toast.makeText(context,"Sukses Kirim Data",Toast.LENGTH_LONG).show();
+                crud.updateData_rtm(no_kk,"1");
 
             }
             else if (success == 2) {
@@ -548,6 +551,7 @@ private List<Ent_twebRtm> filterList;
             if (success == 1) {
 //                dialog.dismiss();
                 Toast.makeText(context,"Sukses Kirim Data Penduduk",Toast.LENGTH_LONG).show();
+                crud.updateData_tweb_penduduk_upload(nik,"1");
 
             }
             else if (success == 2) {
@@ -695,7 +699,7 @@ private List<Ent_twebRtm> filterList;
             if (success == 1) {
 //                dialog.dismiss();
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                crudPkk.update_pkk_kelompok_dasawisma("upload","1",no_kk);
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);
@@ -885,6 +889,7 @@ private List<Ent_twebRtm> filterList;
             if (success == 1) {
 //                dialog.dismiss();
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                crudPkk.update_pkk_data_keluarga("upload","1",no_kk);
 
             }
             else if (success == 2) {
@@ -1073,7 +1078,7 @@ private List<Ent_twebRtm> filterList;
             if (success == 1) {
                 dialog.dismiss();
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                crudPkk.update_pkk_catatan_keluarga_detail("upload","1",id_detail_cat);
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);

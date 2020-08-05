@@ -95,6 +95,7 @@ Context context;
         getConfig_Code();
         getPenduduk();
         getRtm();
+//        Toast.makeText(context,""+crudSqlite.getData_tweb_keluarga().size(),Toast.LENGTH_LONG).show();
         getKeluarga();
         getPkkCatatanKeluarga();
         getPkkCatatanKeluargaDetail();
@@ -243,6 +244,7 @@ Context context;
 
     public void getKeluarga()
     {
+
         if(crudSqlite.getData_tweb_keluarga().size() > 0)
         {
             if(crudSqlite.delete_all_keluarga())

@@ -182,7 +182,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this,crud.cek_data_rtm_by_id(rtm.getNo_kk()).get(0).getId(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,crud.cek_data_rtm_by_id("08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk)).get(0).getId(),Toast.LENGTH_LONG).show();
                 }
 
 

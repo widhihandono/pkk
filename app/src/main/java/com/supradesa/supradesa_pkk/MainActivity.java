@@ -279,5 +279,9 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

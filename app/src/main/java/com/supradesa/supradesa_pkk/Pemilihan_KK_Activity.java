@@ -45,23 +45,38 @@ StepView stepView;
         rvPemilihanAnggota.setLayoutManager(layoutManager);
         stepView = findViewById(R.id.step_view);
 
-        list_temporary.listAllAnggota.addAll(list_temporary.listAllAnggota_sementara);
 
 
 
-        for(int a=0;a<list_temporary.listAllAnggota.size();a++)
+        if(list_temporary.listAllAnggota.size() == 0 || list_temporary.listAllAnggota_sementara.size() == 0)
         {
-            for(int i=0;i<list_temporary.listAllAnggota_sementara.size();i++)
-            {
-                if(!list_temporary.listAllAnggota.get(a).getId_kk().equals(list_temporary.listAllAnggota_sementara.get(i)))
-                {
-
-                }
-            }
+            list_temporary.listAllAnggota.addAll(list_temporary.listAllAnggota_sementara);
+            anggota_rtm_adapter = new Ambil_Anggota_Rtm_Adapter(this,list_temporary.listAllAnggota);
+            rvPemilihanAnggota.setAdapter(anggota_rtm_adapter);
 
         }
-        anggota_rtm_adapter = new Ambil_Anggota_Rtm_Adapter(this,list_temporary.listAllAnggota);
-        rvPemilihanAnggota.setAdapter(anggota_rtm_adapter);
+        else
+        {
+//            Toast.makeText(getApplicationContext(),list_temporary.listAllAnggota_sementara.get(0).getId_kk(),Toast.LENGTH_LONG).show();
+            for(int a=0;a<list_temporary.listAllAnggota.size();a++)
+            {
+                for(int i=0;i<list_temporary.listAllAnggota_sementara.size();i++)
+                {
+                    if(list_temporary.listAllAnggota.get(a).getId_kk().equals(list_temporary.listAllAnggota_sementara.get(i).getId_kk()))
+                    {
+                        list_temporary.listAllAnggota_sementara.remove(i);
+                    }
+                }
+
+            }
+
+            list_temporary.listAllAnggota.addAll(list_temporary.listAllAnggota_sementara);
+
+            anggota_rtm_adapter = new Ambil_Anggota_Rtm_Adapter(this,list_temporary.listAllAnggota);
+            rvPemilihanAnggota.setAdapter(anggota_rtm_adapter);
+
+
+        }
 
         list_temporary.listAllAnggota_sementara.clear();
 
