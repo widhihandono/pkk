@@ -188,6 +188,7 @@ public class Crud {
             etp.setCacat_id(cursor.getString(cursor.getColumnIndex(Helper.CACAT_ID)));
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(etp);
 
@@ -226,6 +227,7 @@ public class Crud {
             etp.setCacat_id(cursor.getString(cursor.getColumnIndex(Helper.CACAT_ID)));
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(etp);
 
@@ -265,6 +267,7 @@ public class Crud {
             etp.setCacat_id(cursor.getString(cursor.getColumnIndex(Helper.CACAT_ID)));
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
                 listPresence.add(etp);
 
@@ -303,6 +306,7 @@ public class Crud {
             etp.setCacat_id(cursor.getString(cursor.getColumnIndex(Helper.CACAT_ID)));
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(etp);
 
@@ -321,6 +325,7 @@ public class Crud {
             Ent_twebPenduduk etp = new Ent_twebPenduduk();
             etp.setId(cursor.getString(cursor.getColumnIndex(Helper.ID)));
             etp.setNama(cursor.getString(cursor.getColumnIndex(Helper.NAMA)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPenduduk.add(etp);
 
@@ -360,6 +365,7 @@ public class Crud {
             etp.setCacat_id(cursor.getString(cursor.getColumnIndex(Helper.CACAT_ID)));
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPenduduk.add(etp);
 
@@ -437,7 +443,7 @@ public class Crud {
 
 
 
-        long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,Helper.NO_KK+"="+no_kk,null);
+        long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,"no_kk= ?",new String[]{no_kk});
         return update;
     }
 
@@ -450,6 +456,7 @@ public class Crud {
         {
             Ent_twebRtm rtm = new Ent_twebRtm();
             rtm.setId(cursor.getString(cursor.getColumnIndex(Helper.ID_RTM)));
+            rtm.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             list_rtm.add(rtm);
         }
@@ -473,7 +480,7 @@ public class Crud {
             rtm.setTgl_daftar(cursor.getString(cursor.getColumnIndex(Helper.TGL_DAFTAR)));
             rtm.setKelas_sosial(cursor.getString(cursor.getColumnIndex(Helper.KELAS_SOSIAL)));
             rtm.setNama(cursor.getString(cursor.getColumnIndex(Helper.NAMA)));
-
+            rtm.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(rtm);
 
@@ -486,7 +493,7 @@ public class Crud {
 
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] coloumn = {Helper.ID_RTM,Helper.NIK_KEPALA,Helper.NO_KK,Helper.TGL_DAFTAR,Helper.KELAS_SOSIAL};
-        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_TWEB_RTM+" WHERE upload = 'no'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_TWEB_RTM,null);
         List<Ent_twebRtm> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -496,7 +503,7 @@ public class Crud {
             rtm.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
             rtm.setTgl_daftar(cursor.getString(cursor.getColumnIndex(Helper.TGL_DAFTAR)));
             rtm.setKelas_sosial(cursor.getString(cursor.getColumnIndex(Helper.KELAS_SOSIAL)));
-
+            rtm.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(rtm);
 
@@ -585,6 +592,7 @@ public class Crud {
             etk.setId_cluster(cursor.getString(cursor.getColumnIndex(Helper.ID_CLUSTER)));
             etk.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etk.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etk.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(etk);
 
@@ -634,6 +642,8 @@ public class Crud {
             etk.setId_cluster(cursor.getString(cursor.getColumnIndex(Helper.ID_CLUSTER)));
             etk.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etk.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etk.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+
             listPresence.add(etk);
 
         }
@@ -671,6 +681,8 @@ public class Crud {
             etp.setCacat_id(cursor.getString(cursor.getColumnIndex(Helper.CACAT_ID)));
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
+            etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+
             listPresence.add(etp);
 
         }

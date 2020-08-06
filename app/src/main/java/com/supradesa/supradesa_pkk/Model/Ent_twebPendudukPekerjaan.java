@@ -23,6 +23,19 @@ public class Ent_twebPendudukPekerjaan {
     @Expose
     private List<Ent_twebPendudukPekerjaan> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public boolean isResponse() {
         return response;
     }

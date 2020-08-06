@@ -92,6 +92,19 @@ public class Ent_twebPenduduk {
     @Expose
     private List<Ent_twebPenduduk> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
 
     public String getRt() {
         return rt;

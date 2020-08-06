@@ -55,6 +55,19 @@ public class Ent_user_pkk_dusun {
     @Expose
     private List<Ent_user_pkk_dusun> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public String getNama_desa() {
         return nama_desa;
     }

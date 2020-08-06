@@ -68,6 +68,7 @@
             android:src="@drawable/eyes_show"
             android:textColor="#fff"
             android:id="@+id/imgShow"
+            android:visibility="gone"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/imgUpload"
             android:background="@drawable/background_lingkaran_see" />

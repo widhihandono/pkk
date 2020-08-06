@@ -53,6 +53,7 @@ public class Crud_pkk {
             eck.setId_kk(cursor.getString(cursor.getColumnIndex(Helper.ID_KK)));
             eck.setId_dk(cursor.getString(cursor.getColumnIndex(Helper.ID_DK)));
             eck.setTanggal_cat(cursor.getString(cursor.getColumnIndex(Helper.TANGGAL_CAT)));
+            eck.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(eck);
 
@@ -134,6 +135,7 @@ public class Crud_pkk {
             Ent_PkkCatatanKeluargaDetail ckd = new Ent_PkkCatatanKeluargaDetail();
             ckd.setId_detail_cat(cursor.getString(cursor.getColumnIndex(Helper.ID_DETAIL_CAT)));
             ckd.setNik(cursor.getString(cursor.getColumnIndex(Helper.NIK)));
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -152,6 +154,7 @@ public class Crud_pkk {
             Ent_PkkCatatanKeluargaDetail ckd = new Ent_PkkCatatanKeluargaDetail();
             ckd.setId_detail_cat(cursor.getString(cursor.getColumnIndex(Helper.ID_DETAIL_CAT)));
             ckd.setNik(cursor.getString(cursor.getColumnIndex(Helper.NIK)));
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -171,6 +174,7 @@ public class Crud_pkk {
             Ent_PkkCatatanKeluargaDetail ckd = new Ent_PkkCatatanKeluargaDetail();
             ckd.setId_detail_cat(cursor.getString(cursor.getColumnIndex(Helper.ID_DETAIL_CAT)));
             ckd.setNik(cursor.getString(cursor.getColumnIndex(Helper.NIK)));
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -190,6 +194,7 @@ public class Crud_pkk {
             Ent_PkkCatatanKeluargaDetail ckd = new Ent_PkkCatatanKeluargaDetail();
             ckd.setId_detail_cat(cursor.getString(cursor.getColumnIndex(Helper.ID_DETAIL_CAT)));
             ckd.setNik(cursor.getString(cursor.getColumnIndex(Helper.NIK)));
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -209,6 +214,7 @@ public class Crud_pkk {
             Ent_PkkCatatanKeluargaDetail ckd = new Ent_PkkCatatanKeluargaDetail();
             ckd.setId_detail_cat(cursor.getString(cursor.getColumnIndex(Helper.ID_DETAIL_CAT)));
             ckd.setNik(cursor.getString(cursor.getColumnIndex(Helper.NIK)));
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -222,7 +228,7 @@ public class Crud_pkk {
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT tweb_penduduk.id_rtm,pkk_catatan_keluarga_detail.* FROM pkk_catatan_keluarga_detail JOIN tweb_penduduk on "+
                                         "tweb_penduduk.nik = pkk_catatan_keluarga_detail.nik " +
-                                        "WHERE pkk_catatan_keluarga_detail.upload = 'no' AND tweb_penduduk.id_rtm = '"+no_rtm+"'",null);
+                                        "WHERE tweb_penduduk.id_rtm = '"+no_rtm+"'",null);
         List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -247,7 +253,7 @@ public class Crud_pkk {
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
             ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
-
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -259,7 +265,7 @@ public class Crud_pkk {
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail WHERE upload = 'no' AND nik = '"+nik+"'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail nik = '"+nik+"'",null);
         List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -284,7 +290,7 @@ public class Crud_pkk {
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
             ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
-
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -301,7 +307,7 @@ public class Crud_pkk {
                             Helper.GOTONG_ROYONG,Helper.PENDIDIKAN_KETRAMPILAN,Helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI,
                             Helper.PANGAN,Helper.SANDANG,Helper.KESEHATAN,Helper.PERENCANAAN_SEHAT,Helper.ID_KELOMPOK_UMUR,Helper.USIA_SUBUR,
                             Helper.IBU_HAMIL,Helper.MENYUSUI,Helper.NIFAS,Helper.BUTA_BACA,Helper.BUTA_TULIS,Helper.BUTA_HITUNG};
-        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail WHERE upload = 'no'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail",null);
         List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -326,7 +332,7 @@ public class Crud_pkk {
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
             ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
-
+            ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
@@ -463,6 +469,7 @@ public class Crud_pkk {
             pkd.setJml_keg_sehat_lingkungan(cursor.getString(cursor.getColumnIndex(Helper.JML_KEG_SEHAT_LINGKUNGAN)));
             pkd.setPtp(cursor.getString(cursor.getColumnIndex(Helper.PTP)));
             pkd.setIndustri_rt(cursor.getString(cursor.getColumnIndex(Helper.INDUSTRI_RT)));
+            pkd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(pkd);
 
@@ -478,7 +485,7 @@ public class Crud_pkk {
                             Helper.JML_JAMBAN,Helper.SUMBER_AIR,Helper.JML_SUMBER_AIR,Helper.TEMPAT_SAMPAH,Helper.JML_TEMPAT_SAMPAH,
                             Helper.SALURAN_PEMBUANGAN_AIR,Helper.JML_SALURAN_PEMBUANGAN_AIR,Helper.STIKER_P4K,Helper.JML_STIKER_P4K,
                             Helper.KRITERIA_RUMAH,Helper.JML_KRITERIA_RUMAH,Helper.UP2K,Helper.JML_UP2K,Helper.KEG_SEHAT_LINGKUNGAN,Helper.JML_KEG_SEHAT_LINGKUNGAN};
-        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_PKK_DATA_KELUARGA+" WHERE upload = 'no'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_PKK_DATA_KELUARGA,null);
         List<Ent_PkkDataKeluarga> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -505,7 +512,7 @@ public class Crud_pkk {
             pkd.setJml_keg_sehat_lingkungan(cursor.getString(cursor.getColumnIndex(Helper.JML_KEG_SEHAT_LINGKUNGAN)));
             pkd.setPtp(cursor.getString(cursor.getColumnIndex(Helper.PTP)));
             pkd.setIndustri_rt(cursor.getString(cursor.getColumnIndex(Helper.INDUSTRI_RT)));
-
+            pkd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
 
             listPresence.add(pkd);
@@ -553,7 +560,7 @@ public class Crud_pkk {
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] coloumn = {Helper.ID_DASAWISMA,Helper.ID_CLUSTER,Helper.ID_KEPALA,Helper.NAMA_DASA_WISMA};
+        String[] coloumn = {Helper.ID_DASAWISMA,Helper.ID_CLUSTER,Helper.ID_KEPALA,Helper.NAMA_DASA_WISMA,Helper.UPLOAD};
         Cursor cursor = db.query(Helper.TABLE_PKK_DASA_WISMA,coloumn,null,null,null,null,null);
         List<Ent_PkkDasaWisma> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
@@ -563,6 +570,7 @@ public class Crud_pkk {
             pdw.setId_cluster(cursor.getString(cursor.getColumnIndex(Helper.ID_CLUSTER)));
             pdw.setId_kepala(cursor.getString(cursor.getColumnIndex(Helper.ID_KEPALA)));
             pdw.setNama_dasa_wisma(cursor.getString(cursor.getColumnIndex(Helper.NAMA_DASA_WISMA)));
+            pdw.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(pdw);
 
@@ -663,6 +671,7 @@ public class Crud_pkk {
             Ent_PkkKelompokDasawisma pkd = new Ent_PkkKelompokDasawisma();
             pkd.setId_kelompok(cursor.getString(cursor.getColumnIndex(Helper.ID_KELOMPOK_DASAWISMA)));
             pkd.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
+            pkd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listdasawisma.add(pkd);
 
@@ -675,7 +684,7 @@ public class Crud_pkk {
 
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] coloumn = {Helper.ID_KELOMPOK_DASAWISMA,Helper.NO_KK,Helper.ID_DASAWISMA};
-        Cursor cursor = db.rawQuery("SELECT * FROM pkk_kelompok_dasawisma WHERE upload = 'no' AND no_kk = '"+no_rtm+"'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM pkk_kelompok_dasawisma WHERE no_kk = '"+no_rtm+"'",null);
         List<Ent_PkkKelompokDasawisma> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -683,6 +692,7 @@ public class Crud_pkk {
             pdw.setId_kelompok(cursor.getString(cursor.getColumnIndex(Helper.ID_KELOMPOK_DASAWISMA)));
             pdw.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
             pdw.setId_dasa_wisma(cursor.getString(cursor.getColumnIndex(Helper.ID_DASAWISMA)));
+            pdw.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(pdw);
 
@@ -695,7 +705,7 @@ public class Crud_pkk {
 
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] coloumn = {Helper.ID_KELOMPOK_DASAWISMA,Helper.NO_KK,Helper.ID_DASAWISMA};
-        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_PKK_KELOMPOK_DASAWISMA+" WHERE upload = 'no'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_PKK_KELOMPOK_DASAWISMA,null);
         List<Ent_PkkKelompokDasawisma> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -703,6 +713,7 @@ public class Crud_pkk {
             pdw.setId_kelompok(cursor.getString(cursor.getColumnIndex(Helper.ID_KELOMPOK_DASAWISMA)));
             pdw.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
             pdw.setId_dasa_wisma(cursor.getString(cursor.getColumnIndex(Helper.ID_DASAWISMA)));
+            pdw.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(pdw);
 

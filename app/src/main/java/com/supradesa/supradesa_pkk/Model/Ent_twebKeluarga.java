@@ -67,6 +67,19 @@ public class Ent_twebKeluarga {
     @Expose
     private List<Ent_twebKeluarga> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
 
     public String getNama() {
         return nama;

@@ -99,6 +99,19 @@ public class Ent_PkkCatatanKeluargaDetail {
     @Expose
     private List<Ent_PkkCatatanKeluargaDetail> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
 
     public String getStunting() {
         return stunting;

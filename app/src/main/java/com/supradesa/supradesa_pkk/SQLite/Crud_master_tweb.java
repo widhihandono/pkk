@@ -49,6 +49,7 @@ public class Crud_master_tweb {
             Ent_twebPendudukPendidikanKK ep = new Ent_twebPendudukPendidikanKK();
             ep.setId(cursor.getString(cursor.getColumnIndex(Helper.ID_PENDUDUK_PENDIDIKAN_KK)));
             ep.setNama(cursor.getString(cursor.getColumnIndex(Helper.NAMA)));
+            ep.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ep);
 

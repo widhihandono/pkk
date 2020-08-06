@@ -103,6 +103,19 @@ public class Ent_PkkDataKeluarga {
     @Expose
     private List<Ent_PkkDataKeluarga> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public String getPtp() {
         return ptp;
     }

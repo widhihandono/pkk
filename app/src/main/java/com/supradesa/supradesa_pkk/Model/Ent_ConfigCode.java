@@ -16,6 +16,18 @@ public class Ent_ConfigCode {
     @Expose
     private String kode_kabupaten;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
     public String getKode_desa() {
         return kode_desa;
     }

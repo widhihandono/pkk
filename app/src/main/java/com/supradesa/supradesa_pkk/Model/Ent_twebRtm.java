@@ -43,6 +43,18 @@ public class Ent_twebRtm {
     @Expose
     private List<Ent_twebRtm> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
 
     public String getNama() {
         return nama;

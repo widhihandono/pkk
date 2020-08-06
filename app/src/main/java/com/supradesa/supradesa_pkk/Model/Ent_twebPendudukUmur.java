@@ -35,6 +35,19 @@ public class Ent_twebPendudukUmur {
     @Expose
     private List<Ent_twebPendudukUmur> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public boolean isResponse() {
         return response;
     }

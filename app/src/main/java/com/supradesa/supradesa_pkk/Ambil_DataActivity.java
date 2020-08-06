@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -131,6 +133,10 @@ public class Ambil_DataActivity extends AppCompatActivity {
         apiInterface = Api_Client.getClient().create(Api_Interface.class);
         get_data_from_server = new Get_Data_From_Server(Ambil_DataActivity.this);
 
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Getting Data From Server. Please wait . . .");
+        dialog.setIndeterminate(false);
+        dialog.setCancelable(false);
 
         if(!sharedPref.getSPSudahLogin())
         {
@@ -150,47 +156,32 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvSyncAll = findViewById(R.id.tvSyncAll);
         lnConfigCode = findViewById(R.id.lnConfigCode);
 
-
         lnConfigCode.setOnClickListener(l->{
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getConfig_Code();
 
-            get_data_from_server.getConfig_Code();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
         });
 
         lnPenduduk.setOnClickListener(l->{
-//            penduduk();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getPenduduk();
 
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
 
-//            JSONObject jsonObject = new JSONObject();
-//            try {
-//                jsonObject.put("kd_desa","1243");
-//                jsonObject.put("dusun","jasdff");
-            get_data_from_server.getPenduduk();
-
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
 //
 //                Log.v("Data",jsonObject.toString());
 //            } catch (JSONException e) {
@@ -205,142 +196,114 @@ public class Ambil_DataActivity extends AppCompatActivity {
         });
 
         lnRtm.setOnClickListener(l->{
-            get_data_from_server.getRtm();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getRtm();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
+
         });
 
         lnKeluarga.setOnClickListener(l->{
-            get_data_from_server.getKeluarga();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getKeluarga();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
         });
 
 
         lnPkkCatatanKeluarga.setOnClickListener(l->{
-            get_data_from_server.getPkkCatatanKeluarga();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getPkkCatatanKeluarga();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
+
         });
 
         lnPkkCatatanKeluargaDetail.setOnClickListener(l->{
-            get_data_from_server.getPkkCatatanKeluargaDetail();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getPkkCatatanKeluargaDetail();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
+
         });
 
         lnPkkDataKeluarga.setOnClickListener(l->{
-            get_data_from_server.getPkkDataKeluarga();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getPkkDataKeluarga();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
+
         });
 
         lnPkkKelompokDasawisma.setOnClickListener(l->{
-            get_data_from_server.getPkkKelompokDasaWisma();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getPkkKelompokDasaWisma();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
+
         });
 
         lnPkkDasawisma.setOnClickListener(l->{
-            get_data_from_server.getPkkDasaWisma();
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getPkkDasaWisma();
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
+
         });
 
         tvSyncAll.setOnClickListener(l->{
+            if(isNetworkAvailable())
+            {
+                get_data_from_server.getAll();
 
-            get_data_from_server.getAll();
-
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
-
+                hapus_static_list();
+            }
+            else
+            {
+                showDialogOnNetwork();
+            }
 
         });
 
@@ -361,16 +324,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             crudMasterTweb.delete_all_penduduk_pendidikan_kk();
             crudMasterTweb.delete_all_penduduk_umur();
 
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
+            hapus_static_list();
 
             Toast.makeText(this,"Sukses Logout",Toast.LENGTH_LONG).show();
             sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,false);
@@ -388,8 +342,60 @@ public class Ambil_DataActivity extends AppCompatActivity {
 
     }
 
+    private void hapus_static_list()
+    {
+        list_temporary.listAllAnggota_sementara.clear();
+        list_temporary.listAllAnggota_edit_sementara.clear();
+        list_temporary.no_rtm = "";
+        list_temporary.listAnggotaRtm.clear();
+        list_temporary.listAnggotaRtm_Edit_tampung.clear();
+        list_temporary.listAnggotaRtm_Edit.clear();
+        list_temporary.list_AmbilAnggotaRtm_Edit.clear();
+        list_temporary.list_no_kk.clear();
+        list_temporary.listAllAnggota.clear();
+        list_temporary.dasawismaPosition = -1;
+        list_temporary.kepalaRtm = -1;
+        list_temporary.id_dasawisma = "";
+        list_temporary.id_penduduk = "";
+        list_temporary.id_kk = "";
+        list_temporary.nik = "";
+        list_temporary.listPenduduk_Detail.clear();
+        list_temporary.listSub.clear();
+    }
+
+    //=========Check Internet Connection==========================
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void showDialogOnNetwork(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setMessage("Mohon hidupkan koneksi internet anda. Jika ingin Ambil Settingan")
+                .setIcon(R.drawable.buta)
+                .setCancelable(false)
+                .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
 
 
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+        Button btn = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        btn.setTextColor(Color.RED);
+    }
+    //===============================================
 
     @Override
     public void onBackPressed() {

@@ -23,6 +23,19 @@ public class Ent_twebPendudukHubungan {
     @Expose
     private List<Ent_twebPendudukHubungan> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public boolean isResponse() {
         return response;
     }

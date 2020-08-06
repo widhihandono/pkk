@@ -22,8 +22,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.supradesa.supradesa_pkk.Data_Belum_Upload_Activity;
 import com.supradesa.supradesa_pkk.Edit.Edit_Rtm_Activity;
 import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
@@ -120,11 +122,14 @@ private List<Ent_twebRtm> filterList;
                     crud.getData_tweb_rtm().get(position).getKelas_sosial(),crud.getData_tweb_rtm().get(position).getId(),
                     "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_rtm");
 
+
             try {
                 upload.execute().get().getInt("response");
 //                Toast.makeText(context,upload.get().getString("no_rtm"),Toast.LENGTH_LONG).show();
                 if(upload.getResponse() == 1)
                 {
+                    crud.updateData_rtm(crud.getData_tweb_rtm().get(position).getNo_kk(),"yes");
+
                     for(int a=0;a<crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).size(); a++)
                     {
 //                        Toast.makeText(context,crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),Toast.LENGTH_LONG).show();
@@ -189,7 +194,10 @@ private List<Ent_twebRtm> filterList;
                         upload_ckd.execute();
                     }
 
-                    get_data_from_server.getAll();
+
+//                    get_data_from_server.getAll();
+                    notifyItemChanged(position);
+                    notifyItemChanged(position,listRtm.size());
                     notifyDataSetChanged();
                 }
             } catch (ExecutionException e) {
@@ -200,8 +208,16 @@ private List<Ent_twebRtm> filterList;
                 e.printStackTrace();
             }
 
+            context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+            ((Activity) context).finish();
 
         });
+
+        if(listRtm.get(position).getUpload().equals("yes"))
+        {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorLightGray));
+        }
+
     }
 
 
@@ -363,8 +379,7 @@ private List<Ent_twebRtm> filterList;
 //                dialog.dismiss();
                 setResponse(success);
                 setNo_rtm_fix(no_rtm);
-                Toast.makeText(context,"Sukses Kirim Data",Toast.LENGTH_LONG).show();
-                crud.updateData_rtm(no_kk,"1");
+
 
             }
             else if (success == 2) {
@@ -550,8 +565,8 @@ private List<Ent_twebRtm> filterList;
             }
             if (success == 1) {
 //                dialog.dismiss();
-                Toast.makeText(context,"Sukses Kirim Data Penduduk",Toast.LENGTH_LONG).show();
-                crud.updateData_tweb_penduduk_upload(nik,"1");
+//                Toast.makeText(context,"Sukses Kirim Data Penduduk",Toast.LENGTH_LONG).show();
+                crud.updateData_tweb_penduduk_upload(nik,"yes");
 
             }
             else if (success == 2) {
@@ -698,8 +713,8 @@ private List<Ent_twebRtm> filterList;
             }
             if (success == 1) {
 //                dialog.dismiss();
-                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-                crudPkk.update_pkk_kelompok_dasawisma("upload","1",no_kk);
+//                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                crudPkk.update_pkk_kelompok_dasawisma("upload","yes",no_kk);
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);
@@ -888,8 +903,8 @@ private List<Ent_twebRtm> filterList;
             }
             if (success == 1) {
 //                dialog.dismiss();
-                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-                crudPkk.update_pkk_data_keluarga("upload","1",no_kk);
+//                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                crudPkk.update_pkk_data_keluarga("upload","yes",no_kk);
 
             }
             else if (success == 2) {
@@ -1077,8 +1092,8 @@ private List<Ent_twebRtm> filterList;
             }
             if (success == 1) {
                 dialog.dismiss();
-                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-                crudPkk.update_pkk_catatan_keluarga_detail("upload","1",id_detail_cat);
+//                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                crudPkk.update_pkk_catatan_keluarga_detail("upload","yes",id_detail_cat);
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);

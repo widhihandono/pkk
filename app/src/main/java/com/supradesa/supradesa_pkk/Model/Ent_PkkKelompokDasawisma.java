@@ -27,6 +27,19 @@ public class Ent_PkkKelompokDasawisma {
     @Expose
     private List<Ent_PkkKelompokDasawisma> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public int getResponse() {
         return response;
     }

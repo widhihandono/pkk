@@ -31,6 +31,19 @@ public class Ent_PkkDasaWisma {
     @Expose
     private List<Ent_PkkDasaWisma> data;
 
+    @SerializedName("upload")
+    @Expose
+    private String upload;
+
+    public String getUpload() {
+        return upload;
+    }
+
+    public void setUpload(String upload) {
+        this.upload = upload;
+    }
+
+
     public boolean isResponse() {
         return response;
     }
