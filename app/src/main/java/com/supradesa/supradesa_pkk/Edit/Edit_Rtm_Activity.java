@@ -111,9 +111,10 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
 
         tvNext.setOnClickListener(l->{
             list_temporary.listAnggotaRtm_Edit.clear();
+//            Toast.makeText(Edit_Rtm_Activity.this,""+list_temporary.listAnggotaRtm_Edit_tampung.size(),Toast.LENGTH_LONG).show();
             list_temporary.listAnggotaRtm_Edit.addAll(list_temporary.listAnggotaRtm_Edit_tampung);
             list_temporary.listAnggotaRtm_Edit_tampung.clear();
-//            Toast.makeText(this,"size "+list_temporary.getListAnggotaRtm_Edit().size(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"size "+list_temporary.getListAnggotaRtm_Edit().size(),Toast.LENGTH_LONG).show();
             startActivity(new Intent(Edit_Rtm_Activity.this, Edit_Kepala_Rtm_Activity.class));
         });
 

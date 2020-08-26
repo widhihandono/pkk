@@ -19,11 +19,17 @@ public class List_Temporary {
     public static final List<Ent_twebPenduduk> listAllAnggota_sementara = new ArrayList<>();
     public static final List<Ent_twebPenduduk> listAllAnggota_edit_sementara = new ArrayList<>();
     public static final List<String> list_no_kk = new ArrayList<>();
+    public static final List<String> list_no_kk_edit = new ArrayList<>();
     public static final List<Sub_Catatan_keluarga> listSub = new ArrayList<>();
 
 
     public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",no_rtm="";
     public static int dasawismaPosition = -1,kepalaRtm = -1;
+
+
+    public static List<String> getList_no_kk_edit() {
+        return list_no_kk_edit;
+    }
 
     public static List<String> getList_no_kk() {
         return list_no_kk;

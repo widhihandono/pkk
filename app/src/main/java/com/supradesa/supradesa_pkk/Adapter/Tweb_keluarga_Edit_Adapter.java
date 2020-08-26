@@ -10,6 +10,7 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.supradesa.supradesa_pkk.Edit.Edit_Cari_No_Rtm_Activity;
@@ -52,6 +53,7 @@ private List<Ent_twebKeluarga> filterList;
         holder.tvRtRw.setText("RT "+list_twebKeluarga.get(position).getRt()+"/RW "+list_twebKeluarga.get(position).getRw());
         holder.itemView.setOnClickListener(l->{
             list_temporary.list_AmbilAnggotaRtm_Edit.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
+            list_temporary.list_no_kk_edit.add(list_twebKeluarga.get(position).getNo_kk());
             Intent intent = new Intent(context, Edit_Rtm_Activity.class);
             intent.putExtra("id_kk",list_twebKeluarga.get(position).getId());
             intent.putExtra("no_kk",list_twebKeluarga.get(position).getNo_kk());
@@ -59,6 +61,16 @@ private List<Ent_twebKeluarga> filterList;
             l.getContext().startActivity(intent);
 
         });
+
+//        for(int i=0;i<list_temporary.list_no_kk_edit.size();i++)
+//        {
+//            if(list_temporary.list_no_kk_edit.get(i).equals(list_twebKeluarga.get(position).getNo_kk()))
+//            {
+//                holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorLightGray));
+//                holder.itemView.setEnabled(false);
+//            }
+//        }
+
     }
 
     @Override

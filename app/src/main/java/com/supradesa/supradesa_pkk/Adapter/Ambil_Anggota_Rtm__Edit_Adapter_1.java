@@ -70,12 +70,12 @@ Crud crud;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    list_temporary.listAnggotaRtm_Edit.add(list_anggota_rtm.get(position));
+                    list_temporary.listAnggotaRtm_Edit_tampung.add(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm.add(list_anggota_rtm.get(position));
                 }
                 else
                 {
-                    list_temporary.listAnggotaRtm_Edit.remove(list_anggota_rtm.get(position));
+                    list_temporary.listAnggotaRtm_Edit_tampung.remove(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm.remove(list_anggota_rtm.get(position));
                 }
 

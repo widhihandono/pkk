@@ -88,9 +88,10 @@ private List<Ent_twebRtm> filterList;
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.tvNoRtm.setText(listRtm.get(position).getNo_kk());
-        if(!listRtm.get(position).getNama().equals("") || listRtm.get(position).getNama() != null)
+        int size_data_rtm_by_rtm_level_1 = crud.getData_tweb_rtm_join_penduduk_rtm_level(listRtm.get(position).getNo_kk()).size();
+        if(size_data_rtm_by_rtm_level_1 > 0)
         {
-            holder.tvNamaKepalaKeluarga.setText(listRtm.get(position).getNama());
+            holder.tvNamaKepalaKeluarga.setText(crud.getData_tweb_rtm_join_penduduk_rtm_level(listRtm.get(position).getNo_kk()).get(0).getNama());
         }
         else
         {
