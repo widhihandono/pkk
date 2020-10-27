@@ -59,17 +59,19 @@ List_Temporary list_temporary;
         holder.rb_kepala_rtm.setOnClickListener(l->{
             list_temporary.listAnggotaRtm_Edit.get(last_selected).setRtm_level("0");
             list_temporary.kepalaRtm = position;
+            list_temporary.kepalaRtm_edit = list_anggota_rtm.get(position).getId();
             selectedPosition = position;
             list_temporary.id_penduduk = list_anggota_rtm.get(position).getId();
             list_temporary.id_kk = list_anggota_rtm.get(position).getId_kk();
             list_temporary.nik = list_anggota_rtm.get(position).getNik();
 
+            crud.updateData_rtm(list_temporary.getNo_rtm_edit(),"no");
             list_temporary.listAnggotaRtm_Edit.get(position).setRtm_level("1");
 
             notifyDataSetChanged();
         });
 
-        if((list_temporary.kepalaRtm != -1 && list_temporary.kepalaRtm == position) || list_temporary.listAnggotaRtm_Edit.get(position).getRtm_level().equals("1"))
+        if((list_temporary.kepalaRtm != -1 && list_temporary.kepalaRtm == position) || list_temporary.listAnggotaRtm_Edit.get(position).getId().equals(list_temporary.kepalaRtm_edit))
         {
 //            holder.rb_kepala_rtm.setChecked(true);
             last_selected = position;

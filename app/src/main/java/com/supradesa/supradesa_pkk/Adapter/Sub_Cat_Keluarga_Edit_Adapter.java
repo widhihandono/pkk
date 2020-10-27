@@ -1,6 +1,7 @@
 package com.supradesa.supradesa_pkk.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,82 +49,171 @@ String nik;
     @Override
     public void onBindViewHolder(@NonNull Sub_Cat_Keluarga_Edit_Adapter.Holder holder, int position) {
         holder.tvListCatatan.setText(data[position].getNama());
+        if(data[position].getId().equals("10"))
+        {
+            holder.cbListCatatan.setVisibility(View.INVISIBLE);
+            holder.tvListCatatan.setTypeface(null, Typeface.BOLD);
+            holder.tvListCatatan.setTextSize(16);
+        }
+//        Toast.makeText(context,"Size "+crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getBerkebutuhan_khusus()+","+
+//                        crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getPenghayatan_dan_pengamalan_pancasila()+","+
+//                        crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getGotong_royong()+","+
+//                        crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getPendidikan_ketrampilan()+","+
+//                        crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getPengembangan_kehidupan_berkoperasi()+","+
+//                        crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getPangan()+","+
+//                        crudPkk.getData_pkk_catatan_keluarga_detail("3308013009670001").get(0).getSandang(),Toast.LENGTH_LONG).show();
 
-//        Toast.makeText(context,"Size "+crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getBerkebutuhan_khusus()+","+
-//                        crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getPenghayatan_dan_pengamalan_pancasila()+","+
-//                        crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getGotong_royong()+","+
-//                        crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getPendidikan_ketrampilan()+","+
-//                        crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getPengembangan_kehidupan_berkoperasi()+","+
-//                        crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getPangan()+","+
-//                        crudPkk.getData_pkk_catatan_keluarga_detail("1801214609890001").get(0).getSandang(),Toast.LENGTH_LONG).show();
-        if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getBerkebutuhan_khusus().equals("1") && data[position].getNama().equals("Berkebutuhan Khusus"))
+        if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getBerkebutuhan_khusus() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPenghayatan_dan_pengamalan_pancasila() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getGotong_royong() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPendidikan_ketrampilan() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPengembangan_kehidupan_berkoperasi() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPangan() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getGotong_royong() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getSandang() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getKesehatan() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPerencanaan_sehat() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getUsia_subur() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getIbu_hamil() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getMenyusui() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getNifas() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_baca() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_tulis() != null
+                && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_hitung() != null && crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getStunting() != null)
         {
-            holder.cbListCatatan.setChecked(true);
+            if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getBerkebutuhan_khusus().equals("1") && data[position].getNama().equals("Berkebutuhan Khusus"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPenghayatan_dan_pengamalan_pancasila().equals("1") && data[position].getNama().equals("Pengahayatan dan Pengamalan Pancasila"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getGotong_royong().equals("1") && data[position].getNama().equals("Gotong Royong"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPendidikan_ketrampilan().equals("1") && data[position].getNama().equals("Pendidikan dan Keterampilan"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPengembangan_kehidupan_berkoperasi().equals("1") && data[position].getNama().equals("Pengembangan Kehidupan Berkoperasi"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPangan().equals("1") && data[position].getNama().equals("Pangan"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getSandang().equals("1") && data[position].getNama().equals("Sandang"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getKesehatan().equals("1") && data[position].getNama().equals("Kesehatan"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPerencanaan_sehat().equals("1") && data[position].getNama().equals("Perencanaan Sehat"))
+            {
+                holder.cbListCatatan.setChecked(true);//
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getUsia_subur().equals("ya") && data[position].getNama().equals("Usia Subur"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getIbu_hamil().equals("ya") && data[position].getNama().equals("Ibu Hamil"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getMenyusui().equals("ya") && data[position].getNama().equals("Menyusui"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getNifas().equals("ya") && data[position].getNama().equals("Nifas"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_baca().equals("ya") && data[position].getNama().equals("Buta Baca"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_tulis().equals("ya") && data[position].getNama().equals("Buta Tulis"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_hitung().equals("ya") && data[position].getNama().equals("Buta Hitung"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
+            else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getStunting().equals("ya") && data[position].getNama().equals("Stunting"))
+            {
+                holder.cbListCatatan.setChecked(true);
+            }
         }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPenghayatan_dan_pengamalan_pancasila().equals("1") && data[position].getNama().equals("Pengahayatan dan Pengamalan Pancasila"))
+        else
         {
-            holder.cbListCatatan.setChecked(true);
+            if(data[position].getNama().equals("Gotong Royong"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.GOTONG_ROYONG,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Pengahayatan dan Pengamalan Pancasila"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGHAYATAN_DAN_PENGAMALAN_PANCASILA,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Berkebutuhan Khusus"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.BERKEBUTUHAN_KHUSUS,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Pendidikan dan Keterampilan"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.PENDIDIKAN_KETRAMPILAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Pengembangan Kehidupan Berkoperasi"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Pangan"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.PANGAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Sandang"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.SANDANG,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Kesehatan"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.KESEHATAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Perencanaan Sehat"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.PERENCANAAN_SEHAT,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Usia Subur"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.USIA_SUBUR,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Ibu Hamil"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.IBU_HAMIL,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Menyusui"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.MENYUSUI,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Nifas"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.NIFAS,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Buta Baca"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_BACA,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Buta Tulis"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_TULIS,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Buta Hitung"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
+            else if(data[position].getNama().equals("Stunting"))
+            {
+                crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+            }
         }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getGotong_royong().equals("1") && data[position].getNama().equals("Gotong Royong"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPendidikan_ketrampilan().equals("1") && data[position].getNama().equals("Pendidikan dan Keterampilan"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPengembangan_kehidupan_berkoperasi().equals("1") && data[position].getNama().equals("Pengembangan Kehidupan Berkoperasi"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPangan().equals("1") && data[position].getNama().equals("Pangan"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getSandang().equals("1") && data[position].getNama().equals("Sandang"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getKesehatan().equals("1") && data[position].getNama().equals("Kesehatan"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getPerencanaan_sehat().equals("1") && data[position].getNama().equals("Perencanaan Sehat"))
-        {
-            holder.cbListCatatan.setChecked(true);//
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getUsia_subur().equals("ya") && data[position].getNama().equals("Usia Subur"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getIbu_hamil().equals("ya") && data[position].getNama().equals("Ibu Hamil"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getMenyusui().equals("ya") && data[position].getNama().equals("Menyusui"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getNifas().equals("ya") && data[position].getNama().equals("Nifas"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_baca().equals("ya") && data[position].getNama().equals("Buta Baca"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_tulis().equals("ya") && data[position].getNama().equals("Buta Tulis"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getButa_hitung().equals("ya") && data[position].getNama().equals("Buta Hitung"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
-        else if(crudPkk.getData_pkk_catatan_keluarga_detail(nik).get(0).getStunting().equals("ya") && data[position].getNama().equals("Stunting"))
-        {
-            holder.cbListCatatan.setChecked(true);
-        }
+
 
 
 //        if(holder.cbListCatatan.isChecked())
@@ -269,71 +359,78 @@ String nik;
 //                    list_temporary.getListSub().add(data[position]);
                     if(data[position].getNama().equals("Gotong Royong"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.GOTONG_ROYONG,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        if(crudPkk.update_pkk_catatan_keluarga_detail(helper.GOTONG_ROYONG,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik()) > 0)
+                        {
+                            Toast.makeText(context,"Berhasil Update",Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(context,"Gagal Update",Toast.LENGTH_LONG).show();
+                        }
                     }
                     else if(data[position].getNama().equals("Pengahayatan dan Pengamalan Pancasila"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGHAYATAN_DAN_PENGAMALAN_PANCASILA,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGHAYATAN_DAN_PENGAMALAN_PANCASILA,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Berkebutuhan Khusus"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BERKEBUTUHAN_KHUSUS,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BERKEBUTUHAN_KHUSUS,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pendidikan dan Keterampilan"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENDIDIKAN_KETRAMPILAN,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENDIDIKAN_KETRAMPILAN,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pengembangan Kehidupan Berkoperasi"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pangan"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PANGAN,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PANGAN,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Sandang"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.SANDANG,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.SANDANG,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Kesehatan"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.KESEHATAN,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.KESEHATAN,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Perencanaan Sehat"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PERENCANAAN_SEHAT,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PERENCANAAN_SEHAT,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Usia Subur"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.USIA_SUBUR,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.USIA_SUBUR,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Ibu Hamil"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.IBU_HAMIL,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.IBU_HAMIL,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Menyusui"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.MENYUSUI,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.MENYUSUI,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Nifas"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.NIFAS,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.NIFAS,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Buta Baca"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_BACA,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_BACA,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Buta Tulis"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_TULIS,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_TULIS,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Buta Hitung"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Stunting"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"ya",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
 
 
@@ -344,71 +441,71 @@ String nik;
 
                     if(data[position].getNama().equals("Gotong Royong"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.GOTONG_ROYONG,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.GOTONG_ROYONG,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pengahayatan dan Pengamalan Pancasila"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGHAYATAN_DAN_PENGAMALAN_PANCASILA,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGHAYATAN_DAN_PENGAMALAN_PANCASILA,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Berkebutuhan Khusus"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BERKEBUTUHAN_KHUSUS,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BERKEBUTUHAN_KHUSUS,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pendidikan dan Keterampilan"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENDIDIKAN_KETRAMPILAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENDIDIKAN_KETRAMPILAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pengembangan Kehidupan Berkoperasi"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PENGEMBANGAN_KEHIDUPAN_BERKOPERASI,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Pangan"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PANGAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PANGAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Sandang"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.SANDANG,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.SANDANG,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Kesehatan"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.KESEHATAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.KESEHATAN,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Perencanaan Sehat"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PERENCANAAN_SEHAT,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.PERENCANAAN_SEHAT,"0",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Usia Subur"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.USIA_SUBUR,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.USIA_SUBUR,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Ibu Hamil"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.IBU_HAMIL,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.IBU_HAMIL,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Menyusui"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.MENYUSUI,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.MENYUSUI,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Nifas"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.NIFAS,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.NIFAS,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Buta Baca"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_BACA,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_BACA,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Buta Tulis"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_TULIS,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_TULIS,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Buta Hitung"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.BUTA_HITUNG,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
                     else if(data[position].getNama().equals("Stunting"))
                     {
-                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId());
+                        crudPkk.update_pkk_catatan_keluarga_detail(helper.STUNTING,"tidak",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik());
                     }
 //                    list_temporary.getListSub().remove(data[position]);
 //                    Toast.makeText(context,data[position].getNama(),Toast.LENGTH_LONG).show();

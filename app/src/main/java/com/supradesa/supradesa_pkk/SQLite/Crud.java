@@ -401,8 +401,7 @@ public class Crud {
         contentValues.put(Helper.KELAS_SOSIAL,rtm.getKelas_sosial());
         contentValues.put(Helper.UPLOAD,"no");
 
-        long insert = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
-        if(insert < 0)
+        if(cek_data_rtm_by_id(rtm.getNo_kk()).size() > 0)
         {
             long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,Helper.NO_KK + " = ? OR " + Helper.ID_RTM + " = ?",
                     new String[]{rtm.getNo_kk(), rtm.getId()});
@@ -410,8 +409,20 @@ public class Crud {
         }
         else
         {
-            return insert;
+            long insert = dbb.insert(Helper.TABLE_TWEB_RTM,null,contentValues);
+//        Toast.makeText(context,"INSERT : "+String.valueOf(insert),Toast.LENGTH_LONG).show();
+            if(insert < 0)
+            {
+                long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,Helper.NO_KK + " = ? OR " + Helper.ID_RTM + " = ?",
+                        new String[]{rtm.getNo_kk(), rtm.getId()});
+                return update;
+            }
+            else
+            {
+                return insert;
+            }
         }
+
 
 //        if(cek_data_rtm_by_id(rtm.getNo_kk()).size() > 0)
 //        {
@@ -463,13 +474,37 @@ public class Crud {
         return list_rtm;
     }
 
-
-    public List<Ent_twebRtm> getData_tweb_rtm_join_penduduk()
+    //Sudah Upload
+    public List<Ent_twebRtm> getData_tweb_rtm_join_penduduk_sudah_upload()
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] coloumn = {Helper.ID_RTM,Helper.NIK_KEPALA,Helper.NO_KK,Helper.TGL_DAFTAR,Helper.KELAS_SOSIAL};
-        Cursor cursor = db.rawQuery("SELECT tweb_rtm.*,tweb_penduduk.nama FROM tweb_penduduk JOIN tweb_rtm ON tweb_penduduk.id = tweb_rtm.nik_kepala",null);
+        Cursor cursor = db.rawQuery("SELECT tweb_rtm.*,tweb_penduduk.nama FROM tweb_penduduk JOIN tweb_rtm ON tweb_penduduk.id = tweb_rtm.nik_kepala WHERE tweb_rtm.upload = 'yes'",null);
+        List<Ent_twebRtm> listPenduduk = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            Ent_twebRtm rtm = new Ent_twebRtm();
+            rtm.setId(cursor.getString(cursor.getColumnIndex(Helper.ID_RTM)));
+            rtm.setNik_kepala(cursor.getString(cursor.getColumnIndex(Helper.NIK_KEPALA)));
+            rtm.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
+            rtm.setTgl_daftar(cursor.getString(cursor.getColumnIndex(Helper.TGL_DAFTAR)));
+            rtm.setKelas_sosial(cursor.getString(cursor.getColumnIndex(Helper.KELAS_SOSIAL)));
+            rtm.setNama(cursor.getString(cursor.getColumnIndex(Helper.NAMA)));
+            rtm.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+
+            listPenduduk.add(rtm);
+
+        }
+        return listPenduduk;
+    }
+
+    //Belum Upload
+    public List<Ent_twebRtm> getData_tweb_rtm_join_penduduk_belum_upload()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] coloumn = {Helper.ID_RTM,Helper.NIK_KEPALA,Helper.NO_KK,Helper.TGL_DAFTAR,Helper.KELAS_SOSIAL};
+        Cursor cursor = db.rawQuery("SELECT tweb_rtm.*,tweb_penduduk.nama FROM tweb_penduduk JOIN tweb_rtm ON tweb_penduduk.id = tweb_rtm.nik_kepala WHERE tweb_rtm.upload = 'no'",null);
         List<Ent_twebRtm> listPenduduk = new ArrayList<>();
         while (cursor.moveToNext())
         {

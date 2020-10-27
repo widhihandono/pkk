@@ -74,7 +74,7 @@ boolean status;
                 if(list_temporary.list_no_kk.get(a).equals(list_twebKeluarga.get(position).getId()))
                 {
                     holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.colorLightGray));
-                    holder.itemView.setEnabled(false);
+//                    holder.itemView.setEnabled(false);
                 }
             }
         }

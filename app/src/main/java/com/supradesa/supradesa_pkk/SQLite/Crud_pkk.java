@@ -101,15 +101,28 @@ public class Crud_pkk {
         contentValues.put(Helper.STUNTING,ckd.getStunting());
         contentValues.put(Helper.UPLOAD,"no");
 
-        long id_insert_pkk_catatan_keluarga_detail = dbb.insertWithOnConflict(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,null,contentValues,SQLiteDatabase.CONFLICT_REPLACE);
-        if(id_insert_pkk_catatan_keluarga_detail > 0)
+        if(getData_pkk_catatan_keluarga_detail_by_param(Helper.NIK,ckd.getNik()).size() > 0)
         {
-            return id_insert_pkk_catatan_keluarga_detail;
+            SQLiteDatabase db_b = helper.getWritableDatabase();
+            ContentValues contentValues_1 = new ContentValues();
+            contentValues_1.put(Helper.ID_KELOMPOK_UMUR,ckd.getId_kelompok_umur());
+
+            long update_pkk_catatan_keluarga_detail = db_b.update(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,contentValues_1,helper.ID_DETAIL_CAT+"=?",new String[]{ckd.getId_detail_cat()});
+            return update_pkk_catatan_keluarga_detail;
         }
         else
         {
-            long update_pkk_catatan_keluarga_detail = dbb.update(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,contentValues,helper.ID_DETAIL_CAT+"="+ckd.getId_detail_cat(),null);
-            return update_pkk_catatan_keluarga_detail;
+            long id_insert_pkk_catatan_keluarga_detail = dbb.insertWithOnConflict(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,null,contentValues,SQLiteDatabase.CONFLICT_REPLACE);
+            if(id_insert_pkk_catatan_keluarga_detail > 0)
+            {
+                return id_insert_pkk_catatan_keluarga_detail;
+            }
+            else
+            {
+                long update_pkk_catatan_keluarga_detail = dbb.update(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,contentValues,helper.ID_DETAIL_CAT+"="+ckd.getId_detail_cat(),null);
+                return update_pkk_catatan_keluarga_detail;
+            }
+
         }
 
     }
@@ -120,15 +133,26 @@ public class Crud_pkk {
         ContentValues contentValues = new ContentValues();
         contentValues.put(key,value);
 
-        long update_pkk_catatan_keluarga_detail = dbb.update(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,contentValues,helper.ID_DETAIL_CAT+"="+id_detail_cat,null);
+        long update_pkk_catatan_keluarga_detail = dbb.update(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,contentValues,helper.ID_DETAIL_CAT+"=?",new String[]{id_detail_cat});
         return update_pkk_catatan_keluarga_detail;
     }
+
+    public long update_pkk_catatan_keluarga_detail(String key,String value,String id_detail_cat,String nik)
+    {
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(key,value);
+
+        long update_pkk_catatan_keluarga_detail = dbb.update(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,contentValues,helper.NIK+"=?",new String[]{nik});
+        return update_pkk_catatan_keluarga_detail;
+    }
+
 
     public List<Ent_PkkCatatanKeluargaDetail> getData_pkk_catatan_keluarga_detail_by_id_kelompok_umur(String id)
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT id_detail_cat,id_penduduk FROM "+Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL+" WHERE id_kelompok_umur = '"+id+"'",null);
+        Cursor cursor = db.rawQuery("SELECT id_detail_cat,nik,upload FROM "+Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL+" WHERE id_kelompok_umur = '"+id+"'",null);
         List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -147,7 +171,7 @@ public class Crud_pkk {
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT id_detail_cat,id_penduduk FROM "+Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL+" WHERE "+param+" = '"+value+"'",null);
+        Cursor cursor = db.rawQuery("SELECT id_detail_cat,nik,upload FROM "+Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL+" WHERE "+param+" = '"+value+"'",null);
         List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -265,7 +289,7 @@ public class Crud_pkk {
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail nik = '"+nik+"'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM pkk_catatan_keluarga_detail where nik = '"+nik+"'",null);
         List<Ent_PkkCatatanKeluargaDetail> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -683,7 +707,6 @@ public class Crud_pkk {
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] coloumn = {Helper.ID_KELOMPOK_DASAWISMA,Helper.NO_KK,Helper.ID_DASAWISMA};
         Cursor cursor = db.rawQuery("SELECT * FROM pkk_kelompok_dasawisma WHERE no_kk = '"+no_rtm+"'",null);
         List<Ent_PkkKelompokDasawisma> listPresence = new ArrayList<>();
         while (cursor.moveToNext())

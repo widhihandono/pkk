@@ -1,6 +1,8 @@
 package com.supradesa.supradesa_pkk.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.supradesa.supradesa_pkk.Edit.Edit_Rtm_Activity;
 import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
@@ -43,43 +47,38 @@ Crud crud;
 
     @Override
     public void onBindViewHolder(@NonNull Ambil_Anggota_Rtm__Edit_Adapter_1.Holder holder, int position) {
+
+
         holder.tvNik.setText(list_anggota_rtm.get(position).getTanggallahir());
         holder.tvNama.setText(list_anggota_rtm.get(position).getNama());
-
-
-//        for (int a=0;a<list_temporary.listAnggotaRtm_Edit.size();a++)
-//        {
-//            if(list_temporary.listAnggotaRtm_Edit.get(a).getNik() == list_anggota_rtm.get(position).getNik())
-//            {
-//                list_temporary.listAnggotaRtm.remove(a);
-//            }
-//        }
-
-//        for (int a=0;a<list_temporary.listAnggotaRtm_Edit.size();a++)
-//        {
-//            if(list_temporary.listAnggotaRtm_Edit.get(a).getNik() == list_anggota_rtm.get(position).getNik())
-//            {
-////                list_temporary.list_AmbilAnggotaRtm_Edit.clear();
-////                holder.cb_list_pilih_kk.setChecked(true);
-//                Toast.makeText(context,"Sama",Toast.LENGTH_LONG).show();
-//            }
-//        }
-
         holder.cb_list_pilih_kk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
                     list_temporary.listAnggotaRtm_Edit_tampung.add(list_anggota_rtm.get(position));
+                    list_temporary.listAnggotaRtm_Edit_sementara.add(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm.add(list_anggota_rtm.get(position));
                 }
                 else
                 {
                     list_temporary.listAnggotaRtm_Edit_tampung.remove(list_anggota_rtm.get(position));
+                    list_temporary.listAnggotaRtm_Edit_sementara.remove(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm.remove(list_anggota_rtm.get(position));
                 }
 
             }
+        });
+
+        holder.tvRemove.setOnClickListener(l->{
+            list_temporary.listAnggotaRtm_Edit_tampung.remove(list_anggota_rtm.get(position));
+            list_temporary.listAnggotaRtm_Edit_sementara.remove(list_anggota_rtm.get(position));
+            list_temporary.list_AmbilAnggotaRtm_Edit.remove(position);
+            Intent intent = new Intent(context, Edit_Rtm_Activity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+            Animatoo.animateFade(context);
+            ((Activity)context).finish();
         });
 
 
@@ -91,11 +90,11 @@ Crud crud;
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        private TextView tvNik,tvNama;
+        private TextView tvNik,tvNama,tvRemove;
         private CheckBox cb_list_pilih_kk;
         public Holder(@NonNull View itemView) {
             super(itemView);
-
+            tvRemove = itemView.findViewById(R.id.tvRemove);
             tvNik = itemView.findViewById(R.id.tvNik);
             tvNama = itemView.findViewById(R.id.tvNama);
             cb_list_pilih_kk = itemView.findViewById(R.id.cb_list_pilih_kk);

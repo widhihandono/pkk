@@ -58,7 +58,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvEditKepalaRtm.setLayoutManager(layoutManager);
 
-        Toast.makeText(this,"size "+list_temporary.getListAnggotaRtm_Edit().size(),Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,"size "+list_temporary.getListAnggotaRtm_Edit().size(),Toast.LENGTH_LONG).show();
 
         editKepalaRtmAdapter = new Edit_Kepala_Rtm_Adapter(this,list_temporary.getListAnggotaRtm_Edit());
         rvEditKepalaRtm.setAdapter(editKepalaRtmAdapter);
@@ -87,7 +87,6 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         stepView.go(1,false);
 
         tvBack.setOnClickListener(l->{
-//            list_temporary.listAnggotaRtm_Edit.clear();
 //            crud.delete_rtm_by_id(list_temporary.id_penduduk);
 //            crud.updateData_tweb_penduduk_id_rtm("0",list_temporary.nik,list_temporary.id_penduduk);
             startActivity(new Intent(Edit_Kepala_Rtm_Activity.this,Edit_Rtm_Activity.class));
@@ -99,9 +98,9 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
         tvNext.setOnClickListener(l->{
 
                 Ent_twebRtm rtm = new Ent_twebRtm();
-                rtm.setId(list_temporary.id_penduduk);
+                rtm.setId(list_temporary.id_rtm);
                 rtm.setNik_kepala(list_temporary.id_penduduk);
-                rtm.setNo_kk("08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk)); //no_kk atau no_rtm
+                rtm.setNo_kk(list_temporary.getNo_rtm()); //no_kk atau no_rtm
                 rtm.setTgl_daftar(tanggal());
                 rtm.setKelas_sosial("0");
 
@@ -110,7 +109,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                     Toast.makeText(this,"Sukses Simpan Data",Toast.LENGTH_LONG).show();
                     for (int i=0;i<list_temporary.listAnggotaRtm_Edit.size();i++)
                     {
-                        if (crud.updateData_tweb_penduduk_id_rtm("08" + crud.getData_tweb_rtm_id_kk(list_temporary.listAnggotaRtm_Edit.get(i).getId_kk()),
+                        if (crud.updateData_tweb_penduduk_id_rtm(list_temporary.getNo_rtm(),
                                 list_temporary.listAnggotaRtm_Edit.get(i).getNik(),list_temporary.listAnggotaRtm_Edit.get(i).getId()) > 0)
                         {
                             Ent_PkkCatatanKeluargaDetail ep = new Ent_PkkCatatanKeluargaDetail();
@@ -163,16 +162,23 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                                 ep.setId_kelompok_umur("27");
                             }
 
-                            if (crudPkk.update_pkk_catatan_keluarga_detail(Helper.ID_KELOMPOK_UMUR,ep.getId_kelompok_umur(),ep.getId_detail_cat()) > 0) {
+                            if (crudPkk.InsertData_pkk_catatan_keluarga_detail(ep) > 0) {
                                 Log.i("simpan", "sukses");
                             } else {
 //                                Toast.makeText(this, "Gagal Simpan Data Pkk Catatan Keluarga Detail", Toast.LENGTH_LONG).show();
                             }
 
+//                            if (crudPkk.update_pkk_catatan_keluarga_detail(Helper.ID_KELOMPOK_UMUR,ep.getId_kelompok_umur(),ep.getId_detail_cat()) > 0) {
+//                                Log.i("simpan", "sukses");
+//                            } else {
+////                                Toast.makeText(this, "Gagal Simpan Data Pkk Catatan Keluarga Detail", Toast.LENGTH_LONG).show();
+//
+//                            }
+
 
                             Toast.makeText(this, "Sukses Simpan Data dan update data", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(this, Edit_Kelompok_Dasawisma_Activity.class);
-                            intent.putExtra("no_rtm","08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk));
+                            intent.putExtra("no_rtm",list_temporary.getNo_rtm());
                             startActivity(intent);
                         } else {
                             Toast.makeText(this, "Gagal Simpan Data dan update data", Toast.LENGTH_LONG).show();
@@ -182,7 +188,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this,crud.cek_data_rtm_by_id("08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk)).get(0).getId(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,crud.cek_data_rtm_by_id(list_temporary.getNo_rtm()).get(0).getId(),Toast.LENGTH_LONG).show();
                 }
 
 
@@ -222,7 +228,6 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        list_temporary.listAnggotaRtm_Edit.clear();
         startActivity(new Intent(Edit_Kepala_Rtm_Activity.this,Edit_Rtm_Activity.class));
         Animatoo.animateFade(this);
         finish();

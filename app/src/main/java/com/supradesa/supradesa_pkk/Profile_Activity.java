@@ -1,10 +1,10 @@
 package com.supradesa.supradesa_pkk;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +31,7 @@ import com.supradesa.supradesa_pkk.Edit.Edit_Cari_No_Rtm_Activity;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_master_tweb;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
+import com.supradesa.supradesa_pkk.Util.BottomSheet;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 import com.supradesa.supradesa_pkk.Util.MyHttpEntity;
 import com.supradesa.supradesa_pkk.Util.MySSLSocketFactory;
@@ -86,7 +87,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Profile_Activity extends AppCompatActivity {
-    private TextView tvHome,tvProfile,tvNik,tvNama,tvJenisKelamin,tvAlamat;
+    private TextView tvHome,tvProfile,tvNik,tvNama,tvAlamat,tvUbah;
     SharedPref sharedPref;
     Crud crudSqlite;
     Crud_master_tweb crudMasterTweb;
@@ -123,7 +124,7 @@ public class Profile_Activity extends AppCompatActivity {
         tvNik = findViewById(R.id.tvNik);
         tvNama = findViewById(R.id.tvNama);
         tvAlamat = findViewById(R.id.tvAlamat);
-        tvJenisKelamin = findViewById(R.id.tvJenisKelamin);
+        tvUbah = findViewById(R.id.tvUbah);
         lnLogOut_profile = findViewById(R.id.lnLogOut_profile);
         myFab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -230,32 +231,71 @@ public class Profile_Activity extends AppCompatActivity {
 //            crudMasterTweb.delete_all_penduduk_pekerjaan();
 //            crudMasterTweb.delete_all_penduduk_pendidikan_kk();
 //            crudMasterTweb.delete_all_penduduk_umur();
-
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-
-            Toast.makeText(this,"Sukses Logout",Toast.LENGTH_LONG).show();
-            sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,false);
-            sharedPref.saveSPString("nik","");
-            sharedPref.saveSPString("kode_desa","");
-            sharedPref.saveSPString("dusun","");
-            sharedPref.saveSPString("nama_desa","");
-            sharedPref.saveSPString("nama_kecamatan","");
-            sharedPref.saveSPString("no_hp","");
-            sharedPref.saveSPString("email","");
-
-            startActivity(new Intent(this,Login_Activity.class));
-            finish();
+            showDialogLogout();
         });
 
+        tvUbah.setOnClickListener(l->{
+            BottomSheet bottomSheet = new BottomSheet();
+            bottomSheet.show(getSupportFragmentManager(),bottomSheet.getTag());
+        });
+
+    }
+
+    private void showDialogLogout(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title dialog
+        alertDialogBuilder.setTitle("Yakin ingin Logout ?");
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setMessage("Tekan Ya untuk Logout")
+                .setCancelable(false)
+                .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int id) {
+                        list_temporary.listAnggotaRtm.clear();
+                        list_temporary.listAllAnggota.clear();
+                        list_temporary.listPenduduk_Detail.clear();
+                        list_temporary.listSub.clear();
+                        list_temporary.dasawismaPosition = -1;
+                        list_temporary.kepalaRtm = -1;
+                        list_temporary.id_dasawisma = "";
+                        list_temporary.id_penduduk = "";
+                        list_temporary.id_kk = "";
+                        list_temporary.nik = "";
+
+                        Toast.makeText(Profile_Activity.this,"Sukses Logout",Toast.LENGTH_LONG).show();
+                        sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,false);
+                        sharedPref.saveSPString("nik","");
+                        sharedPref.saveSPString("kode_desa","");
+                        sharedPref.saveSPString("dusun","");
+                        sharedPref.saveSPString("nama_desa","");
+                        sharedPref.saveSPString("nama_kecamatan","");
+                        sharedPref.saveSPString("no_hp","");
+                        sharedPref.saveSPString("email","");
+
+                        startActivity(new Intent(Profile_Activity.this,Login_Activity.class));
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // jika tombol ini diklik, akan menutup dialog
+                        // dan tidak terjadi apa2
+                        dialog.cancel();
+                    }
+                });
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+        Button nbutton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(Color.RED);
+        Button pbutton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.RED);
     }
 
 

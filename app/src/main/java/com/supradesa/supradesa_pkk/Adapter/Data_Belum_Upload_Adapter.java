@@ -102,6 +102,10 @@ private List<Ent_twebRtm> filterList;
 
         holder.itemView.setOnClickListener(l->{
             list_temporary.listAnggotaRtm_Edit.addAll(crud.getData_tweb_penduduk(listRtm.get(position).getNo_kk()));
+            list_temporary.no_rtm = listRtm.get(position).getNo_kk();
+            list_temporary.id_rtm = listRtm.get(position).getId();
+            list_temporary.no_rtm_edit = listRtm.get(position).getNo_kk();
+            list_temporary.kepalaRtm_edit = listRtm.get(position).getNik_kepala();
             Intent intent = new Intent(context, Edit_Rtm_Activity.class);
             intent.putExtra("no_kk",listRtm.get(position).getNo_kk());
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -216,7 +220,8 @@ private List<Ent_twebRtm> filterList;
 
         if(listRtm.get(position).getUpload().equals("yes"))
         {
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorLightGray));
+            holder.imgUpload.setVisibility(View.INVISIBLE);
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.young_blue));
         }
 
     }

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.shuhart.stepview.StepView;
 import com.supradesa.supradesa_pkk.Adapter.Ambil_Anggota_Rtm_Adapter;
 import com.supradesa.supradesa_pkk.Adapter.Ambil_Anggota_Rtm__Edit_Adapter;
@@ -86,8 +87,21 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
         anggota_rtm_edit_adapter = new Ambil_Anggota_Rtm__Edit_Adapter(this,list_temporary.listAnggotaRtm_Edit);
         rvPemilihanAnggota.setAdapter(anggota_rtm_edit_adapter);
 
+        for(int a=0;a<list_temporary.listAnggotaRtm_Edit.size();a++)
+        {
+            for (int i=0;i<list_temporary.list_AmbilAnggotaRtm_Edit.size();i++)
+            {
+                if(list_temporary.listAnggotaRtm_Edit.get(a).getNik().equals(list_temporary.list_AmbilAnggotaRtm_Edit.get(i).getNik()))
+                {
+                    list_temporary.list_AmbilAnggotaRtm_Edit.remove(i);
+                }
+            }
+        }
+
             anggota_rtm_edit_adapter_1 = new Ambil_Anggota_Rtm__Edit_Adapter_1(this,list_temporary.list_AmbilAnggotaRtm_Edit);
             rvPemilihanAnggota_baru.setAdapter(anggota_rtm_edit_adapter_1);
+
+
 
 
 
@@ -97,7 +111,12 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
         tvTambahKK.setOnClickListener(l->{
             if(list_temporary.list_AmbilAnggotaRtm_Edit.size() > 0)
             {
+                if(list_temporary.listAnggotaRtm_Edit_sementara.size() > 0)
+                {
+                    list_temporary.listAnggotaRtm_Edit.addAll(list_temporary.listAnggotaRtm_Edit_sementara);
+                }
                 list_temporary.list_AmbilAnggotaRtm_Edit.clear();
+
                 startActivity(new Intent(Edit_Rtm_Activity.this, Edit_Cari_No_KK_Activity.class));
                 finish();
             }
@@ -106,16 +125,19 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
                 startActivity(new Intent(Edit_Rtm_Activity.this, Edit_Cari_No_KK_Activity.class));
                 finish();
             }
-
+            list_temporary.listAnggotaRtm_Edit_sementara.clear();
+            list_temporary.listAnggotaRtm_Edit_tampung.clear();
         });
 
         tvNext.setOnClickListener(l->{
             list_temporary.listAnggotaRtm_Edit.clear();
-//            Toast.makeText(Edit_Rtm_Activity.this,""+list_temporary.listAnggotaRtm_Edit_tampung.size(),Toast.LENGTH_LONG).show();
             list_temporary.listAnggotaRtm_Edit.addAll(list_temporary.listAnggotaRtm_Edit_tampung);
             list_temporary.listAnggotaRtm_Edit_tampung.clear();
-            Toast.makeText(this,"size "+list_temporary.getListAnggotaRtm_Edit().size(),Toast.LENGTH_LONG).show();
+            list_temporary.listAnggotaRtm_Edit_sementara.clear();
+////            Toast.makeText(this,"size "+list_temporary.listAnggotaRtm_Edit_tampung.size()+" >>> "+list_temporary.listAnggotaRtm_Edit.size(),Toast.LENGTH_LONG).show();
             startActivity(new Intent(Edit_Rtm_Activity.this, Edit_Kepala_Rtm_Activity.class));
+            Animatoo.animateFade(this);
+            finish();
         });
 
         tvBack.setOnClickListener(l->{
@@ -123,7 +145,10 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
             list_temporary.listAnggotaRtm_Edit.clear();
             list_temporary.list_AmbilAnggotaRtm_Edit.clear();
             list_temporary.listAllAnggota.clear();
+            list_temporary.listAnggotaRtm_Edit_tampung.clear();
+            list_temporary.listAnggotaRtm_Edit_sementara.clear();
             startActivity(new Intent(this, Data_Belum_Upload_Activity.class));
+            Animatoo.animateFade(this);
             finish();
         });
 
@@ -135,6 +160,7 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
         list_temporary.listAnggotaRtm_Edit.clear();
         list_temporary.list_AmbilAnggotaRtm_Edit.clear();
         list_temporary.listAllAnggota.clear();
+        list_temporary.listAnggotaRtm_Edit_tampung.clear();
         startActivity(new Intent(this, Data_Belum_Upload_Activity.class));
         finish();
     }

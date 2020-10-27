@@ -68,7 +68,16 @@ StepView stepView;
                     }
                 }
 
+//                for (int i=0;i<list_temporary.listCekAnggotaRtm.size();i++)
+//                {
+//                    if(list_temporary.listCekAnggotaRtm.get(i).getNik() == list_temporary.listAllAnggota.get(a).getNik())
+//                    {
+//                        list_anggota_rtm.remove(position);
+//                        notifyDataSetChanged();
+//                    }
+//                }
             }
+
 
             list_temporary.listAllAnggota.addAll(list_temporary.listAllAnggota_sementara);
 

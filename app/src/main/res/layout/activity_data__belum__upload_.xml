@@ -6,50 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".Data_Belum_Upload_Activity">
 
-    <RelativeLayout
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/text_rounded"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:id="@+id/rl_1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvBack"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/ic_arrow_back_black"/>
+        android:id="@+id/tablayout"
+        android:background="@color/blue"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:tabIndicatorColor="@color/white"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/young_blue"
+        app:tabTextColor="@color/white" >
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search..."
-            android:background="@null"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="45dp"
-            android:id="@+id/etCari"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_search_black"/>
+    </com.google.android.material.tabs.TabLayout>
 
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rvDataBelumUpload"
-        android:layout_below="@+id/rl_1"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_height="fill_parent"
+        android:id="@+id/pager"
+        android:layout_below="@id/tablayout">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/text_rounded"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        android:layout_marginLeft="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:id="@+id/rl_1">-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/tvBack"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:background="@drawable/ic_arrow_back_black"/>-->
+
+<!--        <EditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Search..."-->
+<!--            android:background="@null"-->
+<!--            android:layout_marginLeft="35dp"-->
+<!--            android:layout_marginRight="45dp"-->
+<!--            android:id="@+id/etCari"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:background="@drawable/ic_search_black"/>-->
+
+<!--    </RelativeLayout>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/rvDataBelumUpload"-->
+<!--        android:layout_below="@+id/rl_1"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        android:layout_marginLeft="8dp"-->
+<!--        android:layout_marginBottom="5dp"-->
+<!--        android:layout_marginTop="5dp"/>-->
 
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.supradesa.supradesa_pkk.Util;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,14 +9,20 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import com.supradesa.supradesa_pkk.Ambil_DataActivity;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
@@ -60,6 +67,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Get_Data_From_Server {
 Context context;
@@ -69,8 +77,10 @@ Context context;
     Crud_pkk crudPkk;
     Api_Interface apiInterface;
     List_Temporary list_temporary;
+    int respon_config = -1,respon_penduduk = -1,respon_rtm = -1,respon_keluarga = -1,respon_cat_keluarga = -1,
+    respon_cat_keluarga_det = -1,respon_pkk_keluarga = -1,respon_kelompok_dasawisma = -1,respon_dasawisma = -1;
 
-    public ProgressDialog dialog;
+    public AlertDialog dialog = null;
 
 
     public Get_Data_From_Server(Context context) {
@@ -82,26 +92,119 @@ Context context;
         list_temporary = new List_Temporary();
         apiInterface = Api_Client.getClient().create(Api_Interface.class);
 
-        dialog = new ProgressDialog(context);
-        dialog.setMessage("Getting Data From Server. Please wait . . .");
-        dialog.setIndeterminate(false);
-        dialog.setCancelable(false);
+//        dialog = new Dialog(context);
+//        dialog.setTitle("Getting Data From Server. Please wait . . .");
+//        dialog.setCancelable(false);
 
+    }
+
+    public void setProgressDialog() {
+
+        int llPadding = 30;
+        LinearLayout ll = new LinearLayout(context);
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        ll.setPadding(llPadding, llPadding, llPadding, llPadding);
+        ll.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams llParam = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        llParam.gravity = Gravity.CENTER;
+        ll.setLayoutParams(llParam);
+
+        ProgressBar progressBar = new ProgressBar(context);
+        progressBar.setIndeterminate(true);
+        progressBar.setPadding(0, 0, llPadding, 0);
+        progressBar.setLayoutParams(llParam);
+
+        llParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        llParam.gravity = Gravity.CENTER;
+        TextView tvText = new TextView(context);
+        tvText.setText("Getting Data From Server. Please wait . . .");
+        tvText.setTextColor(Color.parseColor("#000000"));
+        tvText.setTextSize(18);
+        tvText.setLayoutParams(llParam);
+
+        ll.addView(progressBar);
+        ll.addView(tvText);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setView(ll);
+
+
+        dialog = builder.create();
+        if(dialog.isShowing())
+        {
+            dialog.dismiss();
+        }
+        else
+        {
+            dialog.show();
+        }
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
     }
 
     public void getAll()
     {
-        dialog.show();
+//        setProgressDialog();
         getConfig_Code();
         getPenduduk();
         getRtm();
-//        Toast.makeText(context,""+crudSqlite.getData_tweb_keluarga().size(),Toast.LENGTH_LONG).show();
         getKeluarga();
         getPkkCatatanKeluarga();
-        getPkkCatatanKeluargaDetail();
         getPkkDataKeluarga();
         getPkkKelompokDasaWisma();
         getPkkDasaWisma();
+//
+//        if(respon_config >= 0)
+//        {
+//
+//            getPenduduk();
+//            if(respon_penduduk >= 0)
+//            {
+//                Toast.makeText(context,"Response : "+respon_penduduk,Toast.LENGTH_LONG).show();
+//                getRtm();
+//                if(respon_rtm >= 0)
+//                {
+//                    getKeluarga();
+//                    if(respon_keluarga >= 0)
+//                    {
+//                        getPkkCatatanKeluarga();
+//                        if(respon_cat_keluarga >= 0)
+//                        {
+//                            getPkkCatatanKeluargaDetail();
+//                            if(respon_cat_keluarga_det >= 0)
+//                            {
+//                                getPkkDataKeluarga();
+//                                if(respon_pkk_keluarga >= 0)
+//                                {
+//                                    getPkkKelompokDasaWisma();
+//                                    if(respon_kelompok_dasawisma >= 0)
+//                                    {
+//                                        getPkkDasaWisma();
+//                                        if(respon_dasawisma >= 0)
+//                                        {
+//                                            dialog.dismiss();
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+
+//        dialog.dismiss();
     }
     public void penduduk()
     {
@@ -214,7 +317,6 @@ Context context;
     {
         GetConfigCode productTask = new GetConfigCode();
         productTask.execute();
-
     }
 
 
@@ -224,9 +326,9 @@ Context context;
         {
             if(crudSqlite.delete_all_penduduk())
             {
-
                 GetPenduduk productTask = new GetPenduduk();
                 productTask.execute();
+
             }
             else
             {
@@ -237,7 +339,6 @@ Context context;
         {
             GetPenduduk productTask = new GetPenduduk();
             productTask.execute();
-
         }
 
     }
@@ -274,6 +375,7 @@ Context context;
             {
                 Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
                 getUseAsyncTask.execute();
+
             }
             else
             {
@@ -460,16 +562,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
+            setProgressDialog();
 
         }
 
@@ -612,16 +705,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
+            setProgressDialog();
 
         }
 
@@ -730,6 +814,7 @@ Context context;
             int success = 0;
             try {
                 success = result.getInt("response");
+                respon_dasawisma = success;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -737,10 +822,9 @@ Context context;
             if (success == 1) {
 
                 Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
-                if(dialog.isShowing())
-                {
+
                     dialog.dismiss();
-                }
+
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);
@@ -752,6 +836,8 @@ Context context;
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
 //            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+            dialog.cancel();
+            dialog.dismiss();
         }
     }
 
@@ -816,16 +902,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
+            setProgressDialog();
 
 
         }
@@ -939,6 +1016,7 @@ Context context;
             int success = 0;
             try {
                 success = result.getInt("response");
+                respon_config = success;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -974,19 +1052,9 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
-
-
+            setProgressDialog();
         }
+
 
         protected JSONObject doInBackground(String... args)
         {
@@ -1096,7 +1164,7 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
+//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1115,20 +1183,26 @@ Context context;
             }
             if (success == 1) {
                 dialog.dismiss();
-//                Toast.makeText(context,"Sukses Ambil Data Penduduk",Toast.LENGTH_LONG).show();
+//                Toast.makeText(context,"Sukses Ambil Data "+respon_penduduk,Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
+                dialog.dismiss();
+//                respon_penduduk = success;
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
-                Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
+//                respon_penduduk = success;
+                Toast.makeText(context,"Gagal Ambil Data Penduduk",Toast.LENGTH_LONG).show();
                 dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
 //            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+//            dialog.dismiss();
         }
+
+
     }
 
 
@@ -1145,16 +1219,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
+            setProgressDialog();
 
         }
 
@@ -1289,6 +1354,8 @@ Context context;
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
 //            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+            dialog.dismiss();
+            dialog.cancel();
         }
     }
 
@@ -1306,16 +1373,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
+            setProgressDialog();
 
         }
 
@@ -1435,6 +1493,7 @@ Context context;
 
             }
             else if (success == 2) {
+                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
@@ -1460,17 +1519,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
-
+            setProgressDialog();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1578,6 +1627,7 @@ Context context;
             int success = 0;
             try {
                 success = result.getInt("response");
+                respon_cat_keluarga = success;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1588,6 +1638,7 @@ Context context;
 
             }
             else if (success == 2) {
+                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
@@ -1613,17 +1664,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
-
+            setProgressDialog();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1754,6 +1795,7 @@ Context context;
             int success = 0;
             try {
                 success = result.getInt("response");
+                respon_cat_keluarga_det = success;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1764,6 +1806,7 @@ Context context;
 
             }
             else if (success == 2) {
+                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
@@ -1790,17 +1833,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            if(dialog.isShowing())
-            {
-                dialog.dismiss();
-            }
-            else
-            {
-
-
-                dialog.show();
-            }
-
+            setProgressDialog();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1926,6 +1959,7 @@ Context context;
             int success = 0;
             try {
                 success = result.getInt("response");
+                respon_pkk_keluarga = success;
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -1936,6 +1970,7 @@ Context context;
 
             }
             else if (success == 2) {
+                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {

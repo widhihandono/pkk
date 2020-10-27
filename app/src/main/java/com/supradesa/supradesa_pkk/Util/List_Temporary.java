@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class List_Temporary {
+    public static final List<Ent_twebPenduduk> listCekAnggotaRtm = new ArrayList<>();
+
     public static final List<Ent_twebPenduduk> listAnggotaRtm = new ArrayList<>();
     public static final List<Ent_twebPenduduk> listAnggotaRtm_Edit = new ArrayList<>();
+    public static final List<Ent_twebPenduduk> listAnggotaRtm_Edit_sementara = new ArrayList<>();
+
     public static final List<Ent_twebPenduduk> listAnggotaRtm_Edit_tampung = new ArrayList<>();
     public static final List<Ent_twebPenduduk> list_AmbilAnggotaRtm_Edit = new ArrayList<>();
     public static final List<Ent_twebPenduduk> listAllAnggota = new ArrayList<>();
@@ -23,9 +27,40 @@ public class List_Temporary {
     public static final List<Sub_Catatan_keluarga> listSub = new ArrayList<>();
 
 
-    public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",no_rtm="";
+    public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",no_rtm="",id_rtm="",no_rtm_edit = "no",kepalaRtm_edit = "";
     public static int dasawismaPosition = -1,kepalaRtm = -1;
 
+    public static String getKepalaRtm_edit() {
+        return kepalaRtm_edit;
+    }
+
+    public static void setKepalaRtm_edit(String kepalaRtm_edit) {
+        List_Temporary.kepalaRtm_edit = kepalaRtm_edit;
+    }
+
+    public static String getNo_rtm_edit() {
+        return no_rtm_edit;
+    }
+
+    public static void setNo_rtm_edit(String no_rtm_edit) {
+        List_Temporary.no_rtm_edit = no_rtm_edit;
+    }
+
+    public static List<Ent_twebPenduduk> getListAnggotaRtm_Edit_sementara() {
+        return listAnggotaRtm_Edit_sementara;
+    }
+
+    public static String getId_rtm() {
+        return id_rtm;
+    }
+
+    public static void setId_rtm(String id_rtm) {
+        List_Temporary.id_rtm = id_rtm;
+    }
+
+    public static List<Ent_twebPenduduk> getListCekAnggotaRtm() {
+        return listCekAnggotaRtm;
+    }
 
     public static List<String> getList_no_kk_edit() {
         return list_no_kk_edit;

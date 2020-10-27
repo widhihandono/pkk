@@ -74,18 +74,26 @@ StepView stepView;
 
 
         tvNext.setOnClickListener(l->{
-            if(crudPkk.Input_kelompok_dasawisma(helper.ID_DASAWISMA,list_temporary.id_dasawisma,list_temporary.no_rtm) > 0)
+            if(list_temporary.dasawismaPosition == -1)
             {
-                Toast.makeText(getApplicationContext(),"Sukses Input",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(this, Catatan_Keluarga_Activity.class);
-                startActivity(intent);
-                Animatoo.animateFade(this);
-                finish();
+                Toast.makeText(KelompokDasaWisma_Activity.this,"Mohon pilih salah satu Dasawisma !",Toast.LENGTH_LONG).show();
             }
             else
             {
-                Toast.makeText(getApplicationContext(),"Gagal Input",Toast.LENGTH_LONG).show();
+                if(crudPkk.Input_kelompok_dasawisma(helper.ID_DASAWISMA,list_temporary.id_dasawisma,list_temporary.no_rtm) > 0)
+                {
+                    Toast.makeText(getApplicationContext(),"Sukses Input",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(this, Catatan_Keluarga_Activity.class);
+                    startActivity(intent);
+                    Animatoo.animateFade(this);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Gagal Input",Toast.LENGTH_LONG).show();
+                }
             }
+
         });
 
         tvBack.setOnClickListener(l->{

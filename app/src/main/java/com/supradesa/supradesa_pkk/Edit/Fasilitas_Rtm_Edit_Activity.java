@@ -96,7 +96,7 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
 
         stepView.go(4,false);
 
-        no_rtm = "08"+crud.getData_tweb_rtm_id_kk(list_temporary.id_kk);
+        no_rtm = list_temporary.getNo_rtm();
 
         Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
 
@@ -183,6 +183,7 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
             list_temporary.nik = "";
             list_temporary.listPenduduk_Detail.clear();
             list_temporary.listSub.clear();
+            crud.updateData_rtm(list_temporary.getNo_rtm_edit(),"no");
             startActivity(new Intent(Fasilitas_Rtm_Edit_Activity.this, MainActivity.class));
             Animatoo.animateFade(this);
             finish();

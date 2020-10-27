@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.supradesa.supradesa_pkk.Edit.Edit_Cari_No_Rtm_Activity;
 import com.supradesa.supradesa_pkk.Edit.Edit_Rtm_Activity;
 import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
+import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
 import com.supradesa.supradesa_pkk.Pemilihan_KK_Activity;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
@@ -30,6 +31,7 @@ private List<Ent_twebKeluarga> list_twebKeluarga;
 List_Temporary list_temporary;
 Crud crud;
 private List<Ent_twebKeluarga> filterList;
+private List<Ent_twebPenduduk> list_rtm_sementara = new ArrayList<>();
 
     public Tweb_keluarga_Edit_Adapter(Context context, List<Ent_twebKeluarga> list_twebKeluarga) {
         this.context = context;
@@ -52,8 +54,13 @@ private List<Ent_twebKeluarga> filterList;
         holder.tvNo_kk.setText(list_twebKeluarga.get(position).getNama()); //no_kk / nama Kepala Keluarga
         holder.tvRtRw.setText("RT "+list_twebKeluarga.get(position).getRt()+"/RW "+list_twebKeluarga.get(position).getRw());
         holder.itemView.setOnClickListener(l->{
+
             list_temporary.list_AmbilAnggotaRtm_Edit.addAll(crud.getData_tweb_penduduk_id_kk(list_twebKeluarga.get(position).getId()));
+
+            list_temporary.listAnggotaRtm_Edit_sementara.clear();
+            list_temporary.listAnggotaRtm_Edit_tampung.clear();
             list_temporary.list_no_kk_edit.add(list_twebKeluarga.get(position).getNo_kk());
+            crud.updateData_rtm(list_temporary.getNo_rtm_edit(),"no");
             Intent intent = new Intent(context, Edit_Rtm_Activity.class);
             intent.putExtra("id_kk",list_twebKeluarga.get(position).getId());
             intent.putExtra("no_kk",list_twebKeluarga.get(position).getNo_kk());

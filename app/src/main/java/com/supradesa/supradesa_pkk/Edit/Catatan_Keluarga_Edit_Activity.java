@@ -73,6 +73,7 @@ public class Catatan_Keluarga_Edit_Activity extends AppCompatActivity {
 
 
         tvNext.setOnClickListener(l->{
+            crud.updateData_rtm(list_temporary.getNo_rtm_edit(),"no");
             Intent intent = new Intent(this, Fasilitas_Rtm_Edit_Activity.class);
             startActivity(intent);
             Animatoo.animateFade(this);

@@ -36,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="All"
+                    android:visibility="gone"
                     android:id="@+id/tvSyncAll"
                     android:background="@drawable/btn"
                     android:textColor="#000"
@@ -59,15 +60,32 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/ic_setting"/>
-                <TextView
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kode Konfigurasi"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kode Konfigurasi"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_konf"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -82,15 +100,29 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/penduduk"/>
-                <TextView
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Penduduk"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data Penduduk"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_penduduk"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -107,15 +139,28 @@
                     android:layout_height="50dp"
                     android:src="@drawable/pekerjaan"/>
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:text="Data Rumah Tangga"
-                    android:textColor="#000"
-                    android:textSize="17dp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data Rumah Tangga"
+                        android:textColor="#000"
+                        android:textSize="17dp"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_rmhTgga"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -131,15 +176,28 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/keluarga"/>
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Keluarga"
-                    android:layout_marginLeft="20dp"
-                    android:textSize="17dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Data Keluarga"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_keluarga"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -157,15 +215,29 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/keluarga"/>
-                <TextView
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PKK Catatan Keluarga"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PKK Catatan Keluarga"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_catKeluarga"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -181,15 +253,29 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/keluarga"/>
-                <TextView
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PKK Catatan Keluarga Detail"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PKK Cat. Keluarga Detail"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_catKeluargaDet"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -205,15 +291,28 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/keluarga"/>
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pkk Data Keluarga"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pkk Data Keluarga"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_pkkKeluarga"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -229,15 +328,28 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/keluarga"/>
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PKK Kelompok Dasawisma"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PKK Kelompok Dasawisma"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_kelompok_dasawisma"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -253,15 +365,27 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:src="@drawable/keluarga"/>
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PKK Dasawisma"
-                    android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="#000"
-                    android:layout_gravity="center"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PKK Dasawisma"
+                        android:textSize="17dp"
+                        android:textColor="#000"
+                        android:layout_marginBottom="4dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTglSync_pkkDasawisma"
+                        android:text="Tgl. Sync."
+                        android:textSize="12dp"
+                        android:textColor="#A8A7A7"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -282,10 +406,11 @@
                     android:layout_height="wrap_content"
                     android:text="Keluar"
                     android:textSize="17dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="#000"
                     android:layout_gravity="center"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
         </LinearLayout>

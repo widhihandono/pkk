@@ -165,41 +165,6 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textStyle="bold"
-                                        android:text="Jenis Kelamin "
-                                        android:textColor="#000"/>
-                                </TableLayout>
-
-                                <TableLayout
-                                    android:layout_weight="0">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text=": "
-                                        android:textStyle="bold"
-                                        android:textColor="#000"/>
-                                </TableLayout>
-
-                                <TableLayout
-                                    android:layout_weight="1">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:textStyle="bold"
-                                        android:id="@+id/tvJenisKelamin"
-                                        android:textColor="#000"/>
-                                </TableLayout>
-
-                            </TableRow>
-
-                            <TableRow android:weightSum="3"
-                                android:paddingTop="2dp"
-                                android:paddingBottom="2dp">
-                                <TableLayout
-                                    android:layout_weight="0">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
                                         android:text="Alamat "
                                         android:textStyle="bold"
                                         android:textColor="#000"/>
@@ -249,15 +214,17 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginTop="15dp">
+
                         <TextView
+                            android:id="@+id/tvUbah"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/button_click"
+                            android:layout_marginLeft="20dp"
                             android:drawableLeft="@drawable/ic_user"
-                            android:text="    Ubah akun login"
-                            android:textColor="#000"
-                            android:id="@+id/tvUbah"
                             android:gravity="center"
-                            android:layout_marginLeft="20dp"/>
+                            android:text="    Ubah akun login"
+                            android:textColor="#000" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -321,6 +288,7 @@
                             android:drawableLeft="@drawable/ic_power"
                             android:text="    Logout"
                             android:textColor="#000"
+                            android:background="@drawable/button_click"
                             android:gravity="center"
                             android:id="@+id/tvLogout"
                             android:layout_marginLeft="20dp"/>

@@ -1,17 +1,23 @@
 package com.supradesa.supradesa_pkk;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
 import com.supradesa.supradesa_pkk.Edit.Edit_Cari_No_Rtm_Activity;
+import com.supradesa.supradesa_pkk.Model.Ent_jumlah_data;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
 import com.supradesa.supradesa_pkk.Util.SharedPref;
 import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
@@ -168,6 +175,8 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
 
 //        Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
 //        getPenduduk();
+
+        get_jumlah_tot_data();
     }
 
     private int getLansia_Penduduk()
@@ -203,48 +212,31 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         return ageInt;
     }
 
-    private void getPenduduk()
+    private void get_jumlah_tot_data()
     {
-        Call<Ent_twebPenduduk> callDataPenduduk = apiInterface.getTwebPenduduk("3308012011","JEBENGAN");
-        callDataPenduduk.enqueue(new Callback<Ent_twebPenduduk>() {
+        Call<Ent_jumlah_data> callDataPenduduk = apiInterface.jumlah_tot_data(sharedPref.sp.getString("kode_desa",""));
+        callDataPenduduk.enqueue(new Callback<Ent_jumlah_data>() {
             @Override
-            public void onResponse(Call<Ent_twebPenduduk> call, Response<Ent_twebPenduduk> response) {
-                if(response.body().isResponse())
+            public void onResponse(Call<Ent_jumlah_data> call, Response<Ent_jumlah_data> response) {
+                if(response.isSuccessful())
                 {
-                    List<Ent_twebPenduduk> dataPenduduk = response.body().getData();
-                    Ent_twebPenduduk etp = new Ent_twebPenduduk();
-
-                    for (int a=0;a<dataPenduduk.size();a++)
-                    {
-                        etp.setId(dataPenduduk.get(a).getId());
-                        etp.setNama(dataPenduduk.get(a).getNama());
-                        etp.setNik(dataPenduduk.get(a).getNik());
-                        etp.setId_kk(dataPenduduk.get(a).getId_kk());
-                        etp.setKk_level(dataPenduduk.get(a).getKk_level());
-                        etp.setId_rtm(dataPenduduk.get(a).getId_rtm());
-                        etp.setRtm_level(dataPenduduk.get(a).getRtm_level());
-                        etp.setSex(dataPenduduk.get(a).getSex());
-                        etp.setTempatlahir(dataPenduduk.get(a).getTempatlahir());
-                        etp.setTanggallahir(dataPenduduk.get(a).getTanggallahir());
-                        etp.setAgama_id(dataPenduduk.get(a).getAgama_id());
-                        etp.setPendidikan_kk_id(dataPenduduk.get(a).getPendidikan_kk_id());
-                        etp.setPekerjaan_id(dataPenduduk.get(a).getPekerjaan_id());
-                        etp.setStatus_kawin(dataPenduduk.get(a).getStatus_kawin());
-                        etp.setId_cluster(dataPenduduk.get(a).getId_cluster());
-                        etp.setAlamat_sekarang(dataPenduduk.get(a).getAlamat_sekarang());
-                        etp.setCacat_id(dataPenduduk.get(a).getCacat_id());
-
-                        crudSqlite.InsertData_tweb_penduduk(etp);
-                    }
+                    tvJmlMenyusui.setText("Jumlah : "+response.body().getData_menyusui());
+                    tvJmlButa.setText("Jumlah : "+response.body().getData_buta());
+                    tvJmlHamil.setText("Jumlah : "+response.body().getData_hamil());
+                    tvJumlahBalita.setText("Jumlah : "+response.body().getData_balita());
+                    tvJmlPus.setText("Jumlah : "+response.body().getData_pus());
+                    tvJmlWus.setText("Jumlah : "+response.body().getData_wus());
+                    tvJmlLansia.setText("Jumlah : "+response.body().getData_lansia());
                 }
             }
 
             @Override
-            public void onFailure(Call<Ent_twebPenduduk> call, Throwable t) {
-                Toast.makeText(MainActivity.this,"Network Failed",Toast.LENGTH_LONG).show();
+            public void onFailure(Call<Ent_jumlah_data> call, Throwable t) {
+                Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
     }
+
 
     public void animateFAB(){
 
@@ -279,9 +271,46 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         }
     }
 
+
+    private void showDialogKeluar(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title dialog
+        alertDialogBuilder.setTitle("Yakin ingin Keluar ?");
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setMessage("Tekan Ya untuk Keluar")
+                .setCancelable(false)
+                .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton("Tidak",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // jika tombol ini diklik, akan menutup dialog
+                        // dan tidak terjadi apa2
+                        dialog.cancel();
+                    }
+                });
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+        Button nbutton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(Color.RED);
+        Button pbutton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.RED);
+    }
+
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        showDialogKeluar();
     }
 }

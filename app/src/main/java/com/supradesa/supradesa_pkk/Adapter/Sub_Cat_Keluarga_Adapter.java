@@ -2,6 +2,7 @@ package com.supradesa.supradesa_pkk.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,12 @@ Helper helper;
     @Override
     public void onBindViewHolder(@NonNull Sub_Cat_Keluarga_Adapter.Holder holder, int position) {
         holder.tvListCatatan.setText(data[position].getNama());
+        if(data[position].getId().equals("10"))
+        {
+            holder.cbListCatatan.setVisibility(View.INVISIBLE);
+            holder.tvListCatatan.setTypeface(null, Typeface.BOLD);
+            holder.tvListCatatan.setTextSize(16);
+        }
         if(holder.cbListCatatan.isChecked())
         {
             if(data[position].getNama().equals("Gotong Royong"))

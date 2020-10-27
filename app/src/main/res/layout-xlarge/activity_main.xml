@@ -7,51 +7,51 @@
     android:background="#FCFCFC"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/header_layout"
-        android:orientation="vertical"
-        android:id="@+id/lnHeader">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:background="@drawable/header_layout"
+    android:orientation="vertical"
+    android:id="@+id/lnHeader">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:layout_marginLeft="40dp">
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/logo"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:layout_marginLeft="20dp">
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/logo"/>
-            <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="140dp"
+            android:layout_centerVertical="true">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="70dp"
-                android:layout_centerVertical="true">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|bottom"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="PKK"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|bottom"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:text="Kabupaten Magelang"
-                    android:gravity="center"/>
-            </LinearLayout>
+                android:layout_gravity="left|bottom"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="40dp"
+                android:text="PKK"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="24dp"
+                android:text="Kabupaten Magelang"
+                android:gravity="center"/>
+        </LinearLayout>
 
-        </RelativeLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
+</LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -65,31 +65,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="70dp">
+                android:layout_marginBottom="140dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:gravity="center">
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:layout_marginRight="40dp"
+                        android:padding="60dp"
                         android:gravity="center"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/bayi"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="Balita"
                                 android:gravity="center"/>
                             <TextView
@@ -105,7 +105,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:id="@+id/tvJmlBalita"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
@@ -114,17 +114,17 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
+                        android:padding="60dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/pus"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="PUS"
                                 android:gravity="center"/>
                             <TextView
@@ -140,7 +140,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:id="@+id/tvJmlPUS"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
@@ -153,23 +153,23 @@
                     android:orientation="horizontal"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:gravity="center">
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:layout_marginRight="40dp"
+                        android:padding="60dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/wus"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
 
                             <TextView
@@ -179,14 +179,14 @@
                                 android:gravity="center"
                                 android:text="WUS"
                                 android:textColor="#000"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:id="@+id/tvJmlWUS"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
@@ -195,17 +195,17 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
+                        android:padding="60dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/buta"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -213,7 +213,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="Buta"
                                 android:gravity="center"/>
                             <TextView
@@ -222,7 +222,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlButa"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
                         </LinearLayout>
@@ -234,23 +234,23 @@
                     android:orientation="horizontal"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="40dp"
                     android:gravity="center">
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:layout_marginRight="40dp"
+                        android:padding="60dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/hamil"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -258,7 +258,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="Hamil"
                                 android:gravity="center"/>
                             <TextView
@@ -267,7 +267,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlHamil"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
                         </LinearLayout>
@@ -275,20 +275,20 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="15dp"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
+                        android:paddingTop="60dp"
+                        android:paddingBottom="60dp"
+                        android:paddingLeft="56dp"
+                        android:paddingRight="56dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/menyusui"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -296,7 +296,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="Menyusui"
                                 android:gravity="center"/>
                             <TextView
@@ -305,7 +305,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlMenuyusi"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
                         </LinearLayout>
@@ -318,22 +318,22 @@
                     android:gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="40dp">
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:layout_marginRight="80dp"
+                        android:padding="60dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/lansia"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -341,7 +341,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="Lansia"
                                 android:gravity="center"/>
                             <TextView
@@ -350,7 +350,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlLansia"
-                                android:textSize="12dp"
+                                android:textSize="24dp"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
                         </LinearLayout>
@@ -358,18 +358,18 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         android:visibility="invisible"
                         android:background="@drawable/text_rounded">
                         <ImageView
-                            android:layout_width="51dp"
-                            android:layout_height="51dp"
+                            android:layout_width="102dp"
+                            android:layout_height="102dp"
                             android:src="@drawable/lansia"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_marginLeft="60dp"
+                            android:layout_marginLeft="120dp"
                             android:gravity="center">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -377,7 +377,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="14dp"
+                                android:textSize="28dp"
                                 android:text="Lansia"
                                 android:gravity="center"/>
                             <TextView
@@ -385,7 +385,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
-                                android:textSize="12dp"
+                                android:textSize="28dp"
                                 android:text="Jumlah : 8"
                                 android:gravity="center"/>
                         </LinearLayout>
@@ -423,25 +423,25 @@
 
         <TextView
             android:id="@+id/tvHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="left|bottom"
             android:drawableTop="@drawable/ic_home"
             android:text="Home"
             android:gravity="center"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="40dp"/>
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="80dp"/>
 
         <TextView
             android:id="@+id/tvProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:drawableTop="@drawable/ic_profile"
             android:gravity="center"
             android:layout_gravity="right|bottom"
             android:text="Profile"
-            android:layout_marginBottom="3dp"
-            android:layout_marginRight="40dp"/>
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="80dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -456,18 +456,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="30dp">
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabPendataan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:pressedTranslationZ="12dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:pressedTranslationZ="24dp"
                 app:fabSize="normal"
                 app:tint="@color/white"
                 android:src="@drawable/ic_add_24"
                 app:backgroundTint="@color/green"
                 android:visibility="invisible"
-                app:elevation="5dp" />
+                app:elevation="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -476,8 +476,8 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="30dp"
-            android:layout_marginBottom="50dp">
+            android:padding="70dp"
+            android:layout_marginBottom="70dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabDoc"
@@ -497,7 +497,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="30dp">
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

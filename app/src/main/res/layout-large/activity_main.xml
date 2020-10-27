@@ -7,51 +7,51 @@
     android:background="#FCFCFC"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@drawable/header_layout"
-        android:orientation="vertical"
-        android:id="@+id/lnHeader">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@drawable/header_layout"
+    android:orientation="vertical"
+    android:id="@+id/lnHeader">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="20dp">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:layout_marginLeft="20dp">
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/logo"/>
-            <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginLeft="70dp"
+            android:layout_centerVertical="true">
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="70dp"
-                android:layout_centerVertical="true">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|bottom"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    android:text="PKK"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left|bottom"
-                    android:textColor="#fff"
-                    android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:text="Kabupaten Magelang"
-                    android:gravity="center"/>
-            </LinearLayout>
+                android:layout_gravity="left|bottom"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="PKK"
+                android:gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|bottom"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="12dp"
+                android:text="Kabupaten Magelang"
+                android:gravity="center"/>
+        </LinearLayout>
 
-        </RelativeLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
+</LinearLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         android:gravity="center"
                         android:background="@drawable/text_rounded">
                         <ImageView
@@ -114,7 +114,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -159,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -195,7 +195,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -240,7 +240,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -275,10 +275,10 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="15dp"
-                        android:paddingLeft="14dp"
-                        android:paddingRight="14dp"
+                        android:paddingTop="30dp"
+                        android:paddingBottom="30dp"
+                        android:paddingLeft="28dp"
+                        android:paddingRight="28dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -322,8 +322,8 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:padding="15dp"
+                        android:layout_marginRight="40dp"
+                        android:padding="30dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -476,7 +476,7 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="30dp"
+            android:padding="40dp"
             android:layout_marginBottom="50dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -94,7 +95,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.KeyStore;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -112,9 +115,11 @@ public class Ambil_DataActivity extends AppCompatActivity {
     private LinearLayout lnKeluarga,lnPenduduk,lnRtm,lnPendudukPendidikanKk,lnPendudukPekerjaan,lnPendudukUmur,
             lnPendudukAgama,lnPendudukHubungan,lnPkkCatatanKeluarga,lnPkkCatatanKeluargaDetail,
             lnPkkDataKeluarga,lnPkkKelompokDasawisma,lnPkkDasawisma,lnLogOut,lnConfigCode;
-    private TextView tvSyncAll;
+    private TextView tvSyncAll,tvTglSync_konf,tvTglSync_penduduk,tvTglSync_rmhTgga,tvTglSync_keluarga,
+            tvTglSync_catKeluarga,tvTglSync_catKeluargaDet,tvTglSync_pkkKeluarga,tvTglSync_kelompok_dasawisma,
+            tvTglSync_pkkDasawisma;
 
-    private ProgressDialog dialog;
+    private Dialog dialog;
 
     Get_Data_From_Server get_data_from_server;
 
@@ -133,9 +138,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
         apiInterface = Api_Client.getClient().create(Api_Interface.class);
         get_data_from_server = new Get_Data_From_Server(Ambil_DataActivity.this);
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Getting Data From Server. Please wait . . .");
-        dialog.setIndeterminate(false);
+        dialog = new Dialog(this);
+        dialog.setTitle("Getting Data From Server. Please wait . . .");
         dialog.setCancelable(false);
 
         if(!sharedPref.getSPSudahLogin())
@@ -143,6 +147,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
             startActivity(new Intent(this,Login_Activity.class));
             finish();
         }
+
 
         lnKeluarga = findViewById(R.id.lnKeluarga);
         lnRtm = findViewById(R.id.lnRtm);
@@ -156,12 +161,24 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvSyncAll = findViewById(R.id.tvSyncAll);
         lnConfigCode = findViewById(R.id.lnConfigCode);
 
+        tvTglSync_konf = findViewById(R.id.tvTglSync_konf);
+        tvTglSync_penduduk = findViewById(R.id.tvTglSync_penduduk);
+        tvTglSync_rmhTgga = findViewById(R.id.tvTglSync_rmhTgga);
+        tvTglSync_keluarga = findViewById(R.id.tvTglSync_keluarga);
+        tvTglSync_catKeluarga = findViewById(R.id.tvTglSync_catKeluarga);
+        tvTglSync_catKeluargaDet = findViewById(R.id.tvTglSync_catKeluargaDet);
+        tvTglSync_pkkKeluarga = findViewById(R.id.tvTglSync_pkkKeluarga);
+        tvTglSync_kelompok_dasawisma = findViewById(R.id.tvTglSync_kelompok_dasawisma);
+        tvTglSync_pkkDasawisma = findViewById(R.id.tvTglSync_pkkDasawisma);
+
         lnConfigCode.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
                 get_data_from_server.getConfig_Code();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tgl_konf",tgl());
+                tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
             }
             else
             {
@@ -176,6 +193,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getPenduduk();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_penduduk",tgl());
+                tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
             }
             else
             {
@@ -201,6 +220,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getRtm();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tgl_rmhTgga",tgl());
+                tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
             }
             else
             {
@@ -215,6 +236,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getKeluarga();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_keluarga",tgl());
+                tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
             }
             else
             {
@@ -229,6 +252,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getPkkCatatanKeluarga();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_catKeluarga",tgl());
+                tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
             }
             else
             {
@@ -243,6 +268,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getPkkCatatanKeluargaDetail();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
+                tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
             }
             else
             {
@@ -257,6 +284,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getPkkDataKeluarga();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
+                tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
             }
             else
             {
@@ -271,6 +300,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getPkkKelompokDasaWisma();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
+                tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
             }
             else
             {
@@ -285,6 +316,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getPkkDasaWisma();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
+                tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
             }
             else
             {
@@ -299,6 +332,25 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 get_data_from_server.getAll();
 
                 hapus_static_list();
+                sharedPref.saveSPString("tgl_konf",tgl());
+                sharedPref.saveSPString("tglSync_penduduk",tgl());
+                sharedPref.saveSPString("tgl_rmhTgga",tgl());
+                sharedPref.saveSPString("tglSync_keluarga",tgl());
+                sharedPref.saveSPString("tglSync_catKeluarga",tgl());
+                sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
+                sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
+                sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
+                sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
+
+                tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
+                tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+                tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
+                tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
+                tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+                tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+                tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+                tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+                tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
             }
             else
             {
@@ -336,9 +388,29 @@ public class Ambil_DataActivity extends AppCompatActivity {
             sharedPref.saveSPString("no_hp","");
             sharedPref.saveSPString("email","");
 
+            sharedPref.saveSPString("tgl_konf","");
+            sharedPref.saveSPString("tglSync_penduduk","");
+            sharedPref.saveSPString("tgl_rmhTgga","");
+            sharedPref.saveSPString("tglSync_keluarga","");
+            sharedPref.saveSPString("tglSync_catKeluarga","");
+            sharedPref.saveSPString("tglSync_catKeluargaDet","");
+            sharedPref.saveSPString("tglSync_pkkKeluarga","");
+            sharedPref.saveSPString("tglSync_kelompok_dasawiswa","");
+            sharedPref.saveSPString("tglSync_pkkDasawisma","");
+
             startActivity(new Intent(this,Login_Activity.class));
             finish();
         });
+
+        tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
+        tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+        tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
+        tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
+        tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+        tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+        tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+        tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+        tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
 
     }
 
@@ -396,6 +468,13 @@ public class Ambil_DataActivity extends AppCompatActivity {
         btn.setTextColor(Color.RED);
     }
     //===============================================
+
+    private String tgl()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date date = new Date();
+        return sdf.format(date);
+    }
 
     @Override
     public void onBackPressed() {
