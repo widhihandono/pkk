@@ -1,8 +1,6 @@
 package com.supradesa.supradesa_pkk.Util;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -22,8 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.gson.internal.$Gson$Preconditions;
-import com.supradesa.supradesa_pkk.Ambil_DataActivity;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
 import com.supradesa.supradesa_pkk.Model.Ent_ConfigCode;
@@ -66,10 +62,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class Get_Data_From_Server {
+public class Get_All_Data_From_Server {
 Context context;
     SharedPref sharedPref;
     Crud crudSqlite;
@@ -80,10 +77,9 @@ Context context;
     int respon_config = -1,respon_penduduk = -1,respon_rtm = -1,respon_keluarga = -1,respon_cat_keluarga = -1,
     respon_cat_keluarga_det = -1,respon_pkk_keluarga = -1,respon_kelompok_dasawisma = -1,respon_dasawisma = -1;
 
-    public AlertDialog dialog = null;
+    AlertDialog dialog;
 
-
-    public Get_Data_From_Server(Context context) {
+    public Get_All_Data_From_Server(Context context) {
         this.context = context;
         sharedPref = new SharedPref(context);
         crudSqlite = new Crud(context);
@@ -91,14 +87,14 @@ Context context;
         crudPkk = new Crud_pkk(context);
         list_temporary = new List_Temporary();
         apiInterface = Api_Client.getClient().create(Api_Interface.class);
-
+        dialog = setProgressDialog();
 //        dialog = new Dialog(context);
 //        dialog.setTitle("Getting Data From Server. Please wait . . .");
 //        dialog.setCancelable(false);
 
     }
 
-    public void setProgressDialog() {
+    public AlertDialog setProgressDialog() {
 
         int llPadding = 30;
         LinearLayout ll = new LinearLayout(context);
@@ -132,80 +128,19 @@ Context context;
         builder.setCancelable(false);
         builder.setView(ll);
 
-
-        dialog = builder.create();
-        if(dialog.isShowing())
-        {
-            dialog.dismiss();
-        }
-        else
-        {
-            dialog.show();
-        }
-        Window window = dialog.getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.copyFrom(dialog.getWindow().getAttributes());
-            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
-            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            dialog.getWindow().setAttributes(layoutParams);
-        }
-    }
-
-    public void getAll()
-    {
-//        setProgressDialog();
-        getConfig_Code();
-        getPenduduk();
-        getRtm();
-        getKeluarga();
-        getPkkCatatanKeluarga();
-        getPkkDataKeluarga();
-        getPkkKelompokDasaWisma();
-        getPkkDasaWisma();
-//
-//        if(respon_config >= 0)
-//        {
-//
-//            getPenduduk();
-//            if(respon_penduduk >= 0)
-//            {
-//                Toast.makeText(context,"Response : "+respon_penduduk,Toast.LENGTH_LONG).show();
-//                getRtm();
-//                if(respon_rtm >= 0)
-//                {
-//                    getKeluarga();
-//                    if(respon_keluarga >= 0)
-//                    {
-//                        getPkkCatatanKeluarga();
-//                        if(respon_cat_keluarga >= 0)
-//                        {
-//                            getPkkCatatanKeluargaDetail();
-//                            if(respon_cat_keluarga_det >= 0)
-//                            {
-//                                getPkkDataKeluarga();
-//                                if(respon_pkk_keluarga >= 0)
-//                                {
-//                                    getPkkKelompokDasaWisma();
-//                                    if(respon_kelompok_dasawisma >= 0)
-//                                    {
-//                                        getPkkDasaWisma();
-//                                        if(respon_dasawisma >= 0)
-//                                        {
-//                                            dialog.dismiss();
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
+        return builder.create();
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//        Window window = dialog.getWindow();
+//        if (window != null) {
+//            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+//            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+//            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+//            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//            dialog.getWindow().setAttributes(layoutParams);
 //        }
-
-//        dialog.dismiss();
     }
+
     public void penduduk()
     {
         new Thread(new Runnable() {
@@ -313,243 +248,98 @@ Context context;
         }).start();
     }
 
-    public void getConfig_Code()
+
+    public void getAll_Data()
     {
-        GetConfigCode productTask = new GetConfigCode();
-        productTask.execute();
-    }
-
-
-    public void getPenduduk()
-    {
-        if(crudSqlite.getData_tweb_penduduk().size() > 0)
-        {
-            if(crudSqlite.delete_all_penduduk())
-            {
-                GetPenduduk productTask = new GetPenduduk();
-                productTask.execute();
-
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            GetPenduduk productTask = new GetPenduduk();
-            productTask.execute();
+        dialog.show();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
         }
 
-    }
-
-    public void getKeluarga()
-    {
-
-        if(crudSqlite.getData_tweb_keluarga().size() > 0)
-        {
-            if(crudSqlite.delete_all_keluarga())
-            {
-                Get_Keluarga_Async getAsync = new Get_Keluarga_Async();
-                getAsync.execute();
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Get_Keluarga_Async getAsync = new Get_Keluarga_Async();
-            getAsync.execute();
-        }
-
-
-    }
-
-    public void getRtm()
-    {
-        if(crudSqlite.getData_tweb_rtm().size() > 0)
+        if(crudSqlite.delete_all_config_code())
         {
             if(crudSqlite.delete_all_rtm())
             {
-                Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
-                getUseAsyncTask.execute();
+                if (crudSqlite.delete_all_penduduk()) {
 
+                    if (crudSqlite.delete_all_keluarga())
+                    {
+                        if(crudPkk.delete_all_pkk_data_keluarga())
+                        {
+                            if(crudPkk.delete_all_pkk_kelompok_dasa_wisma())
+                            {
+                                if(crudPkk.delete_all_pkk_dasa_wisma())
+                                {
+                                    if(crudPkk.delete_all_pkk_catatan_keluarga())
+                                    {
+                                        if(crudPkk.delete_all_pkk_catatan_keluarga_detail())
+                                        {
+                                            GetConfigCode configCode = new GetConfigCode();
+                                            configCode.execute();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(context,"Gagal Hapus Catatan Keluarga Detail",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(context,"Gagal Hapus Catatan Keluarga",Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                                else
+                                {
+                                    Toast.makeText(context,"Gagal Hapus PKK Dasawisma",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            else
+                            {
+                                Toast.makeText(context,"Gagal Hapus Kelompok Dasawisma",Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(context,"Gagal Hapus PKK Keluarga",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(context,"Gagal Hapus Tweb Keluarga",Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Penduduk",Toast.LENGTH_LONG).show();
+                }
             }
             else
             {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Gagal Hapus RTM",Toast.LENGTH_LONG).show();
             }
+
         }
         else
         {
-            Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
-            getUseAsyncTask.execute();
+            Toast.makeText(context,"Gagal Hapus Konfigurasi",Toast.LENGTH_LONG).show();
         }
+//        dialog.dismiss();
 
     }
 
 
-    public void getPkkCatatanKeluarga()
+    private String tgl()
     {
-        if(crudPkk.getData_pkkCatatanKeluarga().size() > 0)
-        {
-            if(crudPkk.delete_all_pkk_catatan_keluarga())
-            {
-                Get_PkkCatatanKeluarga_Async getUseAsyncTask = new Get_PkkCatatanKeluarga_Async();
-                getUseAsyncTask.execute();
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Get_PkkCatatanKeluarga_Async getUseAsyncTask = new Get_PkkCatatanKeluarga_Async();
-            getUseAsyncTask.execute();
-        }
-
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date date = new Date();
+        return sdf.format(date);
     }
-
-
-
-    public void getPkkCatatanKeluargaDetail()
-    {
-        if(crudPkk.getData_pkk_catatan_keluarga_detail().size() > 0)
-        {
-            if(crudPkk.delete_all_pkk_catatan_keluarga_detail())
-            {
-                get_PkkCatatanKeluargaDetail getUseAsyncTask = new get_PkkCatatanKeluargaDetail();
-                getUseAsyncTask.execute();
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            get_PkkCatatanKeluargaDetail getUseAsyncTask = new get_PkkCatatanKeluargaDetail();
-            getUseAsyncTask.execute();
-        }
-
-
-    }
-
-
-    public void getPkkDataKeluarga()
-    {
-        if(crudPkk.getPkk_data_keluarga().size() > 0)
-        {
-            if(crudPkk.delete_all_pkk_data_keluarga())
-            {
-                Get_PkkDataKeluarga getUseAsyncTask = new Get_PkkDataKeluarga();
-                getUseAsyncTask.execute();
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Get_PkkDataKeluarga getUseAsyncTask = new Get_PkkDataKeluarga();
-            getUseAsyncTask.execute();
-        }
-
-
-    }
-
-
-    public void getPkkDasaWisma()
-    {
-        if(crudPkk.getPkk_dasa_wisma().size() > 0)
-        {
-            if(crudPkk.delete_all_pkk_dasa_wisma())
-            {
-                Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
-                getUseAsyncTask.execute();
-
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
-            getUseAsyncTask.execute();
-
-
-        }
-
-
-//        Call<Ent_PkkDasaWisma> callDataKeluarga = apiInterface.getPkkDasaWisma(sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""));
-//        callDataKeluarga.enqueue(new Callback<Ent_PkkDasaWisma>() {
-//            @Override
-//            public void onResponse(Call<Ent_PkkDasaWisma> call, Response<Ent_PkkDasaWisma> response) {
-//                if(response.body().isResponse())
-//                {
-//                    List<Ent_PkkDasaWisma> data = response.body().getData();
-//                    Ent_PkkDasaWisma ep = new Ent_PkkDasaWisma();
-//
-//                    for (int a=0;a<data.size();a++)
-//                    {
-//                        ep.setId_dasa_wisma(data.get(a).getId_dasa_wisma());
-//                        ep.setId_cluster(data.get(a).getId_cluster());
-//                        ep.setId_kepala(data.get(a).getId_kepala());
-//                        ep.setNama_dasa_wisma(data.get(a).getNama_dasa_wisma());
-//
-//                        crudPkk.Insert_pkk_dasa_wisma(ep);
-//
-//                    }
-//
-//                    Toast.makeText(Ambil_DataActivity.this,"Sukses ambil data",Toast.LENGTH_LONG).show();
-//                }
-//                else
-//                {
-//                    Toast.makeText(Ambil_DataActivity.this,"Gagal Ambil data",Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Ent_PkkDasaWisma> call, Throwable t) {
-//                Toast.makeText(Ambil_DataActivity.this,"Network Failed",Toast.LENGTH_LONG).show();
-//            }
-//        });
-    }
-
-
-    public void getPkkKelompokDasaWisma()
-    {
-        if(crudPkk.getPkk_kelompok_dasa_wisma().size() > 0)
-        {
-            if(crudPkk.delete_all_pkk_kelompok_dasa_wisma())
-            {
-                Pkk_kelomDasawisma_Async getUseAsyncTask = new Pkk_kelomDasawisma_Async();
-                getUseAsyncTask.execute();
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Pkk_kelomDasawisma_Async getUseAsyncTask = new Pkk_kelomDasawisma_Async();
-            getUseAsyncTask.execute();
-        }
-
-
-    }
-
 
     //Async
-
     class Pkk_kelomDasawisma_Async extends AsyncTask<String, String, JSONObject>
     {
         List<NameValuePair> params;
@@ -562,7 +352,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
 
         }
 
@@ -658,7 +447,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -676,7 +464,10 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+                sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
+
+                Pkk_Dasawisma_Async dasawisma_async = new Pkk_Dasawisma_Async();
+                dasawisma_async.execute();
 //                Toast.makeText(context,"Sukses Ambil Data Kelompok Dasawisma",Toast.LENGTH_LONG).show();
 
             }
@@ -685,7 +476,6 @@ Context context;
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
@@ -705,7 +495,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
 
         }
 
@@ -801,7 +590,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -820,10 +608,11 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
+//                Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
 
-                Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
-
-                    dialog.dismiss();
+                Get_PkkCatatanKeluarga_Async catatanKeluarga_async = new Get_PkkCatatanKeluarga_Async();
+                catatanKeluarga_async.execute();
 
             }
             else if (success == 2) {
@@ -831,13 +620,10 @@ Context context;
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
 //            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
-            dialog.cancel();
-            dialog.dismiss();
         }
     }
 
@@ -895,16 +681,13 @@ Context context;
     //Async Config Code
     public class GetConfigCode extends AsyncTask<String, String, JSONObject>
     {
-
         public GetConfigCode()
-        {}
+        {
+        }
 
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
-
-
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1003,7 +786,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1022,16 +804,16 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
-//                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
-
+                sharedPref.saveSPString("tgl_konf",tgl());
+                Get_Rtm_Async rtm = new Get_Rtm_Async();
+                rtm.execute();
+//                Toast.makeText(context,"Sukses Ambil Konfigurasi",Toast.LENGTH_LONG).show();
             }
             else if (success == 2) {
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
@@ -1043,18 +825,17 @@ Context context;
     class GetPenduduk extends AsyncTask<String, String, JSONObject>
     {
         List<NameValuePair> params;
-
         public GetPenduduk()
         {
             this.params = params;
+
         }
 
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
-        }
 
+        }
 
         protected JSONObject doInBackground(String... args)
         {
@@ -1164,7 +945,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-//            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1182,19 +962,21 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
-//                Toast.makeText(context,"Sukses Ambil Data "+respon_penduduk,Toast.LENGTH_LONG).show();
+
+                sharedPref.saveSPString("tglSync_penduduk",tgl());
+
+                Get_Keluarga_Async keluarga = new Get_Keluarga_Async();
+                keluarga.execute();
+//                Toast.makeText(context,"Sukses Ambil Data Penduduk",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
-                dialog.dismiss();
 //                respon_penduduk = success;
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
 //                respon_penduduk = success;
                 Toast.makeText(context,"Gagal Ambil Data Penduduk",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
@@ -1219,7 +1001,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
 
         }
 
@@ -1322,7 +1103,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1340,7 +1120,10 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+                sharedPref.saveSPString("tglSync_keluarga",tgl());
+
+                Get_PkkDataKeluarga pkkDataKeluarga = new Get_PkkDataKeluarga();
+                pkkDataKeluarga.execute();
 //                Toast.makeText(context,"Sukses Ambil Data Keluarga",Toast.LENGTH_LONG).show();
 
             }
@@ -1349,13 +1132,7 @@ Context context;
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
-//            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
-//                    Toast.LENGTH_SHORT).show();
-//            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
-            dialog.dismiss();
-            dialog.cancel();
         }
     }
 
@@ -1373,7 +1150,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
 
         }
 
@@ -1470,7 +1246,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1488,17 +1263,18 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+                sharedPref.saveSPString("tgl_rmhTgga",tgl());
+
+                GetPenduduk penduduk = new GetPenduduk();
+                penduduk.execute();
 //                Toast.makeText(context,"Sukses Ambil Data Rumah Tangga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
-                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
@@ -1519,7 +1295,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1614,7 +1389,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1633,17 +1407,18 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+                sharedPref.saveSPString("tglSync_catKeluarga",tgl());
+
+                get_PkkCatatanKeluargaDetail catatanKeluargaDetail = new get_PkkCatatanKeluargaDetail();
+                catatanKeluargaDetail.execute();
 //                Toast.makeText(context,"Sukses Ambil Data Catatan Keluarga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
-                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
@@ -1664,7 +1439,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1783,7 +1557,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1803,16 +1576,15 @@ Context context;
             }
             if (success == 1) {
                 dialog.dismiss();
-//                Toast.makeText(context,"Sukses Ambil Data Catatan Keluarga Detail",Toast.LENGTH_LONG).show();
+                sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
+                Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
-                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();
@@ -1834,7 +1606,6 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1947,7 +1718,6 @@ Context context;
 
         protected void onPostExecute(JSONObject result)
         {
-            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
             String message = null;
@@ -1966,17 +1736,18 @@ Context context;
                 e.printStackTrace();
             }
             if (success == 1) {
-                dialog.dismiss();
+                sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
+
+                Pkk_kelomDasawisma_Async kelomDasawisma_async = new Pkk_kelomDasawisma_Async();
+                kelomDasawisma_async.execute();
 //                Toast.makeText(context,"Sukses Ambil Data Keluarga",Toast.LENGTH_LONG).show();
 
             }
             else if (success == 2) {
-                dialog.dismiss();
                 showDialogKeyAccess(message);
 //                this.progressDialog.dismiss();
             } else {
                 Toast.makeText(context,"Gagal Ambil Data ",Toast.LENGTH_LONG).show();
-                dialog.dismiss();
             }
 //            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
 //                    Toast.LENGTH_SHORT).show();

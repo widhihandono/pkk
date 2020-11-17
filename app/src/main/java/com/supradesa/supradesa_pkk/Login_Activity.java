@@ -264,7 +264,7 @@ private SharedPref sharedPref;
                 showDialogKeyAccess(keterangan);
 //                this.progressDialog.dismiss();
             } else {
-                Toast.makeText(Login_Activity.this,"Respon : "+result,Toast.LENGTH_LONG).show();
+                Toast.makeText(Login_Activity.this,"Gagal Login",Toast.LENGTH_LONG).show();
                 this.progressDialog.dismiss();
             }
 

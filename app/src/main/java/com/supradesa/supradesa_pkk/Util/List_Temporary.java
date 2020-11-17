@@ -25,10 +25,15 @@ public class List_Temporary {
     public static final List<String> list_no_kk = new ArrayList<>();
     public static final List<String> list_no_kk_edit = new ArrayList<>();
     public static final List<Sub_Catatan_keluarga> listSub = new ArrayList<>();
-
+    public static final List<String> list_nik = new ArrayList<>();
 
     public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",no_rtm="",id_rtm="",no_rtm_edit = "no",kepalaRtm_edit = "";
     public static int dasawismaPosition = -1,kepalaRtm = -1;
+
+
+    public static List<String> getList_nik() {
+        return list_nik;
+    }
 
     public static String getKepalaRtm_edit() {
         return kepalaRtm_edit;

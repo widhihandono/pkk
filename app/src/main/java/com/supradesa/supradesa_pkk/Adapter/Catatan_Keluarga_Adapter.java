@@ -72,12 +72,13 @@ boolean status;
         holder.tvNik.setText(list_anggota_rtm.get(position).getNik());
         holder.tvNama.setText(list_anggota_rtm.get(position).getNama());
 
+        subCatKeluargaAdapter = new Sub_Cat_Keluarga_Adapter(context,data,position);
+        holder.rvList.setAdapter(subCatKeluargaAdapter);
+
         holder.itemView.setOnClickListener(l->{
             if(status == false)
             {
                 holder.rvList.setVisibility(View.VISIBLE);
-                subCatKeluargaAdapter = new Sub_Cat_Keluarga_Adapter(context,data,position);
-                holder.rvList.setAdapter(subCatKeluargaAdapter);
                 status = true;
             }
             else
@@ -91,8 +92,8 @@ boolean status;
             if(status == false)
             {
                 holder.rvList.setVisibility(View.VISIBLE);
-                subCatKeluargaAdapter = new Sub_Cat_Keluarga_Adapter(context,data,position);
-                holder.rvList.setAdapter(subCatKeluargaAdapter);
+//                subCatKeluargaAdapter = new Sub_Cat_Keluarga_Adapter(context,data,position);
+//                holder.rvList.setAdapter(subCatKeluargaAdapter);
                 status = true;
             }
             else

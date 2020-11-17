@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
@@ -32,6 +33,7 @@ import com.supradesa.supradesa_pkk.Model.Ent_ConfigCode;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_master_tweb;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
+import com.supradesa.supradesa_pkk.Util.Get_All_Data_From_Server;
 import com.supradesa.supradesa_pkk.Util.Get_Data_From_Server;
 import com.supradesa.supradesa_pkk.Util.JSONParser;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
@@ -117,11 +119,12 @@ public class Ambil_DataActivity extends AppCompatActivity {
             lnPkkDataKeluarga,lnPkkKelompokDasawisma,lnPkkDasawisma,lnLogOut,lnConfigCode;
     private TextView tvSyncAll,tvTglSync_konf,tvTglSync_penduduk,tvTglSync_rmhTgga,tvTglSync_keluarga,
             tvTglSync_catKeluarga,tvTglSync_catKeluargaDet,tvTglSync_pkkKeluarga,tvTglSync_kelompok_dasawisma,
-            tvTglSync_pkkDasawisma;
+            tvTglSync_pkkDasawisma,tvBack;
 
     private Dialog dialog;
 
     Get_Data_From_Server get_data_from_server;
+    Get_All_Data_From_Server get_all_data_from_server;
 
 
     @Override
@@ -137,6 +140,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
         list_temporary = new List_Temporary();
         apiInterface = Api_Client.getClient().create(Api_Interface.class);
         get_data_from_server = new Get_Data_From_Server(Ambil_DataActivity.this);
+        get_all_data_from_server = new Get_All_Data_From_Server(Ambil_DataActivity.this);
 
         dialog = new Dialog(this);
         dialog.setTitle("Getting Data From Server. Please wait . . .");
@@ -170,6 +174,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvTglSync_pkkKeluarga = findViewById(R.id.tvTglSync_pkkKeluarga);
         tvTglSync_kelompok_dasawisma = findViewById(R.id.tvTglSync_kelompok_dasawisma);
         tvTglSync_pkkDasawisma = findViewById(R.id.tvTglSync_pkkDasawisma);
+        tvBack = findViewById(R.id.tvBack);
 
         lnConfigCode.setOnClickListener(l->{
             if(isNetworkAvailable())
@@ -329,18 +334,10 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvSyncAll.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getAll();
+                get_all_data_from_server.getAll_Data();
 
                 hapus_static_list();
-                sharedPref.saveSPString("tgl_konf",tgl());
-                sharedPref.saveSPString("tglSync_penduduk",tgl());
-                sharedPref.saveSPString("tgl_rmhTgga",tgl());
-                sharedPref.saveSPString("tglSync_keluarga",tgl());
-                sharedPref.saveSPString("tglSync_catKeluarga",tgl());
-                sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
-                sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
-                sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
-                sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
+
 
                 tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
                 tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
@@ -357,6 +354,12 @@ public class Ambil_DataActivity extends AppCompatActivity {
                 showDialogOnNetwork();
             }
 
+        });
+
+        tvBack.setOnClickListener(l->{
+            startActivity(new Intent(Ambil_DataActivity.this,MainActivity.class));
+            Animatoo.animateFade(this);
+            finish();
         });
 
         lnLogOut.setOnClickListener(l->{

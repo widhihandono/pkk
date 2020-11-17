@@ -54,6 +54,38 @@ public class Fasilitas_rtm_Adapter extends RecyclerView.Adapter<Fasilitas_rtm_Ad
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.tvListCatatan.setText(data[position].getNama());
 
+        if(data[position].getNama().equals("Jamban"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.no_rtm);
+        }
+        else if(data[position].getNama().equals("Tempat Sampah"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.no_rtm);
+        }
+        else if (data[position].getNama().equals("Saluran Pembuangan Air"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.no_rtm);
+        }
+        else if(data[position].getNama().equals("Stiker P4K"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.no_rtm);
+        }
+        else if(data[position].getNama().equals("Aktifitas UP2K"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.no_rtm);
+        }
+        else if(data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.no_rtm);
+        }
+        else if(data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.no_rtm);
+        }
+        else if(data[position].getNama().equals("Industri Rumah Tangga"))
+        {
+            crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.no_rtm);
+        }
 
         holder.cbListCatatan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

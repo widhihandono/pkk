@@ -1,7 +1,6 @@
 package com.supradesa.supradesa_pkk.Adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,18 +9,24 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +38,7 @@ import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
+import com.supradesa.supradesa_pkk.SQLite.Helper;
 import com.supradesa.supradesa_pkk.Upload_Data_Activity;
 import com.supradesa.supradesa_pkk.Util.Get_Data_From_Server;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
@@ -61,7 +67,7 @@ private Crud crud;
 private Crud_pkk crudPkk;
 private List_Temporary list_temporary;
 private List<Ent_twebRtm> filterList;
-    private ProgressDialog dialog;
+    public AlertDialog dialog = null; //Ganti
     SharedPref sharedPref;
     Get_Data_From_Server get_data_from_server;
 
@@ -114,17 +120,13 @@ private List<Ent_twebRtm> filterList;
 
 
         holder.imgUpload.setOnClickListener(l->{
-            dialog = new ProgressDialog(context);
-            dialog.setMessage("Upload Data. Please wait . . .");
-            dialog.setIndeterminate(false);
-            dialog.setCancelable(false);
-            dialog.show();
+            setProgressDialog();
 //            Toast.makeText(context,""+crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getNo_kk(),Toast.LENGTH_LONG).show();
             Upload_Rtm_Async upload = new Upload_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),
                     crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                    crud.getData_tweb_rtm().get(position).getNik_kepala(),
-                    crud.getData_tweb_rtm().get(position).getNo_kk(),crud.getData_tweb_rtm().get(position).getTgl_daftar(),
-                    crud.getData_tweb_rtm().get(position).getKelas_sosial(),crud.getData_tweb_rtm().get(position).getId(),
+                    listRtm.get(position).getNik_kepala(),
+                    listRtm.get(position).getNo_kk(),listRtm.get(position).getTgl_daftar(),
+                    listRtm.get(position).getKelas_sosial(),listRtm.get(position).getId(),
                     "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_rtm");
 
 
@@ -133,10 +135,15 @@ private List<Ent_twebRtm> filterList;
 //                Toast.makeText(context,upload.get().getString("no_rtm"),Toast.LENGTH_LONG).show();
                 if(upload.getResponse() == 1)
                 {
-                    crud.updateData_rtm(crud.getData_tweb_rtm().get(position).getNo_kk(),"yes");
-
+                    crud.updateData_rtm(listRtm.get(position).getNo_kk(),"yes");
+//                    Toast.makeText(context,listRtm.get(position).getNo_kk(),Toast.LENGTH_LONG).show();
+                    crud.updateData_rtm_by_value(listRtm.get(position).getNo_kk(), Helper.NO_KK,upload.get().getString("no_rtm"));
                     for(int a=0;a<crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).size(); a++)
                     {
+//                        if(crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getHapus_id_rtm().equals("ya"))
+//                        {
+////                            Toast.makeText(context,crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNik(),Toast.LENGTH_LONG).show();
+//                        }
 //                        Toast.makeText(context,crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),Toast.LENGTH_LONG).show();
                         Upload_tweb_penduduk_Async upload_pdd = new Upload_tweb_penduduk_Async(context,sharedPref.sp.getString("kode_desa",""),
                                 crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
@@ -156,8 +163,11 @@ private List<Ent_twebRtm> filterList;
                                         crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_cluster(),
                                         crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getAlamat_sekarang(),
                                         crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getCacat_id(),
+                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getHapus_id_rtm(),
                                         "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_tweb_penduduk");
                         upload_pdd.execute();
+
+
                     }
 
                     Upload_PkkKelompokDasawisma_Async upload_pkd = new Upload_PkkKelompokDasawisma_Async(context,sharedPref.sp.getString("kode_desa",""),
@@ -166,6 +176,7 @@ private List<Ent_twebRtm> filterList;
                             crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getId_dasa_wisma(),
                             "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_kelompok_dasawisma");
                     upload_pkd.execute();
+                    crudPkk.update_pkk_kelompok_dasawisma(Helper.NO_KK,upload.get().getString("no_rtm"),listRtm.get(position).getNo_kk());
 
                     Upload_PkkDataKeluarga upload_dk = new Upload_PkkDataKeluarga(context, sharedPref.sp.getString("kode_desa", ""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
                             upload.get().getString("no_rtm"), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getMakanan_pokok(),
@@ -181,6 +192,7 @@ private List<Ent_twebRtm> filterList;
                             crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getPtp(),
                             crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getIndustri_rt(), "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_data_keluarga");
                     upload_dk.execute();
+                    crudPkk.update_pkk_data_keluarga(Helper.NO_KK,upload.get().getString("no_rtm"),listRtm.get(position).getNo_kk());
 
                     for(int a=0 ; a < crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).size() ; a++)
                     {
@@ -195,8 +207,14 @@ private List<Ent_twebRtm> filterList;
                                 ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNifas(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_baca()
                                 ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_tulis(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_hitung(),
                                 crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getId_detail_cat(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getStunting(),
+                                crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getHapus(),
                                 "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_catatan_keluarga_detail");
                         upload_ckd.execute();
+
+//                        if(crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getHapus().equals("ya"))
+//                        {
+//                            Toast.makeText(context,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNik(),Toast.LENGTH_LONG).show();
+//                        }
                     }
 
 
@@ -217,6 +235,12 @@ private List<Ent_twebRtm> filterList;
             ((Activity) context).finish();
 
         });
+
+
+        if(listRtm.get(position).getUpload().equals("sync"))
+        {
+            holder.imgUpload.setVisibility(View.INVISIBLE);
+        }
 
         if(listRtm.get(position).getUpload().equals("yes"))
         {
@@ -416,12 +440,12 @@ private List<Ent_twebRtm> filterList;
         String keterangan = "";
         String SERVER_PATH;
         String kd_desa,kd_kecamatan,kd_kabupaten,nama,nik,id_kk,kk_level,id_rtm,rtm_level,sex,tempatlahir,tanggallahir,agama_id,
-                pendidikan_kk_id,pekerjaan_id,status_kawin,id_cluster,alamat_sekarang,cacat_id;
+                pendidikan_kk_id,pekerjaan_id,status_kawin,id_cluster,alamat_sekarang,cacat_id,hapus_id_rtm;
 
         private Upload_tweb_penduduk_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String nama,String nik,String id_kk,String kk_level,String id_rtm,
                                            String rtm_level,String sex,String tempatlahir,String tanggallahir,String agama_id,
                                            String pendidikan_kk_id,String pekerjaan_id,String status_kawin,String id_cluster,
-                                           String alamat_sekarang,String cacat_id,String SERVER_PATH) {
+                                           String alamat_sekarang,String cacat_id,String hapus_id_rtm,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
             this.kd_kecamatan = kd_kecamatan;
@@ -442,6 +466,7 @@ private List<Ent_twebRtm> filterList;
             this.id_cluster = id_cluster;
             this.alamat_sekarang = alamat_sekarang;
             this.cacat_id = cacat_id;
+            this.hapus_id_rtm = hapus_id_rtm;
 
             this.SERVER_PATH = SERVER_PATH;
         }
@@ -485,6 +510,7 @@ private List<Ent_twebRtm> filterList;
                 jsonObject.put("id_cluster", id_cluster);
                 jsonObject.put("alamat_sekarang", alamat_sekarang);
                 jsonObject.put("cacat_id", cacat_id);
+                jsonObject.put("hapus_id_rtm", hapus_id_rtm);
                 String message = jsonObject.toString();
 
                 conn = (HttpURLConnection) url.openConnection();
@@ -555,7 +581,7 @@ private List<Ent_twebRtm> filterList;
 //            dialog.dismiss();
             //this assumes that the response looks like this:
             //{"success" : true }
-            String message = null;
+            String message = null,no_rtm = "";
             try {
                 message = result.getString("pesan");
             } catch (JSONException e1) {
@@ -570,8 +596,9 @@ private List<Ent_twebRtm> filterList;
                 e.printStackTrace();
             }
             if (success == 1) {
+                crud.updateData_tweb_penduduk(nik,id_rtm,Helper.ID_RTM);
 //                dialog.dismiss();
-//                Toast.makeText(context,"Sukses Kirim Data Penduduk",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Sukses Kirim Data Penduduk",Toast.LENGTH_LONG).show();
                 crud.updateData_tweb_penduduk_upload(nik,"yes");
 
             }
@@ -935,12 +962,12 @@ private List<Ent_twebRtm> filterList;
         String SERVER_PATH;
         String kd_desa,kd_kecamatan,kd_kabupaten,nik,berkebutuhan_khusus,penghayatan_dan_pengamalan_pancasila,gotong_royong,pendidikan_ketrampilan,pengembangan_kehidupan_berkoperasi,pangan,
                 sandang,kesehatan,perencanaan_sehat,id_kelompok_umur,usia_subur,ibu_hamil,
-                menyusui,nifas,buta_baca,buta_tulis,buta_hitung,id_detail_cat,stunting;
+                menyusui,nifas,buta_baca,buta_tulis,buta_hitung,id_detail_cat,stunting,hapus;
 
         private Upload_pkk_catatan_keluarga_detail(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String nik,String berkebutuhan_khusus,String penghayatan_dan_pengamalan_pancasila
                 ,String gotong_royong,String pendidikan_ketrampilan,String pengembangan_kehidupan_berkoperasi,String pangan,String sandang,String kesehatan,String perencanaan_sehat
                 ,String id_kelompok_umur,String usia_subur,String ibu_hamil,String menyusui,String nifas,String buta_baca
-                ,String buta_tulis,String buta_hitung,String id_detail_cat,String stunting,String SERVER_PATH) {
+                ,String buta_tulis,String buta_hitung,String id_detail_cat,String stunting,String hapus,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
             this.kd_kecamatan = kd_kecamatan;
@@ -965,6 +992,7 @@ private List<Ent_twebRtm> filterList;
             this.buta_hitung = buta_hitung;
             this.id_detail_cat = id_detail_cat;
             this.stunting = stunting;
+            this.hapus = hapus;
 
             this.SERVER_PATH = SERVER_PATH;
         }
@@ -1012,6 +1040,7 @@ private List<Ent_twebRtm> filterList;
                 jsonObject.put("buta_tulis", buta_tulis);
                 jsonObject.put("buta_hitung", buta_hitung);
                 jsonObject.put("stunting",stunting);
+                jsonObject.put("hapus",hapus);
                 String message = jsonObject.toString();
 
                 conn = (HttpURLConnection) url.openConnection();
@@ -1180,6 +1209,61 @@ private List<Ent_twebRtm> filterList;
         Button pbutton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         pbutton.setTextColor(Color.RED);
     }
+
+    public void setProgressDialog() {
+
+        int llPadding = 30;
+        LinearLayout ll = new LinearLayout(context);
+        ll.setOrientation(LinearLayout.HORIZONTAL);
+        ll.setPadding(llPadding, llPadding, llPadding, llPadding);
+        ll.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams llParam = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        llParam.gravity = Gravity.CENTER;
+        ll.setLayoutParams(llParam);
+
+        ProgressBar progressBar = new ProgressBar(context);
+        progressBar.setIndeterminate(true);
+        progressBar.setPadding(0, 0, llPadding, 0);
+        progressBar.setLayoutParams(llParam);
+
+        llParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        llParam.gravity = Gravity.CENTER;
+        TextView tvText = new TextView(context);
+        tvText.setText("Upload Data to Server. Please wait . . .");
+        tvText.setTextColor(Color.parseColor("#000000"));
+        tvText.setTextSize(18);
+        tvText.setLayoutParams(llParam);
+
+        ll.addView(progressBar);
+        ll.addView(tvText);
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setView(ll);
+
+
+        dialog = builder.create();
+        if(dialog.isShowing())
+        {
+            dialog.dismiss();
+        }
+        else
+        {
+            dialog.show();
+        }
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+    }
+
 
     public class Holder extends RecyclerView.ViewHolder {
         private TextView tvNoRtm,tvNamaKepalaKeluarga,tvJumlah;

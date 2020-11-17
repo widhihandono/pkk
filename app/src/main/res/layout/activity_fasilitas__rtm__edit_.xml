@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Fasilitas Rumah Tangga Edit"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="17dp"
         android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="#000"

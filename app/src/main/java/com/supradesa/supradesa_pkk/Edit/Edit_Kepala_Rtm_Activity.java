@@ -161,7 +161,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                             {
                                 ep.setId_kelompok_umur("27");
                             }
-
+                                ep.setHapus("tidak");
                             if (crudPkk.InsertData_pkk_catatan_keluarga_detail(ep) > 0) {
                                 Log.i("simpan", "sukses");
                             } else {

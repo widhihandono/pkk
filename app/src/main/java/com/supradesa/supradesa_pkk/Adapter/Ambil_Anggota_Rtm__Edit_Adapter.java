@@ -67,6 +67,8 @@ Crud crud;
                 }
                 else
                 {
+                    list_temporary.list_nik.add(list_anggota_rtm.get(position).getNik());
+
                     list_temporary.listAnggotaRtm_Edit_tampung.remove(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm.remove(list_anggota_rtm.get(position));
 //                    list_temporary.listAnggotaRtm_Edit.remove(position);
@@ -77,13 +79,15 @@ Crud crud;
         });
 
         holder.tvRemove.setOnClickListener(l->{
-            list_temporary.listAnggotaRtm_Edit_tampung.remove(list_anggota_rtm.get(position));
+            list_temporary.list_nik.add(list_anggota_rtm.get(position).getNik());
+            list_temporary.listAnggotaRtm_Edit_tampung.clear();
             list_temporary.listAnggotaRtm_Edit.remove(position);
-            Intent intent = new Intent(context, Edit_Rtm_Activity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-            Animatoo.animateFade(context);
-            ((Activity)context).finish();
+            notifyDataSetChanged();
+//            Intent intent = new Intent(context, Edit_Rtm_Activity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intent);
+//            Animatoo.animateFade(context);
+//            ((Activity)context).finish();
 
         });
 

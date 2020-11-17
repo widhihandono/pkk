@@ -99,9 +99,22 @@ public class Ent_PkkCatatanKeluargaDetail {
     @Expose
     private List<Ent_PkkCatatanKeluargaDetail> data;
 
+    @SerializedName("hapus")
+    @Expose
+    private String hapus;
+
     @SerializedName("upload")
     @Expose
     private String upload;
+
+
+    public String getHapus() {
+        return hapus;
+    }
+
+    public void setHapus(String hapus) {
+        this.hapus = hapus;
+    }
 
     public String getUpload() {
         return upload;

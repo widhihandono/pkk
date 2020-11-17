@@ -134,7 +134,7 @@ public class Edit_Rtm_Activity extends AppCompatActivity {
             list_temporary.listAnggotaRtm_Edit.addAll(list_temporary.listAnggotaRtm_Edit_tampung);
             list_temporary.listAnggotaRtm_Edit_tampung.clear();
             list_temporary.listAnggotaRtm_Edit_sementara.clear();
-////            Toast.makeText(this,"size "+list_temporary.listAnggotaRtm_Edit_tampung.size()+" >>> "+list_temporary.listAnggotaRtm_Edit.size(),Toast.LENGTH_LONG).show();
+//            Toast.makeText(this,"size "+list_temporary.listAnggotaRtm_Edit.size()+" >>> "+list_temporary.listAnggotaRtm_Edit.size(),Toast.LENGTH_LONG).show();
             startActivity(new Intent(Edit_Rtm_Activity.this, Edit_Kepala_Rtm_Activity.class));
             Animatoo.animateFade(this);
             finish();

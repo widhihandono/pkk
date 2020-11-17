@@ -96,6 +96,13 @@ public class Crud {
     }
 
 
+    public boolean delete_all_config_code()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        return db.delete(Helper.TABLE_CONFIG_CODE,null,null) != -1;
+    }
+
+    //Tweb_Penduduk
     public long InsertData_tweb_penduduk(Ent_twebPenduduk etp)
     {
         SQLiteDatabase dbb = helper.getWritableDatabase();
@@ -120,6 +127,7 @@ public class Crud {
         contentValues.put(Helper.RT,etp.getRt());
         contentValues.put(Helper.RW,etp.getRw());
         contentValues.put(Helper.UPLOAD,"no");
+        contentValues.put(Helper.HAPUS_ID_RTM,"tidak");
 
         long id_insert_tweb_penduduk = dbb.insert(Helper.TABLE_TWEB_PENDUDUK,null,contentValues);
         return id_insert_tweb_penduduk;
@@ -151,6 +159,18 @@ public class Crud {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(Helper.UPLOAD,upload);
+
+
+        long update = dbb.update(Helper.TABLE_TWEB_PENDUDUK,contentValues,Helper.NIK+"="+nik,null);
+        return update;
+    }
+
+    public long updateData_tweb_penduduk(String nik,String value,String kolom)
+    {
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(kolom,value);
 
 
         long update = dbb.update(Helper.TABLE_TWEB_PENDUDUK,contentValues,Helper.NIK+"="+nik,null);
@@ -189,6 +209,7 @@ public class Crud {
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
             etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+            etp.setHapus_id_rtm(cursor.getString(cursor.getColumnIndex(Helper.HAPUS_ID_RTM)));
 
             listPresence.add(etp);
 
@@ -228,6 +249,7 @@ public class Crud {
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
             etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+            etp.setHapus_id_rtm(cursor.getString(cursor.getColumnIndex(Helper.HAPUS_ID_RTM)));
 
             listPresence.add(etp);
 
@@ -243,7 +265,7 @@ public class Crud {
         String[] coloumn = {Helper.ID,Helper.NAMA,Helper.NIK,Helper.ID_KK,Helper.KK_LEVEL,Helper.ID_RTM,Helper.RTM_LEVEL,Helper.SEX,
                             Helper.TEMPATLAHIR,Helper.TANGGALLAHIR,Helper.AGAMA_ID,Helper.PENDIDIKAN_KK_ID,Helper.PEKERJAAN_ID,Helper.STATUS_KAWIN,
                             Helper.ID_CLUSTER,Helper.ALAMAT_SEKARANG,Helper.CACAT_ID};
-        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_TWEB_PENDUDUK+" WHERE id_rtm = '"+id_rtm+"'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+Helper.TABLE_TWEB_PENDUDUK+" WHERE id_rtm = '"+id_rtm+"' AND hapus_id_rtm = 'tidak'",null);
         List<Ent_twebPenduduk> listPresence = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -268,8 +290,9 @@ public class Crud {
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
             etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+            etp.setHapus_id_rtm(cursor.getString(cursor.getColumnIndex(Helper.HAPUS_ID_RTM)));
 
-                listPresence.add(etp);
+            listPresence.add(etp);
 
         }
         return listPresence;
@@ -307,6 +330,7 @@ public class Crud {
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
             etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+            etp.setHapus_id_rtm(cursor.getString(cursor.getColumnIndex(Helper.HAPUS_ID_RTM)));
 
             listPresence.add(etp);
 
@@ -341,7 +365,7 @@ public class Crud {
         String[] coloumn = {Helper.ID,Helper.NAMA,Helper.NIK,Helper.ID_KK,Helper.KK_LEVEL,Helper.ID_RTM,Helper.RTM_LEVEL,Helper.SEX,
                 Helper.TEMPATLAHIR,Helper.TANGGALLAHIR,Helper.AGAMA_ID,Helper.PENDIDIKAN_KK_ID,Helper.PEKERJAAN_ID,Helper.STATUS_KAWIN,
                 Helper.ID_CLUSTER,Helper.ALAMAT_SEKARANG,Helper.CACAT_ID};
-        Cursor cursor = db.rawQuery("SELECT * FROM tweb_penduduk WHERE id_rtm = '"+no_rtm+"'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM tweb_penduduk WHERE id_rtm = '"+no_rtm+"' AND hapus_id_rtm = 'tidak'",null);
         List<Ent_twebPenduduk> listPenduduk = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -366,6 +390,7 @@ public class Crud {
             etp.setRt(cursor.getString(cursor.getColumnIndex(Helper.RT)));
             etp.setRw(cursor.getString(cursor.getColumnIndex(Helper.RW)));
             etp.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+            etp.setHapus_id_rtm(cursor.getString(cursor.getColumnIndex(Helper.HAPUS_ID_RTM)));
 
             listPenduduk.add(etp);
 
@@ -384,11 +409,40 @@ public class Crud {
     public boolean delete_all_penduduk()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_TWEB_PENDUDUK,null,null) > 0;
+        return db.delete(Helper.TABLE_TWEB_PENDUDUK,null,null) != -1;
     }
 
 
     //RTM
+    public long InsertData_tweb_rtm_sync(Ent_twebRtm rtm) {
+
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Helper.ID_RTM, rtm.getId());
+        contentValues.put(Helper.NIK_KEPALA, rtm.getNik_kepala());
+        contentValues.put(Helper.NO_KK, rtm.getNo_kk());
+        contentValues.put(Helper.TGL_DAFTAR, rtm.getTgl_daftar());
+        contentValues.put(Helper.KELAS_SOSIAL, rtm.getKelas_sosial());
+        contentValues.put(Helper.UPLOAD, "sync");
+
+        if (cek_data_rtm_by_id(rtm.getNo_kk()).size() > 0) {
+            long update = dbb.update(Helper.TABLE_TWEB_RTM, contentValues, Helper.NO_KK + " = ? OR " + Helper.ID_RTM + " = ?",
+                    new String[]{rtm.getNo_kk(), rtm.getId()});
+            return update;
+        } else {
+            long insert = dbb.insert(Helper.TABLE_TWEB_RTM, null, contentValues);
+//        Toast.makeText(context,"INSERT : "+String.valueOf(insert),Toast.LENGTH_LONG).show();
+            if (insert < 0) {
+                long update = dbb.update(Helper.TABLE_TWEB_RTM, contentValues, Helper.NO_KK + " = ? OR " + Helper.ID_RTM + " = ?",
+                        new String[]{rtm.getNo_kk(), rtm.getId()});
+                return update;
+            } else {
+                return insert;
+            }
+        }
+
+    }
+
     public long InsertData_tweb_rtm(Ent_twebRtm rtm)
     {
 
@@ -458,6 +512,17 @@ public class Crud {
         return update;
     }
 
+    public long updateData_rtm_by_value(String no_kk,String key,String value)
+    {
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(key,value);
+
+        long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,"no_kk= ?",new String[]{no_kk});
+        return update;
+    }
+
     public List<Ent_twebRtm> cek_data_rtm_by_id(String no_kk)//no_kk == no_rtm
     {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -505,6 +570,30 @@ public class Crud {
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] coloumn = {Helper.ID_RTM,Helper.NIK_KEPALA,Helper.NO_KK,Helper.TGL_DAFTAR,Helper.KELAS_SOSIAL};
         Cursor cursor = db.rawQuery("SELECT tweb_rtm.*,tweb_penduduk.nama FROM tweb_penduduk JOIN tweb_rtm ON tweb_penduduk.id = tweb_rtm.nik_kepala WHERE tweb_rtm.upload = 'no'",null);
+        List<Ent_twebRtm> listPenduduk = new ArrayList<>();
+        while (cursor.moveToNext())
+        {
+            Ent_twebRtm rtm = new Ent_twebRtm();
+            rtm.setId(cursor.getString(cursor.getColumnIndex(Helper.ID_RTM)));
+            rtm.setNik_kepala(cursor.getString(cursor.getColumnIndex(Helper.NIK_KEPALA)));
+            rtm.setNo_kk(cursor.getString(cursor.getColumnIndex(Helper.NO_KK)));
+            rtm.setTgl_daftar(cursor.getString(cursor.getColumnIndex(Helper.TGL_DAFTAR)));
+            rtm.setKelas_sosial(cursor.getString(cursor.getColumnIndex(Helper.KELAS_SOSIAL)));
+            rtm.setNama(cursor.getString(cursor.getColumnIndex(Helper.NAMA)));
+            rtm.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
+
+            listPenduduk.add(rtm);
+
+        }
+        return listPenduduk;
+    }
+
+    //Da
+    public List<Ent_twebRtm> getData_tweb_rtm_join_penduduk_sync()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] coloumn = {Helper.ID_RTM,Helper.NIK_KEPALA,Helper.NO_KK,Helper.TGL_DAFTAR,Helper.KELAS_SOSIAL};
+        Cursor cursor = db.rawQuery("SELECT tweb_rtm.*,tweb_penduduk.nama FROM tweb_penduduk JOIN tweb_rtm ON tweb_penduduk.id = tweb_rtm.nik_kepala WHERE tweb_rtm.upload = 'sync'",null);
         List<Ent_twebRtm> listPenduduk = new ArrayList<>();
         while (cursor.moveToNext())
         {
@@ -588,13 +677,13 @@ public class Crud {
     public boolean delete_rtm_by_id(String id)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_TWEB_RTM,helper.ID_RTM+"="+id,null) > 0;
+        return db.delete(Helper.TABLE_TWEB_RTM,helper.ID_RTM+"="+id,null) != -1;
     }
 
     public boolean delete_all_rtm()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_TWEB_RTM,null,null) > 0;
+        return db.delete(Helper.TABLE_TWEB_RTM,null,null) != -1;
     }
 
 
@@ -672,7 +761,7 @@ public class Crud {
     public boolean delete_all_keluarga()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_TWEB_KELUARGA,null,null) > 0;
+        return db.delete(Helper.TABLE_TWEB_KELUARGA,null,null) != -1;
     }
 
 

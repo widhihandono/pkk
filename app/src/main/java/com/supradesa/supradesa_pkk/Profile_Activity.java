@@ -173,6 +173,15 @@ public class Profile_Activity extends AppCompatActivity {
             finish();
         });
 
+
+        for (Drawable drawable : tvProfile.getCompoundDrawables()) {
+            if (drawable != null) {
+                drawable.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(tvProfile.getContext(), R.color.blue), PorterDuff.Mode.SRC_IN));
+            }
+        }
+        tvProfile.setTextColor(ContextCompat.getColor(this,R.color.blue));
+
+
         tvProfile.setOnClickListener(l->{
             for (Drawable drawable : tvProfile.getCompoundDrawables()) {
                 if (drawable != null) {
@@ -194,6 +203,7 @@ public class Profile_Activity extends AppCompatActivity {
             animateFAB();
         });
 
+
         fabPendataan.setOnClickListener(l->{
             Intent intent = new Intent(Profile_Activity.this,Pemilihan_KK_Activity.class);
             intent.putExtra("id_kk","0");
@@ -203,15 +213,14 @@ public class Profile_Activity extends AppCompatActivity {
         });
 
         fabSync.setOnClickListener(l->{
-            Intent intent = new Intent(Profile_Activity.this,Upload_Data_Activity.class);
+            Intent intent = new Intent(Profile_Activity.this,Ambil_DataActivity.class);
             startActivity(intent);
-            finish();
+//            finish();
         });
 
         fabDoc.setOnClickListener(l->{
-            Intent intent = new Intent(Profile_Activity.this, Edit_Cari_No_Rtm_Activity.class);
+            Intent intent = new Intent(Profile_Activity.this, Data_Belum_Upload_Activity.class);
             startActivity(intent);
-            finish();
         });
 
 
@@ -249,21 +258,49 @@ public class Profile_Activity extends AppCompatActivity {
 
         // set pesan dari dialog
         alertDialogBuilder
-                .setMessage("Tekan Ya untuk Logout")
+                .setMessage("Sebelum Logout. Pastikan semua Data yang Belum di Upload untuk segera di Upload !!. Jika sudah yakin ingin Logout. Tekan 'Ya' Untuk Logout")
                 .setCancelable(false)
                 .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                     public void onClick(DialogInterface dialog, int id) {
+                        list_temporary.listAllAnggota_sementara.clear();
+                        list_temporary.list_no_kk.clear();
+                        list_temporary.no_rtm = "";
                         list_temporary.listAnggotaRtm.clear();
                         list_temporary.listAllAnggota.clear();
-                        list_temporary.listPenduduk_Detail.clear();
-                        list_temporary.listSub.clear();
                         list_temporary.dasawismaPosition = -1;
                         list_temporary.kepalaRtm = -1;
                         list_temporary.id_dasawisma = "";
                         list_temporary.id_penduduk = "";
                         list_temporary.id_kk = "";
                         list_temporary.nik = "";
+                        list_temporary.listPenduduk_Detail.clear();
+                        list_temporary.listSub.clear();
+                        list_temporary.listAnggotaRtm_Edit_tampung.clear();
+                        list_temporary.listCekAnggotaRtm.clear();
+                        list_temporary.listAnggotaRtm_Edit.clear();
+                        list_temporary.listAnggotaRtm_Edit_sementara.clear();
+                        list_temporary.listAnggotaRtm_Edit_tampung.clear();
+                        list_temporary.list_AmbilAnggotaRtm_Edit.clear();
+                        list_temporary.listAllAnggota_edit_sementara.clear();
+                        list_temporary.list_no_kk_edit.clear();
+                        list_temporary.list_nik.clear();
+
+                        list_temporary.id_rtm = "";
+                        list_temporary.no_rtm_edit = "no";
+                        list_temporary.kepalaRtm_edit = "";
+
+                        crudSqlite.delete_all_config_code();
+                        crudSqlite.delete_all_keluarga();
+                        crudSqlite.delete_all_penduduk();
+                        crudSqlite.delete_all_keluarga();
+                        crudSqlite.delete_all_rtm();
+                        crudPkk.delete_all_pkk_catatan_keluarga();
+                        crudPkk.delete_all_pkk_catatan_keluarga_detail();
+                        crudPkk.delete_all_pkk_dasa_wisma();
+                        crudPkk.delete_all_pkk_data_keluarga();
+                        crudPkk.delete_all_pkk_kelompok_dasa_wisma();
+
 
                         Toast.makeText(Profile_Activity.this,"Sukses Logout",Toast.LENGTH_LONG).show();
                         sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,false);
@@ -274,6 +311,17 @@ public class Profile_Activity extends AppCompatActivity {
                         sharedPref.saveSPString("nama_kecamatan","");
                         sharedPref.saveSPString("no_hp","");
                         sharedPref.saveSPString("email","");
+
+                        sharedPref.saveSPString("tgl_konf","");
+                        sharedPref.saveSPString("tglSync_penduduk","");
+                        sharedPref.saveSPString("tgl_rmhTgga","");
+                        sharedPref.saveSPString("tglSync_keluarga","");
+                        sharedPref.saveSPString("tglSync_catKeluarga","");
+                        sharedPref.saveSPString("tglSync_catKeluargaDet","");
+                        sharedPref.saveSPString("tglSync_pkkKeluarga","");
+                        sharedPref.saveSPString("tglSync_kelompok_dasawiswa","");
+                        sharedPref.saveSPString("tglSync_pkkDasawisma","");
+
 
                         startActivity(new Intent(Profile_Activity.this,Login_Activity.class));
                         finish();

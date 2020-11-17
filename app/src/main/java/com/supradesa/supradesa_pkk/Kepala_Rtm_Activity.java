@@ -55,6 +55,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvKepalaRtm.setLayoutManager(layoutManager);
 
+//        Toast.makeText(this,"Jumlah : "+list_temporary.getListAnggotaRtm().size(),Toast.LENGTH_LONG).show();
         kepalaRtmAdapter = new Kepala_Rtm_Adapter(this,list_temporary.getListAnggotaRtm());
         rvKepalaRtm.setAdapter(kepalaRtmAdapter);
 
@@ -165,6 +166,7 @@ public class Kepala_Rtm_Activity extends AppCompatActivity {
                                 ep.setId_kelompok_umur("27");
                             }
 
+                            ep.setHapus("tidak");
                             if (crudPkk.InsertData_pkk_catatan_keluarga_detail(ep) > 0) {
                                 Log.i("simpan", "sukses");
                             } else {

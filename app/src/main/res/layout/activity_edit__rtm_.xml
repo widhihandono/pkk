@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Edit List Anggota Keluarga"
             android:textStyle="bold"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:textColor="#000"

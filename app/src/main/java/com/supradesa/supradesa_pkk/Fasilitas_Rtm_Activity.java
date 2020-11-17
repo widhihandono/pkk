@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.shuhart.stepview.StepView;
 import com.supradesa.supradesa_pkk.Adapter.Fasilitas_rtm_Adapter;
+import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
 import com.supradesa.supradesa_pkk.Model.Fasilitas_Rtm;
 import com.supradesa.supradesa_pkk.Model.Sub_Catatan_keluarga;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
@@ -24,6 +25,9 @@ import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
 import com.supradesa.supradesa_pkk.SQLite.Helper;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 import com.travijuu.numberpicker.library.NumberPicker;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fasilitas_Rtm_Activity extends AppCompatActivity {
 Fasilitas_Rtm[] data;
@@ -100,34 +104,72 @@ private NumberPicker number_picker_jamban;
         });
 
         tvSave.setOnClickListener(l->{
-
-            if(number_picker_jamban.getValue() > 0)
+            if(rbBeras.isChecked() || rbNonBeras.isChecked())
             {
-                crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.no_rtm);
-                crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(number_picker_jamban.getValue()),list_temporary.no_rtm);
+                if(rbPdam.isChecked() || rbSumur.isChecked() || rbSungai.isChecked() || rbLainnya.isChecked())
+                {
+                    if(rbLayakHuni.isChecked() || rbTidakLayakHuni.isChecked())
+                    {
+//                        Toast.makeText(getApplicationContext(),"Lanjutkan !",Toast.LENGTH_LONG).show();
+                        if(number_picker_jamban.getValue() > 0)
+                        {
+                            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.no_rtm);
+                            crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(number_picker_jamban.getValue()),list_temporary.no_rtm);
+                        }
+                        else
+                        {
+                            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.no_rtm);
+                            crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(0),list_temporary.no_rtm);
+                        }
+
+
+                        list_temporary.listAllAnggota_sementara.clear();
+                        list_temporary.list_no_kk.clear();
+                        list_temporary.no_rtm = "";
+                        list_temporary.listAnggotaRtm.clear();
+                        list_temporary.listAllAnggota.clear();
+                        list_temporary.dasawismaPosition = -1;
+                        list_temporary.kepalaRtm = -1;
+                        list_temporary.id_dasawisma = "";
+                        list_temporary.id_penduduk = "";
+                        list_temporary.id_kk = "";
+                        list_temporary.nik = "";
+                        list_temporary.listPenduduk_Detail.clear();
+                        list_temporary.listSub.clear();
+                        list_temporary.listAnggotaRtm_Edit_tampung.clear();
+                        list_temporary.listCekAnggotaRtm.clear();
+                        list_temporary.listAnggotaRtm_Edit.clear();
+                        list_temporary.listAnggotaRtm_Edit_sementara.clear();
+                        list_temporary.listAnggotaRtm_Edit_tampung.clear();
+                        list_temporary.list_AmbilAnggotaRtm_Edit.clear();
+                        list_temporary.listAllAnggota_edit_sementara.clear();
+                        list_temporary.list_no_kk_edit.clear();
+                        list_temporary.list_nik.clear();
+
+                        list_temporary.id_rtm = "";
+                        list_temporary.no_rtm_edit = "no";
+                        list_temporary.kepalaRtm_edit = "";
+
+                        startActivity(new Intent(Fasilitas_Rtm_Activity.this,MainActivity.class));
+                        Animatoo.animateFade(this);
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Harus Memilih Salah Satu Kriteria Rumah !",Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Harus Memilih Salah Satu Sumber Air !",Toast.LENGTH_LONG).show();
+                }
             }
             else
             {
-                crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.no_rtm);
-                crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(0),list_temporary.no_rtm);
+                Toast.makeText(getApplicationContext(),"Harus Memilih Salah Satu Makanan Pokok !",Toast.LENGTH_LONG).show();
             }
 
-            list_temporary.listAllAnggota_sementara.clear();
-            list_temporary.list_no_kk.clear();
-            list_temporary.no_rtm = "";
-            list_temporary.listAnggotaRtm.clear();
-            list_temporary.listAllAnggota.clear();
-            list_temporary.dasawismaPosition = -1;
-            list_temporary.kepalaRtm = -1;
-            list_temporary.id_dasawisma = "";
-            list_temporary.id_penduduk = "";
-            list_temporary.id_kk = "";
-            list_temporary.nik = "";
-            list_temporary.listPenduduk_Detail.clear();
-            list_temporary.listSub.clear();
-            startActivity(new Intent(Fasilitas_Rtm_Activity.this,MainActivity.class));
-            Animatoo.animateFade(this);
-            finish();
+
         });
 
 

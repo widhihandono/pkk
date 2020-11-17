@@ -80,6 +80,10 @@ public class Ent_twebPenduduk {
     @Expose
     private String cacat_id;
 
+    @SerializedName("hapus_id_rtm")
+    @Expose
+    private String hapus_id_rtm;
+
     @SerializedName("kk_level")
     @Expose
     private String kk_level;
@@ -95,6 +99,14 @@ public class Ent_twebPenduduk {
     @SerializedName("upload")
     @Expose
     private String upload;
+
+    public String getHapus_id_rtm() {
+        return hapus_id_rtm;
+    }
+
+    public void setHapus_id_rtm(String hapus_id_rtm) {
+        this.hapus_id_rtm = hapus_id_rtm;
+    }
 
     public String getUpload() {
         return upload;

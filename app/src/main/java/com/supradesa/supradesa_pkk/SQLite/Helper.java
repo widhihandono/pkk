@@ -47,6 +47,7 @@ public class Helper extends SQLiteOpenHelper {
     public static final String ID_CLUSTER = "id_cluster";
     public static final String ALAMAT_SEKARANG = "alamat_sekarang";
     public static final String CACAT_ID = "cacat_id";
+    public static final String HAPUS_ID_RTM = "hapus_id_rtm";
 
     //RTM
     public static final String NIK_KEPALA = "nik_kepala";
@@ -85,6 +86,7 @@ public class Helper extends SQLiteOpenHelper {
 
     //PKK_CATATAN_KELUARGA_DETAIL
     public static final String ID_DETAIL_CAT = "id_detail_cat";
+    public static final String HAPUS = "hapus";
 //    public static final String ID_PENDUDUK = "id_penduduk";
     public static final String BERKEBUTUHAN_KHUSUS = "berkebutuhan_khusus";
     public static final String PENGHAYATAN_DAN_PENGAMALAN_PANCASILA = "penghayatan_dan_pengamalan_pancasila";
@@ -155,7 +157,7 @@ public class Helper extends SQLiteOpenHelper {
             RTM_LEVEL+" VARCHAR(8), "+SEX +" VARCHAR(4), "+TEMPATLAHIR+" VARCHAR(50), "+
             TANGGALLAHIR+" VARCHAR(30), "+AGAMA_ID +" VARCHAR(11), "+PENDIDIKAN_KK_ID+" VARCHAR(11), "+
             PEKERJAAN_ID +" VARCHAR(11), "+STATUS_KAWIN+" VARCHAR(11), "+
-            ID_CLUSTER+" VARCHAR(11), "+ALAMAT_SEKARANG +" VARCHAR(100), "+CACAT_ID+" VARCHAR(11), "+UPLOAD+" VARCHAR(8),"+RT +" VARCHAR(5),"+RW +" VARCHAR(5));";
+            ID_CLUSTER+" VARCHAR(11), "+ALAMAT_SEKARANG +" VARCHAR(100), "+CACAT_ID+" VARCHAR(11), "+UPLOAD+" VARCHAR(8),"+RT +" VARCHAR(5),"+RW +" VARCHAR(5),"+HAPUS_ID_RTM+" VARCHAR(10));";
     public static final String DROP_TABLE_TWEB_PENDUDUK = "DROP TABLE IF EXISTS "+TABLE_TWEB_PENDUDUK;
 
     //RTM
@@ -212,7 +214,7 @@ public class Helper extends SQLiteOpenHelper {
             PANGAN+" VARCHAR(3), "+SANDANG+" VARCHAR(3), "+KESEHATAN +" VARCHAR(3), "+PERENCANAAN_SEHAT+" VARCHAR(3), "+
             ID_KELOMPOK_UMUR+" VARCHAR(3), "+USIA_SUBUR+" VARCHAR(15), "+
             IBU_HAMIL+" VARCHAR(15), "+MENYUSUI+" VARCHAR(15), "+NIFAS+" VARCHAR(15), "+BUTA_BACA+" VARCHAR(15)," +
-            BUTA_TULIS+" VARCHAR(15),"+BUTA_HITUNG+" VARCHAR(15), "+STUNTING+" VARCHAR(15),"+
+            BUTA_TULIS+" VARCHAR(15),"+BUTA_HITUNG+" VARCHAR(15), "+STUNTING+" VARCHAR(15),"+HAPUS+" VARCHAR(15), "+
             UPLOAD+" VARCHAR(8));";
     public static final String DROP_TABLE_PKK_CATATAN_KELUARGA_DETAIL = "DROP TABLE IF EXISTS "+TABLE_PKK_CATATAN_KELUARGA_DETAIL;
 

@@ -361,7 +361,7 @@ String nik;
                     {
                         if(crudPkk.update_pkk_catatan_keluarga_detail(helper.GOTONG_ROYONG,"1",list_temporary.getListAnggotaRtm_Edit().get(posisi).getId(),list_temporary.getListAnggotaRtm_Edit().get(posisi).getNik()) > 0)
                         {
-                            Toast.makeText(context,"Berhasil Update",Toast.LENGTH_LONG).show();
+//                            Toast.makeText(context,"Berhasil Update",Toast.LENGTH_LONG).show();
                         }
                         else
                         {

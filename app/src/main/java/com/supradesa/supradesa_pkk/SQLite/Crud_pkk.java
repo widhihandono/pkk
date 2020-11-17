@@ -71,7 +71,7 @@ public class Crud_pkk {
     public boolean delete_all_pkk_catatan_keluarga()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_CATATAN_KELUARGA,null,null) > 0;
+        return db.delete(Helper.TABLE_PKK_CATATAN_KELUARGA,null,null) != -1;
     }
 
     //Pkk Catatan keluarga detail
@@ -99,6 +99,7 @@ public class Crud_pkk {
         contentValues.put(Helper.BUTA_TULIS,ckd.getButa_tulis());
         contentValues.put(Helper.BUTA_HITUNG,ckd.getButa_hitung());
         contentValues.put(Helper.STUNTING,ckd.getStunting());
+        contentValues.put(Helper.HAPUS,ckd.getHapus());
         contentValues.put(Helper.UPLOAD,"no");
 
         if(getData_pkk_catatan_keluarga_detail_by_param(Helper.NIK,ckd.getNik()).size() > 0)
@@ -277,6 +278,7 @@ public class Crud_pkk {
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
             ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
+            ckd.setHapus(cursor.getString(cursor.getColumnIndex(Helper.HAPUS)));
             ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
@@ -314,11 +316,13 @@ public class Crud_pkk {
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
             ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
+            ckd.setHapus(cursor.getString(cursor.getColumnIndex(Helper.HAPUS)));
             ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
 
         }
+        cursor.close();
         return listPresence;
     }
 
@@ -356,6 +360,7 @@ public class Crud_pkk {
             ckd.setButa_tulis(cursor.getString(cursor.getColumnIndex(Helper.BUTA_TULIS)));
             ckd.setButa_hitung(cursor.getString(cursor.getColumnIndex(Helper.BUTA_HITUNG)));
             ckd.setStunting(cursor.getString(cursor.getColumnIndex(Helper.STUNTING)));
+            ckd.setHapus(cursor.getString(cursor.getColumnIndex(Helper.HAPUS)));
             ckd.setUpload(cursor.getString(cursor.getColumnIndex(Helper.UPLOAD)));
 
             listPresence.add(ckd);
@@ -364,6 +369,12 @@ public class Crud_pkk {
         return listPresence;
     }
 
+
+    public boolean delete_pkk_catatan_keluarga_detail_by_nik(String nik)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        return db.delete(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,helper.NIK+"="+nik,null) > 0;
+    }
 
     public boolean delete_pkk_catatan_keluarga_detail_by_id(String id)
     {
@@ -374,7 +385,7 @@ public class Crud_pkk {
     public boolean delete_all_pkk_catatan_keluarga_detail()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,null,null) > 0;
+        return db.delete(Helper.TABLE_PKK_CATATAN_KELUARGA_DETAIL,null,null) != -1;
     }
 
 
@@ -561,7 +572,7 @@ public class Crud_pkk {
     public boolean delete_all_pkk_data_keluarga()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_DATA_KELUARGA,null,null) > 0;
+        return db.delete(Helper.TABLE_PKK_DATA_KELUARGA,null,null) != -1;
     }
 
 
@@ -612,7 +623,7 @@ public class Crud_pkk {
     public boolean delete_all_pkk_dasa_wisma()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_DASA_WISMA,null,null) > 0;
+        return db.delete(Helper.TABLE_PKK_DASA_WISMA,null,null) != -1;
     }
 
 
@@ -754,6 +765,6 @@ public class Crud_pkk {
     public boolean delete_all_pkk_kelompok_dasa_wisma()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_KELOMPOK_DASAWISMA,null,null) > 0;
+        return db.delete(Helper.TABLE_PKK_KELOMPOK_DASAWISMA,null,null) != -1;
     }
 }

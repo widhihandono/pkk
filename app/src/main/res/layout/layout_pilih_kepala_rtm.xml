@@ -58,6 +58,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="8dp"
+            android:visibility="invisible"
             android:id="@+id/tvRemoveKepalaRtm"/>
 
 
