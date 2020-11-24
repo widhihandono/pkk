@@ -200,6 +200,7 @@ private SharedPref sharedPref;
                         dusun = myObject.getString("dusun");
                         no_hp = myObject.getString("no_hp");
                         email = myObject.getString("email");
+                        username = myObject.getString("username");
                     }
                     else if(responseInt == 2)
                     {
@@ -254,6 +255,7 @@ private SharedPref sharedPref;
                 sharedPref.saveSPString("kode_desa",kode_desa);
                 sharedPref.saveSPString("dusun",dusun);
                 sharedPref.saveSPString("no_hp",no_hp);
+                sharedPref.saveSPString("username",username);
                 sharedPref.saveSPString("email",email);
 
                 startActivity(new Intent(Login_Activity.this,MainActivity.class));

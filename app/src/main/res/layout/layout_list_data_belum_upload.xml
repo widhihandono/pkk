@@ -65,11 +65,10 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/eyes_show"
+            android:src="@drawable/ic_baseline_delete_outline_24"
             android:textColor="#fff"
-            android:id="@+id/imgShow"
-            android:visibility="gone"
-            android:layout_marginLeft="10dp"
+            android:id="@+id/imgDelete"
+            android:layout_marginLeft="15dp"
             android:layout_below="@+id/imgUpload"
             android:background="@drawable/background_lingkaran_see" />
     </LinearLayout>

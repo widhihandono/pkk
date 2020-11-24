@@ -15,10 +15,12 @@ import com.supradesa.supradesa_pkk.Model.Ent_twebPendudukPendidikanKK;
 import com.supradesa.supradesa_pkk.Model.Ent_twebPendudukUmur;
 import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
 import com.supradesa.supradesa_pkk.Model.Ent_user_pkk_dusun;
+import com.supradesa.supradesa_pkk.Model.Ent_versioning;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
@@ -219,5 +221,9 @@ public interface Api_Interface {
                                                                            @Field("buta_baca") String buta_baca,
                                                                            @Field("buta_tulis") String buta_tulis,
                                                                            @Field("buta_hitung") String buta_hitung);
+
+    @Headers("KEY:25f9e794323b453885f5181f1b624d0b")
+    @GET("Api_pkk/versioning")
+    Call<Ent_versioning> versioning();
 
 }

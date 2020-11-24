@@ -560,13 +560,13 @@ public class Crud_pkk {
     public boolean delete_pkk_data_keluarga_by_No_KK(String no_kk) //no_kk
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_DATA_KELUARGA,helper.NO_KK+"=?",new String[]{no_kk}) > 0;
+        return db.delete(Helper.TABLE_PKK_DATA_KELUARGA,helper.NO_KK+"=?",new String[]{no_kk}) >= 0;
     }
 
     public boolean delete_pkk_data_keluarga_by_id(String id)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_DATA_KELUARGA,helper.ID_DK+"="+id,null) > 0;
+        return db.delete(Helper.TABLE_PKK_DATA_KELUARGA,helper.ID_DK+"="+id,null) >= 0;
     }
 
     public boolean delete_all_pkk_data_keluarga()
@@ -759,7 +759,7 @@ public class Crud_pkk {
     public boolean delete_pkk_kelompok_dasa_wisma_by_no_rtm(String no_rtm)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        return db.delete(Helper.TABLE_PKK_KELOMPOK_DASAWISMA,helper.NO_KK+"=?",new String[]{no_rtm}) > 0;
+        return db.delete(Helper.TABLE_PKK_KELOMPOK_DASAWISMA,helper.NO_KK+"=?",new String[]{no_rtm}) >= 0;
     }
 
     public boolean delete_all_pkk_kelompok_dasa_wisma()

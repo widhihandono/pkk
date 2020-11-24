@@ -1,10 +1,9 @@
 package com.supradesa.supradesa_pkk;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -125,6 +124,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
 
     Get_Data_From_Server get_data_from_server;
     Get_All_Data_From_Server get_all_data_from_server;
+    int clickCount_config = 0,clickCount_rtm = 0,clickCount_penduduk = 0,clickCount_keluarga = 0,clickCount_cat_keluarga = 0,
+            getClickCount_cat_keluarga_det = 0,clickCount_pkk_keluarga = 0,clickCount_kelompok_dasawisma,clickCount_dasawisma = 0,clickCount_all = 0;
 
 
     @Override
@@ -179,11 +180,29 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnConfigCode.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getConfig_Code();
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    //                if(clickCount_config < 1)
+//                {
+//                    clickCount_config = clickCount_config+1;
+                    get_data_from_server.getConfig_Code();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tgl_konf",tgl());
-                tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tgl_konf",tgl());
+                    tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
+//                }
+//                else
+//                {
+//                    Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                    clickCount_config = 0;
+//                }
+                }
+
+
             }
             else
             {
@@ -195,11 +214,28 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPenduduk.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getPenduduk();
+//                if(clickCount_penduduk < 1)
+//                {
+//                    clickCount_penduduk = clickCount_penduduk+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getPenduduk();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_penduduk",tgl());
-                tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_penduduk",tgl());
+                    tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_penduduk = 0;
+//                    }
+                }
+
             }
             else
             {
@@ -222,11 +258,27 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnRtm.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getRtm();
+//                if(clickCount_rtm < 1)
+//                {
+//                    clickCount_rtm = clickCount_rtm+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                 {
+                    get_data_from_server.getRtm();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tgl_rmhTgga",tgl());
-                tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tgl_rmhTgga", tgl());
+                    tvTglSync_rmhTgga.setText("Last Sync : " + sharedPref.sp.getString("tgl_rmhTgga", ""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_rtm = 0;
+//                    }
+                }
             }
             else
             {
@@ -238,11 +290,27 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnKeluarga.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getKeluarga();
+//                if(clickCount_keluarga < 1)
+//                {
+//                    clickCount_keluarga = clickCount_keluarga+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getKeluarga();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_keluarga",tgl());
-                tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_keluarga", tgl());
+                    tvTglSync_keluarga.setText("Last Sync : " + sharedPref.sp.getString("tglSync_keluarga", ""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_keluarga = 0;
+//                    }
+                }
             }
             else
             {
@@ -254,11 +322,28 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPkkCatatanKeluarga.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getPkkCatatanKeluarga();
+//                if(clickCount_cat_keluarga < 1)
+//                {
+//                    clickCount_cat_keluarga = clickCount_cat_keluarga+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getPkkCatatanKeluarga();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_catKeluarga",tgl());
-                tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_catKeluarga",tgl());
+                    tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_cat_keluarga = 0;
+//                    }
+                }
+
             }
             else
             {
@@ -270,11 +355,28 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPkkCatatanKeluargaDetail.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getPkkCatatanKeluargaDetail();
+//                if(getClickCount_cat_keluarga_det < 1)
+//                {
+//                    getClickCount_cat_keluarga_det = getClickCount_cat_keluarga_det+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getPkkCatatanKeluargaDetail();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
-                tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
+                    tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        getClickCount_cat_keluarga_det = 0;
+//                    }
+                }
+
             }
             else
             {
@@ -286,11 +388,28 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPkkDataKeluarga.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getPkkDataKeluarga();
+//                if(clickCount_pkk_keluarga < 1)
+//                {
+//                    clickCount_pkk_keluarga = clickCount_pkk_keluarga+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getPkkDataKeluarga();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
-                tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
+                    tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_pkk_keluarga = 0;
+//                    }
+                }
+
             }
             else
             {
@@ -302,11 +421,28 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPkkKelompokDasawisma.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getPkkKelompokDasaWisma();
+//                if(clickCount_kelompok_dasawisma < 1)
+//                {
+//                    clickCount_kelompok_dasawisma = clickCount_kelompok_dasawisma+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getPkkKelompokDasaWisma();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
-                tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
+                    tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_kelompok_dasawisma = 0;
+//                    }
+                }
+
             }
             else
             {
@@ -318,11 +454,28 @@ public class Ambil_DataActivity extends AppCompatActivity {
         lnPkkDasawisma.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_data_from_server.getPkkDasaWisma();
+//                if(clickCount_dasawisma < 1)
+//                {
+//                    clickCount_dasawisma = clickCount_dasawisma+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_data_from_server.getPkkDasaWisma();
 
-                hapus_static_list();
-                sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
-                tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+                    hapus_static_list();
+                    sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
+                    tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_dasawisma = 0;
+//                    }
+                }
+
             }
             else
             {
@@ -334,20 +487,37 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvSyncAll.setOnClickListener(l->{
             if(isNetworkAvailable())
             {
-                get_all_data_from_server.getAll_Data();
+//                if(clickCount_all < 1)
+//                {
+//                    clickCount_all = clickCount_all+1;
+                if(crudSqlite.getData_tweb_rtm_join_penduduk_belum_upload().size() > 0)
+                {
+                    showDialogCek_rtm_hapus();
+                }
+                else
+                {
+                    get_all_data_from_server.getAll_Data();
 
-                hapus_static_list();
+                    hapus_static_list();
 
 
-                tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
-                tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
-                tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
-                tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
-                tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
-                tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
-                tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
-                tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
-                tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+                    tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
+                    tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+                    tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
+                    tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
+                    tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+                    tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+                    tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+                    tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+                    tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+                }
+
+//                    }
+//                    else
+//                    {
+//                        Toast.makeText(this,"Anda tadi sudah menekan tombol ini. Mohon Bersabar.",Toast.LENGTH_LONG).show();
+//                        clickCount_all = 0;
+//                    }
             }
             else
             {
@@ -470,6 +640,66 @@ public class Ambil_DataActivity extends AppCompatActivity {
         Button btn = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         btn.setTextColor(Color.RED);
     }
+
+    private void showDialogCek_rtm_hapus(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set pesan dari dialog
+        alertDialogBuilder.setTitle("Yakin mau Sinkron Data sekarang ?");
+        alertDialogBuilder
+                .setMessage("Masih ada data yang belum di upload. Yakin mau melanjutkan Sinkron Data ? Data yang belum di upload, akan otomatis terhapus ketika Sinkron Data (Klik Tombol 'YA')")
+                .setIcon(R.drawable.ic_delete)
+                .setCancelable(false)
+                .setPositiveButton("YA",new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int id) {
+                        if(isNetworkAvailable())
+                        {
+                                get_all_data_from_server.getAll_Data();
+
+                                hapus_static_list();
+
+
+                                tvTglSync_konf.setText("Last Sync : "+sharedPref.sp.getString("tgl_konf",""));
+                                tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+                                tvTglSync_rmhTgga.setText("Last Sync : "+sharedPref.sp.getString("tgl_rmhTgga",""));
+                                tvTglSync_keluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_keluarga",""));
+                                tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+                                tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+                                tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+                                tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+                                tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+
+                        }
+                        else
+                        {
+                            showDialogOnNetwork();
+                        }
+
+
+                    }
+                }).setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                startActivity(new Intent(Ambil_DataActivity.this,Data_Belum_Upload_Activity.class));
+                Animatoo.animateFade(Ambil_DataActivity.this);
+                finish();
+            }
+        });
+
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+        Button pbtn = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbtn.setTextColor(Color.BLUE);
+        Button nbtn = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbtn.setTextColor(Color.RED);
+
+    }
     //===============================================
 
     private String tgl()
@@ -481,6 +711,8 @@ public class Ambil_DataActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        startActivity(new Intent(Ambil_DataActivity.this,MainActivity.class));
+        Animatoo.animateFade(Ambil_DataActivity.this);
+        finish();
     }
 }

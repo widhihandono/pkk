@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
@@ -208,6 +209,7 @@ public class Profile_Activity extends AppCompatActivity {
             Intent intent = new Intent(Profile_Activity.this,Pemilihan_KK_Activity.class);
             intent.putExtra("id_kk","0");
             startActivity(intent);
+            Animatoo.animateFade(Profile_Activity.this);
             finish();
 
         });
@@ -215,12 +217,14 @@ public class Profile_Activity extends AppCompatActivity {
         fabSync.setOnClickListener(l->{
             Intent intent = new Intent(Profile_Activity.this,Ambil_DataActivity.class);
             startActivity(intent);
+            Animatoo.animateFade(Profile_Activity.this);
 //            finish();
         });
 
         fabDoc.setOnClickListener(l->{
             Intent intent = new Intent(Profile_Activity.this, Data_Belum_Upload_Activity.class);
             startActivity(intent);
+            Animatoo.animateFade(Profile_Activity.this);
         });
 
 
@@ -247,7 +251,6 @@ public class Profile_Activity extends AppCompatActivity {
             BottomSheet bottomSheet = new BottomSheet();
             bottomSheet.show(getSupportFragmentManager(),bottomSheet.getTag());
         });
-
     }
 
     private void showDialogLogout(){
@@ -311,6 +314,7 @@ public class Profile_Activity extends AppCompatActivity {
                         sharedPref.saveSPString("nama_kecamatan","");
                         sharedPref.saveSPString("no_hp","");
                         sharedPref.saveSPString("email","");
+                        sharedPref.saveSPString("username","");
 
                         sharedPref.saveSPString("tgl_konf","");
                         sharedPref.saveSPString("tglSync_penduduk","");
@@ -378,5 +382,12 @@ public class Profile_Activity extends AppCompatActivity {
             Log.d("Raj","open");
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Profile_Activity.this,MainActivity.class));
+        Animatoo.animateFade(Profile_Activity.this);
+        finish();
     }
 }

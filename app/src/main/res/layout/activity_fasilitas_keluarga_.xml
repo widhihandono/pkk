@@ -80,6 +80,7 @@
             <com.travijuu.numberpicker.library.NumberPicker
                 android:id="@+id/number_picker_jamban"
                 android:layout_width="150dp"
+                android:theme="@style/MyAppTheme"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true" />
 

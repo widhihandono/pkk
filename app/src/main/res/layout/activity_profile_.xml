@@ -39,7 +39,7 @@
                     android:textColor="#fff"
                     android:textStyle="bold"
                     android:textSize="20dp"
-                    android:text="Profil"/>
+                    android:text="Profile"/>
             </LinearLayout>
 
         </RelativeLayout>
@@ -130,7 +130,7 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Nama "
+                                        android:text="Email "
                                         android:textStyle="bold"
                                         android:textColor="#000"/>
                                 </TableLayout>
@@ -369,7 +369,7 @@
                 app:fabSize="normal"
                 app:tint="@color/white"
                 android:src="@drawable/ic_add_24"
-                app:backgroundTint="@color/green"
+                app:backgroundTint="@color/violet"
                 android:visibility="invisible"
                 app:elevation="5dp" />
         </LinearLayout>
@@ -390,7 +390,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_doc"
                 android:visibility="invisible"
-                app:backgroundTint="@color/yellow"
+                app:backgroundTint="@color/violet"
                 app:elevation="5dp"
                 app:fabSize="normal"
                 app:pressedTranslationZ="12dp"
@@ -406,7 +406,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_sync"
-                app:backgroundTint="@color/orange"
+                app:backgroundTint="@color/violet"
                 app:tint="@color/white"
                 app:elevation="5dp"
                 app:fabSize="normal"

@@ -118,6 +118,10 @@ private List<Ent_twebRtm> filterList;
             l.getContext().startActivity(intent);
         });
 
+        holder.imgDelete.setOnClickListener(l->{
+            showDialogHapus("Yakin Hapus Data ini ? ",listRtm.get(position).getNo_kk());
+        });
+
 
         holder.imgUpload.setOnClickListener(l->{
             setProgressDialog();
@@ -240,11 +244,13 @@ private List<Ent_twebRtm> filterList;
         if(listRtm.get(position).getUpload().equals("sync"))
         {
             holder.imgUpload.setVisibility(View.INVISIBLE);
+            holder.imgDelete.setVisibility(View.GONE);
         }
 
         if(listRtm.get(position).getUpload().equals("yes"))
         {
             holder.imgUpload.setVisibility(View.INVISIBLE);
+            holder.imgDelete.setVisibility(View.GONE);
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.young_blue));
         }
 
@@ -1210,6 +1216,44 @@ private List<Ent_twebRtm> filterList;
         pbutton.setTextColor(Color.RED);
     }
 
+    private void showDialogHapus(String pesan,String no_rtm){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+        // set title dialog
+        alertDialogBuilder.setTitle(pesan);
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Ya",new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int id) {
+                        crud.updateData_rtm(no_rtm,"hapus");
+                        crudPkk.delete_pkk_kelompok_dasa_wisma_by_no_rtm(no_rtm);
+                        crudPkk.delete_pkk_data_keluarga_by_No_KK(no_rtm);
+                        context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+                        Animatoo.animateFade(context);
+                        ((Activity)context).finish();
+                    }
+                })
+                .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+        Button pbutton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.BLUE);
+        Button nbutton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+        nbutton.setTextColor(Color.RED);
+    }
+
     public void setProgressDialog() {
 
         int llPadding = 30;
@@ -1267,7 +1311,7 @@ private List<Ent_twebRtm> filterList;
 
     public class Holder extends RecyclerView.ViewHolder {
         private TextView tvNoRtm,tvNamaKepalaKeluarga,tvJumlah;
-        private ImageButton imgUpload,imgShow;
+        private ImageButton imgUpload,imgDelete;
         public Holder(@NonNull View itemView) {
             super(itemView);
 
@@ -1275,7 +1319,7 @@ private List<Ent_twebRtm> filterList;
             tvNamaKepalaKeluarga = itemView.findViewById(R.id.tvNamaKepalaKeluarga);
             tvNoRtm = itemView.findViewById(R.id.tvNoRtm);
             imgUpload = itemView.findViewById(R.id.imgUpload);
-            imgShow = itemView.findViewById(R.id.imgShow);
+            imgDelete = itemView.findViewById(R.id.imgDelete);
         }
     }
 }

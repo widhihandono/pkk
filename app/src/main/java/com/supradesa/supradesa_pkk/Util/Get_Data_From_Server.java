@@ -1,8 +1,6 @@
 package com.supradesa.supradesa_pkk.Util;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -22,8 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.gson.internal.$Gson$Preconditions;
-import com.supradesa.supradesa_pkk.Ambil_DataActivity;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
 import com.supradesa.supradesa_pkk.Model.Ent_ConfigCode;
@@ -67,7 +63,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class Get_Data_From_Server {
 Context context;
@@ -96,9 +91,19 @@ Context context;
 //        dialog.setTitle("Getting Data From Server. Please wait . . .");
 //        dialog.setCancelable(false);
 
+        dialog = setProgressDialog().create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+            layoutParams.copyFrom(dialog.getWindow().getAttributes());
+            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            dialog.getWindow().setAttributes(layoutParams);
+        }
+
     }
 
-    public void setProgressDialog() {
+    public AlertDialog.Builder setProgressDialog() {
 
         int llPadding = 30;
         LinearLayout ll = new LinearLayout(context);
@@ -132,24 +137,8 @@ Context context;
         builder.setCancelable(false);
         builder.setView(ll);
 
+        return builder;
 
-        dialog = builder.create();
-        if(dialog.isShowing())
-        {
-            dialog.dismiss();
-        }
-        else
-        {
-            dialog.show();
-        }
-        Window window = dialog.getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            layoutParams.copyFrom(dialog.getWindow().getAttributes());
-            layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
-            layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            dialog.getWindow().setAttributes(layoutParams);
-        }
     }
 
     public void getAll()
@@ -315,53 +304,75 @@ Context context;
 
     public void getConfig_Code()
     {
-        GetConfigCode productTask = new GetConfigCode();
-        productTask.execute();
-    }
-
-
-    public void getPenduduk()
-    {
-        if(crudSqlite.getData_tweb_penduduk().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudSqlite.delete_all_penduduk())
-            {
-                GetPenduduk productTask = new GetPenduduk();
-                productTask.execute();
-
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
         }
         else
         {
-            GetPenduduk productTask = new GetPenduduk();
+            GetConfigCode productTask = new GetConfigCode();
             productTask.execute();
         }
 
     }
 
+
+    public void getPenduduk()
+    {
+        if(dialog.isShowing())
+        {
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudSqlite.getData_tweb_penduduk().size() > 0)
+            {
+                if(crudSqlite.delete_all_penduduk())
+                {
+                    GetPenduduk productTask = new GetPenduduk();
+                    productTask.execute();
+
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
+            {
+                GetPenduduk productTask = new GetPenduduk();
+                productTask.execute();
+            }
+        }
+
+
+    }
+
     public void getKeluarga()
     {
-
-        if(crudSqlite.getData_tweb_keluarga().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudSqlite.delete_all_keluarga())
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudSqlite.getData_tweb_keluarga().size() > 0)
+            {
+                if(crudSqlite.delete_all_keluarga())
+                {
+                    Get_Keluarga_Async getAsync = new Get_Keluarga_Async();
+                    getAsync.execute();
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
             {
                 Get_Keluarga_Async getAsync = new Get_Keluarga_Async();
                 getAsync.execute();
             }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Get_Keluarga_Async getAsync = new Get_Keluarga_Async();
-            getAsync.execute();
         }
 
 
@@ -369,23 +380,30 @@ Context context;
 
     public void getRtm()
     {
-        if(crudSqlite.getData_tweb_rtm().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudSqlite.delete_all_rtm())
-            {
-                Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
-                getUseAsyncTask.execute();
-
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
         }
         else
         {
-            Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
-            getUseAsyncTask.execute();
+            if(crudSqlite.getData_tweb_rtm().size() > 0)
+            {
+                if(crudSqlite.delete_all_rtm())
+                {
+                    Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
+                    getUseAsyncTask.execute();
+
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
+            {
+                Get_Rtm_Async getUseAsyncTask = new Get_Rtm_Async();
+                getUseAsyncTask.execute();
+            }
         }
 
     }
@@ -393,22 +411,29 @@ Context context;
 
     public void getPkkCatatanKeluarga()
     {
-        if(crudPkk.getData_pkkCatatanKeluarga().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudPkk.delete_all_pkk_catatan_keluarga())
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudPkk.getData_pkkCatatanKeluarga().size() > 0)
+            {
+                if(crudPkk.delete_all_pkk_catatan_keluarga())
+                {
+                    Get_PkkCatatanKeluarga_Async getUseAsyncTask = new Get_PkkCatatanKeluarga_Async();
+                    getUseAsyncTask.execute();
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
             {
                 Get_PkkCatatanKeluarga_Async getUseAsyncTask = new Get_PkkCatatanKeluarga_Async();
                 getUseAsyncTask.execute();
             }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Get_PkkCatatanKeluarga_Async getUseAsyncTask = new Get_PkkCatatanKeluarga_Async();
-            getUseAsyncTask.execute();
         }
 
 
@@ -418,46 +443,59 @@ Context context;
 
     public void getPkkCatatanKeluargaDetail()
     {
-        if(crudPkk.getData_pkk_catatan_keluarga_detail().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudPkk.delete_all_pkk_catatan_keluarga_detail())
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudPkk.getData_pkk_catatan_keluarga_detail().size() > 0)
+            {
+                if(crudPkk.delete_all_pkk_catatan_keluarga_detail())
+                {
+                    get_PkkCatatanKeluargaDetail getUseAsyncTask = new get_PkkCatatanKeluargaDetail();
+                    getUseAsyncTask.execute();
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
             {
                 get_PkkCatatanKeluargaDetail getUseAsyncTask = new get_PkkCatatanKeluargaDetail();
                 getUseAsyncTask.execute();
             }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
         }
-        else
-        {
-            get_PkkCatatanKeluargaDetail getUseAsyncTask = new get_PkkCatatanKeluargaDetail();
-            getUseAsyncTask.execute();
-        }
-
 
     }
 
 
     public void getPkkDataKeluarga()
     {
-        if(crudPkk.getPkk_data_keluarga().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudPkk.delete_all_pkk_data_keluarga())
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudPkk.getPkk_data_keluarga().size() > 0)
+            {
+                if(crudPkk.delete_all_pkk_data_keluarga())
+                {
+                    Get_PkkDataKeluarga getUseAsyncTask = new Get_PkkDataKeluarga();
+                    getUseAsyncTask.execute();
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
             {
                 Get_PkkDataKeluarga getUseAsyncTask = new Get_PkkDataKeluarga();
                 getUseAsyncTask.execute();
             }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
-        }
-        else
-        {
-            Get_PkkDataKeluarga getUseAsyncTask = new Get_PkkDataKeluarga();
-            getUseAsyncTask.execute();
         }
 
 
@@ -466,83 +504,63 @@ Context context;
 
     public void getPkkDasaWisma()
     {
-        if(crudPkk.getPkk_dasa_wisma().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudPkk.delete_all_pkk_dasa_wisma())
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudPkk.getPkk_dasa_wisma().size() > 0)
+            {
+                if(crudPkk.delete_all_pkk_dasa_wisma())
+                {
+                    Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
+                    getUseAsyncTask.execute();
+
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
             {
                 Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
                 getUseAsyncTask.execute();
 
-            }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+
             }
         }
-        else
-        {
-            Pkk_Dasawisma_Async getUseAsyncTask = new Pkk_Dasawisma_Async();
-            getUseAsyncTask.execute();
-
-
-        }
-
-
-//        Call<Ent_PkkDasaWisma> callDataKeluarga = apiInterface.getPkkDasaWisma(sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""));
-//        callDataKeluarga.enqueue(new Callback<Ent_PkkDasaWisma>() {
-//            @Override
-//            public void onResponse(Call<Ent_PkkDasaWisma> call, Response<Ent_PkkDasaWisma> response) {
-//                if(response.body().isResponse())
-//                {
-//                    List<Ent_PkkDasaWisma> data = response.body().getData();
-//                    Ent_PkkDasaWisma ep = new Ent_PkkDasaWisma();
-//
-//                    for (int a=0;a<data.size();a++)
-//                    {
-//                        ep.setId_dasa_wisma(data.get(a).getId_dasa_wisma());
-//                        ep.setId_cluster(data.get(a).getId_cluster());
-//                        ep.setId_kepala(data.get(a).getId_kepala());
-//                        ep.setNama_dasa_wisma(data.get(a).getNama_dasa_wisma());
-//
-//                        crudPkk.Insert_pkk_dasa_wisma(ep);
-//
-//                    }
-//
-//                    Toast.makeText(Ambil_DataActivity.this,"Sukses ambil data",Toast.LENGTH_LONG).show();
-//                }
-//                else
-//                {
-//                    Toast.makeText(Ambil_DataActivity.this,"Gagal Ambil data",Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Ent_PkkDasaWisma> call, Throwable t) {
-//                Toast.makeText(Ambil_DataActivity.this,"Network Failed",Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
 
     public void getPkkKelompokDasaWisma()
     {
-        if(crudPkk.getPkk_kelompok_dasa_wisma().size() > 0)
+        if(dialog.isShowing())
         {
-            if(crudPkk.delete_all_pkk_kelompok_dasa_wisma())
+            Toast.makeText(context,"Tunggu Sebentar, Proses Sync belum selesai",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            if(crudPkk.getPkk_kelompok_dasa_wisma().size() > 0)
+            {
+                if(crudPkk.delete_all_pkk_kelompok_dasa_wisma())
+                {
+                    Pkk_kelomDasawisma_Async getUseAsyncTask = new Pkk_kelomDasawisma_Async();
+                    getUseAsyncTask.execute();
+                }
+                else
+                {
+                    Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
+                }
+            }
+            else
             {
                 Pkk_kelomDasawisma_Async getUseAsyncTask = new Pkk_kelomDasawisma_Async();
                 getUseAsyncTask.execute();
             }
-            else
-            {
-                Toast.makeText(context,"Gagal Hapus Data",Toast.LENGTH_LONG).show();
-            }
         }
-        else
-        {
-            Pkk_kelomDasawisma_Async getUseAsyncTask = new Pkk_kelomDasawisma_Async();
-            getUseAsyncTask.execute();
-        }
+
 
 
     }
@@ -902,7 +920,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
 
 
         }
@@ -1052,7 +1070,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
         }
 
 
@@ -1219,7 +1237,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
 
         }
 
@@ -1373,7 +1391,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
 
         }
 
@@ -1519,7 +1537,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1664,7 +1682,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
         }
 
         protected JSONObject doInBackground(String... args)
@@ -1834,7 +1852,7 @@ Context context;
         protected void onPreExecute()
         {
             super.onPreExecute();
-            setProgressDialog();
+            dialog.show();
         }
 
         protected JSONObject doInBackground(String... args)

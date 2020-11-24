@@ -11,21 +11,27 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
 import com.supradesa.supradesa_pkk.Edit.Edit_Cari_No_Rtm_Activity;
 import com.supradesa.supradesa_pkk.Model.Ent_jumlah_data;
+import com.supradesa.supradesa_pkk.Model.Ent_versioning;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
 import com.supradesa.supradesa_pkk.Util.SharedPref;
 import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
@@ -39,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-private TextView tvNamaDusun,tvHome,tvProfile,tvJumlahBalita,tvJmlHamil,
+private TextView tvDusun,tvHome,tvProfile,tvJumlahBalita,tvJmlHamil,
         tvJmlMenyusui,tvJmlWus,tvJmlPus,tvJmlLansia,tvJmlButa,upload,pendataan,tvDesaKecamatan,edit;
 SharedPref sharedPref;
 Crud crudSqlite;
@@ -51,6 +57,8 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
     private Boolean isFabOpen = false,isFabOpenClear = false;
     private Animation fab_open,fab_close,rotate_forward,rotate_backward,
             fab_openClear,fab_closeClear,rotate_forwardClear,rotate_backwardClear;
+
+    Snackbar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,7 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         fabPendataan = findViewById(R.id.fabPendataan);
         fabSync = findViewById(R.id.fabSync);
         fabDoc = findViewById(R.id.fabDoc);
+        tvDusun = findViewById(R.id.tvDusun);
         myFab = (FloatingActionButton) findViewById(R.id.fab);
 
 
@@ -102,6 +111,9 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
 //        tvJmlButa.setText("Jumlah : "+String.valueOf(crudPkk.getData_pkk_catatan_keluarga_detail_tiga_buta().size()));
 //        tvJmlLansia.setText("Jumlah : "+getLansia_Penduduk());
 
+        //=============================== Cek Versi ==================================================
+        cek_versi();
+        //============================================================================================
 
         for (Drawable drawable : tvHome.getCompoundDrawables()) {
             if (drawable != null) {
@@ -142,6 +154,7 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
             tvHome.setTextColor(ContextCompat.getColor(this,R.color.black));
 
             startActivity(new Intent(this,Profile_Activity.class));
+            Animatoo.animateFade(MainActivity.this);
             finish();
         });
 
@@ -153,6 +166,7 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
             Intent intent = new Intent(MainActivity.this,Pemilihan_KK_Activity.class);
             intent.putExtra("id_kk","0");
             startActivity(intent);
+            Animatoo.animateFade(MainActivity.this);
             finish();
 
         });
@@ -160,12 +174,14 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         fabSync.setOnClickListener(l->{
             Intent intent = new Intent(MainActivity.this,Ambil_DataActivity.class);
             startActivity(intent);
+            Animatoo.animateFade(MainActivity.this);
 //            finish();
         });
 
         fabDoc.setOnClickListener(l->{
             Intent intent = new Intent(MainActivity.this, Data_Belum_Upload_Activity.class);
             startActivity(intent);
+            Animatoo.animateFade(MainActivity.this);
         });
 
 //        Crud crud = new Crud(this);
@@ -176,6 +192,7 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
 //        Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
 //        getPenduduk();
 
+        tvDusun.setText(sharedPref.sp.getString("dusun",""));
         get_jumlah_tot_data();
     }
 
@@ -308,6 +325,93 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         pbutton.setTextColor(Color.RED);
     }
 
+    private void cek_versi()
+    {
+        Call<Ent_versioning> callCekVersi = apiInterface.versioning();
+
+        callCekVersi.enqueue(new Callback<Ent_versioning>() {
+            @Override
+            public void onResponse(Call<Ent_versioning> call, Response<Ent_versioning> response) {
+                if(response.isSuccessful())
+                {
+
+                        if(Float.parseFloat(response.body().getVersi()) > 1.0)
+                        {
+                            showDialogCekVersion(response.body().getPesan());
+                        }
+                        else
+                        {
+                            Log.i("version","Memenuhi");
+                        }
+
+
+                }
+                else
+                {
+                    showSnackbar("Mohon maaf,ada gangguan pada server","Refresh");
+                    Toast.makeText(MainActivity.this,"Mohon maaf,ada gangguan pada server",Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Ent_versioning> call, Throwable t) {
+                showSnackbar("Mohon maaf,ada gangguan pada server","Refresh");
+                Toast.makeText(MainActivity.this,"Network failed",Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
+    private void showDialogCekVersion(String pesan){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title dialog
+        alertDialogBuilder.setTitle(pesan);
+
+        // set pesan dari dialog
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Lanjutkan Download",new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    public void onClick(DialogInterface dialog, int id) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://pkk.magelangkab.go.id/download")));
+                        finish();
+                    }
+                });
+
+        // membuat alert dialog dari builder
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // menampilkan alert dialog
+        alertDialog.show();
+        Button pbutton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        pbutton.setTextColor(Color.RED);
+    }
+
+
+
+    private void showSnackbar(String text, String action)
+    {
+
+        bar = Snackbar.make(findViewById(R.id.sb_menu_utama),text, Snackbar.LENGTH_INDEFINITE);
+        View view = bar.getView();
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        view.setLayoutParams(params);
+        view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        TextView mainTextView = (TextView) (view).findViewById(R.id.snackbar_text);
+        mainTextView.setTextColor(Color.WHITE);
+
+        bar.setAction(action, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bar.dismiss();
+                startActivity(new Intent(MainActivity.this,MainActivity.class));
+                finish();
+            }
+        }).setActionTextColor(Color.YELLOW);
+        bar.show();
+    }
 
     @Override
     public void onBackPressed() {

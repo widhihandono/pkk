@@ -130,6 +130,7 @@ StepView stepView;
 //        list_temporary.listAnggotaRtm.clear();
 //        list_temporary.listAllAnggota.clear();
         startActivity(new Intent(this,MainActivity.class));
+        Animatoo.animateFade(Pemilihan_KK_Activity.this);
         finish();
     }
 }

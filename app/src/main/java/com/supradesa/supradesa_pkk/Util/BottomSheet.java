@@ -130,11 +130,16 @@ public class BottomSheet extends BottomSheetDialogFragment {
                 }
                 else
                 {
-                    Edit_User_Async edit = new Edit_User_Async(sharedPref.sp.getString("id_user",""),
-                            sharedPref.sp.getString("id_role",""),
-                            bi.etNoHp.getText().toString(),bi.etUsername.getText().toString(),bi.etEmail.getText().toString(),
+//showMessageDialog(sharedPref.sp.getString("kode_desa","")+","+sharedPref.sp.getString("dusun","")+","+
+//        sharedPref.sp.getString("nik","")+","+bi.etNoHp.getText().toString()+","+bi.etUsername.getText().toString()+","+
+//        bi.etEmail.getText().toString()+","+
+//        bi.etPassword.getText().toString()+","+
+//        "https://pkk.magelangkab.go.id/Api_pkk/edit_User");
+                    Edit_User_Async edit = new Edit_User_Async(sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),
+                            sharedPref.sp.getString("nik",""),bi.etNoHp.getText().toString(),bi.etUsername.getText().toString(),
+                            bi.etEmail.getText().toString(),
                             bi.etPassword.getText().toString(),
-                            Api_Client.BASE_URL+"/Api_pkk/edit_User");
+                            "https://pkk.magelangkab.go.id/Api_pkk/edit_User");
                     edit.execute();
                 }
             }
@@ -151,9 +156,9 @@ public class BottomSheet extends BottomSheetDialogFragment {
             }
             else
             {
-                Edit_User_Async edit = new Edit_User_Async(sharedPref.sp.getString("id_user",""),
-                        sharedPref.sp.getString("id_role",""),
-                        bi.etNoHp.getText().toString(),bi.etUsername.getText().toString(),bi.etEmail.getText().toString(),
+                Edit_User_Async edit = new Edit_User_Async(sharedPref.sp.getString("kode_desa",""),sharedPref.sp.getString("dusun",""),
+                        sharedPref.sp.getString("nik",""),bi.etNoHp.getText().toString(),bi.etUsername.getText().toString(),
+                        bi.etEmail.getText().toString(),
                         bi.etPassword.getText().toString(),
                         Api_Client.BASE_URL+"/Api_pkk/edit_User");
                 edit.execute();
@@ -207,15 +212,16 @@ public class BottomSheet extends BottomSheetDialogFragment {
         String SERVER_PATH;
         String no_hp,password;
         int response;
-        String nama,email,id_user,id_role;
+        String email,kode_desa,dusun,nik,username;
 
 
-        private Edit_User_Async(String id_user,String id_role,String no_hp,String nama,String email,String password,String SERVER_PATH) {
-            this.id_user = id_user;
-            this.id_role = id_role;
+        private Edit_User_Async(String kode_desa,String dusun,String nik,String no_hp,String username,String email,String password,String SERVER_PATH) {
+            this.kode_desa = kode_desa;
+            this.dusun = dusun;
+            this.nik = nik;
             this.no_hp = no_hp;
             this.email = email;
-            this.nama = nama;
+            this.username = username;
             this.password = password;
             this.response = 0;
 
@@ -246,12 +252,13 @@ public class BottomSheet extends BottomSheetDialogFragment {
                 //constants
                 URL url = new URL(SERVER_PATH);
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("id_role", id_role);
-                jsonObject.put("id_user", id_user);
-                jsonObject.put("nama", nama);
+                jsonObject.put("kode_desa", kode_desa);
+                jsonObject.put("dusun", dusun);
+                jsonObject.put("nik", nik);
                 jsonObject.put("no_hp", no_hp);
                 jsonObject.put("email", email);
                 jsonObject.put("password", password);
+                jsonObject.put("username", username);
                 String message = jsonObject.toString();
 
                 conn = (HttpURLConnection) url.openConnection();
@@ -264,7 +271,7 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
                 //make some HTTP header nicety
                 conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-//                conn.setRequestProperty("KEY","25f9e794323b453885f5181f1b624d0b");
+                conn.setRequestProperty("KEY","25f9e794323b453885f5181f1b624d0b");
                 conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
 
                 //open
@@ -349,12 +356,12 @@ public class BottomSheet extends BottomSheetDialogFragment {
 
 
                     sharedPref.saveSPBoolean(SharedPref.SP_SUDAH_LOGIN,true);
-                    sharedPref.saveSPString("id_user", result.getString("id_user"));
-                    sharedPref.saveSPString("id_role", result.getString("id_role"));
-                    sharedPref.saveSPString("role", sharedPref.sp.getString("role",""));
-                    sharedPref.saveSPString("nama", result.getString("nama"));
+                    sharedPref.saveSPString("kode_desa", result.getString("kode_desa"));
+                    sharedPref.saveSPString("dusun", result.getString("dusun"));
+                    sharedPref.saveSPString("nik", sharedPref.sp.getString("nik",""));
                     sharedPref.saveSPString("email",result.getString("email"));
                     sharedPref.saveSPString("no_hp",result.getString("no_hp"));
+                    sharedPref.saveSPString("username",result.getString("username"));
 
 
                     dialog.dismiss();

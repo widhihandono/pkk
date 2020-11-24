@@ -3,6 +3,7 @@ package com.supradesa.supradesa_pkk.Util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.supradesa.supradesa_pkk.Ambil_DataActivity;
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
 import com.supradesa.supradesa_pkk.Model.Ent_ConfigCode;
@@ -116,7 +119,7 @@ Context context;
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         llParam.gravity = Gravity.CENTER;
         TextView tvText = new TextView(context);
-        tvText.setText("Getting Data From Server. Please wait . . .");
+        tvText.setText("Getting All Data From Server. Please wait . . .");
         tvText.setTextColor(Color.parseColor("#000000"));
         tvText.setTextSize(18);
         tvText.setLayoutParams(llParam);
@@ -1578,6 +1581,9 @@ Context context;
                 dialog.dismiss();
                 sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
                 Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
+                context.startActivity(new Intent(context, Ambil_DataActivity.class));
+                Animatoo.animateFade(context);
+                ((Activity)context).finish();
 
             }
             else if (success == 2) {
