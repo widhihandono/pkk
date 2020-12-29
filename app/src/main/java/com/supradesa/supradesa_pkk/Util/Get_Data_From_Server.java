@@ -1151,6 +1151,7 @@ Context context;
                     etp.setId_cluster(jOb.getString("id_cluster"));
                     etp.setAlamat_sekarang(jOb.getString("alamat_sekarang"));
                     etp.setCacat_id(jOb.getString("cacat_id"));
+                    etp.setHapus_id_rtm("tidak");
 
                     crudSqlite.InsertData_tweb_penduduk(etp);
 

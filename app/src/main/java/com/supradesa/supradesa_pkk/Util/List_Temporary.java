@@ -27,7 +27,7 @@ public class List_Temporary {
     public static final List<Sub_Catatan_keluarga> listSub = new ArrayList<>();
     public static final List<String> list_nik = new ArrayList<>();
 
-    public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",no_rtm="",id_rtm="",no_rtm_edit = "no",kepalaRtm_edit = "";
+    public static String id_kk = "",id_penduduk="",nik="",id_dasawisma="",id_rtm="",no_rtm_edit = "no",kepalaRtm_edit = "",no_rtm_sebelumnya="";
     public static int dasawismaPosition = -1,kepalaRtm = -1;
 
 
@@ -53,6 +53,14 @@ public class List_Temporary {
 
     public static List<Ent_twebPenduduk> getListAnggotaRtm_Edit_sementara() {
         return listAnggotaRtm_Edit_sementara;
+    }
+
+    public static String getNo_rtm_sebelumnya() {
+        return no_rtm_sebelumnya;
+    }
+
+    public static void setNo_rtm_sebelumnya(String no_rtm_sebelumnya) {
+        List_Temporary.no_rtm_sebelumnya = no_rtm_sebelumnya;
     }
 
     public static String getId_rtm() {
@@ -83,13 +91,6 @@ public class List_Temporary {
         return listAllAnggota_sementara;
     }
 
-    public static String getNo_rtm() {
-        return no_rtm;
-    }
-
-    public static void setNo_rtm(String no_rtm) {
-        List_Temporary.no_rtm = no_rtm;
-    }
 
     public static List<Ent_twebPenduduk> getListAnggotaRtm_Edit_tampung() {
         return listAnggotaRtm_Edit_tampung;

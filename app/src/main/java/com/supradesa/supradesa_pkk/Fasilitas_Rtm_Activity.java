@@ -113,19 +113,18 @@ private NumberPicker number_picker_jamban;
 //                        Toast.makeText(getApplicationContext(),"Lanjutkan !",Toast.LENGTH_LONG).show();
                         if(number_picker_jamban.getValue() > 0)
                         {
-                            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.no_rtm);
-                            crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(number_picker_jamban.getValue()),list_temporary.no_rtm);
+                            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.nik);
+                            crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(number_picker_jamban.getValue()),list_temporary.nik);
                         }
                         else
                         {
-                            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.no_rtm);
-                            crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(0),list_temporary.no_rtm);
+                            crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.nik);
+                            crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,String.valueOf(0),list_temporary.nik);
                         }
 
 
                         list_temporary.listAllAnggota_sementara.clear();
                         list_temporary.list_no_kk.clear();
-                        list_temporary.no_rtm = "";
                         list_temporary.listAnggotaRtm.clear();
                         list_temporary.listAllAnggota.clear();
                         list_temporary.dasawismaPosition = -1;
@@ -197,7 +196,7 @@ private NumberPicker number_picker_jamban;
                 if(isChecked)
                 {
 //                    Toast.makeText(getApplicationContext(),String.valueOf(crudPkk.update_pkk_data_keluarga(Helper.MAKANAN_POKOK,"Beras",list_temporary.no_rtm),Toast.LENGTH_LONG).show();
-                    crudPkk.Input_pkk_data_keluarga(Helper.MAKANAN_POKOK,"Beras",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.MAKANAN_POKOK,"Beras",list_temporary.nik);
 
                 }
             }
@@ -209,7 +208,7 @@ private NumberPicker number_picker_jamban;
                 if(isChecked)
                 {
 //                    Toast.makeText(getApplicationContext(),String.valueOf(crudPkk.update_pkk_data_keluarga(Helper.MAKANAN_POKOK,"Non Beras",list_temporary.no_rtm),Toast.LENGTH_LONG).show();
-                    crudPkk.Input_pkk_data_keluarga(Helper.MAKANAN_POKOK,"Non Beras",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.MAKANAN_POKOK,"Non Beras",list_temporary.nik);
 
                 }
             }
@@ -220,7 +219,7 @@ private NumberPicker number_picker_jamban;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"PDAM",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"PDAM",list_temporary.nik);
 
                 }
             }
@@ -231,7 +230,7 @@ private NumberPicker number_picker_jamban;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"Sumur",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"Sumur",list_temporary.nik);
 
                 }
             }
@@ -242,7 +241,7 @@ private NumberPicker number_picker_jamban;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"Sungai",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"Sungai",list_temporary.nik);
 
                 }
             }
@@ -253,7 +252,7 @@ private NumberPicker number_picker_jamban;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"Lainnya",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.SUMBER_AIR,"Lainnya",list_temporary.nik);
 
                 }
             }
@@ -264,7 +263,7 @@ private NumberPicker number_picker_jamban;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.KRITERIA_RUMAH,"Layak Huni",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.KRITERIA_RUMAH,"Layak Huni",list_temporary.nik);
 
                 }
             }
@@ -275,7 +274,7 @@ private NumberPicker number_picker_jamban;
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.KRITERIA_RUMAH,"Tidak Layak Huni",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.KRITERIA_RUMAH,"Tidak Layak Huni",list_temporary.nik);
 
                 }
             }

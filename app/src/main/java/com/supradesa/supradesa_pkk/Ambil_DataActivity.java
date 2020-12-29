@@ -591,7 +591,6 @@ public class Ambil_DataActivity extends AppCompatActivity {
     {
         list_temporary.listAllAnggota_sementara.clear();
         list_temporary.listAllAnggota_edit_sementara.clear();
-        list_temporary.no_rtm = "";
         list_temporary.listAnggotaRtm.clear();
         list_temporary.listAnggotaRtm_Edit_tampung.clear();
         list_temporary.listAnggotaRtm_Edit.clear();

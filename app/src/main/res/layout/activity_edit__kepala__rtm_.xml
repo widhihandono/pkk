@@ -27,13 +27,26 @@
         app:sv_stepNumberTextSize="12sp"
         app:sv_animationType="All"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ganti Kepala Rumah Tangga"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textColor="#000"
+        android:layout_below="@id/step_view"
+        android:id="@+id/text"
+        android:layout_marginLeft="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rvEditKepalaRtm"
-        android:layout_below="@id/step_view"
+        android:layout_below="@id/text"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="55dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 

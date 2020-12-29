@@ -438,6 +438,17 @@ public class Crud_pkk {
 
     }
 
+    public long update_pkk_data_keluarga_no_kk(String no_kk,String key,String value)
+    {
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(key,value);
+
+        long update = dbb.update(Helper.TABLE_PKK_DATA_KELUARGA,contentValues,"no_kk= ?",new String[]{no_kk});
+        return update;
+    }
+
     public ArrayList getAllDataKeluarga() {
         SQLiteDatabase db = helper.getReadableDatabase();
         ArrayList<String> array_list = new ArrayList<String>();
@@ -635,6 +646,7 @@ public class Crud_pkk {
         contentValues.put(Helper.ID_KELOMPOK_DASAWISMA,pkd.getId_kelompok());
         contentValues.put(Helper.NO_KK,pkd.getNo_kk());
         contentValues.put(Helper.ID_DASAWISMA,pkd.getId_dasa_wisma());
+        contentValues.put(Helper.NO_RTM_SEBELUMNYA,pkd.getNo_kk());
         contentValues.put(Helper.UPLOAD,"no");
 
 
@@ -649,6 +661,7 @@ public class Crud_pkk {
         ContentValues contentValues = new ContentValues();
         contentValues.put(helper.ID_KELOMPOK_DASAWISMA,no_rtm);
         contentValues.put(helper.NO_KK,no_rtm);
+        contentValues.put(Helper.NO_RTM_SEBELUMNYA,no_rtm);
         contentValues.put(helper.UPLOAD,"no");
         contentValues.put(key,value);
 
@@ -663,6 +676,18 @@ public class Crud_pkk {
             return id_insert_kelompok_daswisma;
         }
 
+    }
+
+    public long update_pkk_kelompok_dasawisma_no_kk(String no_kk,String key,String value)
+    {
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Helper.NO_RTM_SEBELUMNYA,no_kk);
+        contentValues.put(key,value);
+
+        long update = dbb.update(Helper.TABLE_PKK_KELOMPOK_DASAWISMA,contentValues,"no_kk= ?",new String[]{no_kk});
+        return update;
     }
 
     public long update_pkk_kelompok_dasawisma(String key,String value, String no_rtm) {

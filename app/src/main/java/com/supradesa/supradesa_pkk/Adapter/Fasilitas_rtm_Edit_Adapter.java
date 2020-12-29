@@ -30,11 +30,11 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
     boolean status = false;
     Crud_pkk crudPkk;
     Crud crud;
-    String no_rtm="";
+    String nik="";
 
-    public Fasilitas_rtm_Edit_Adapter(Context context, Fasilitas_Rtm[] data,String no_rtm) {
+    public Fasilitas_rtm_Edit_Adapter(Context context, Fasilitas_Rtm[] data,String nik) {
         this.context = context;
-        this.no_rtm = no_rtm;
+        this.nik = nik;
         this.data = data;
         this.crudPkk = new Crud_pkk(context);
         this.crud = new Crud(context);
@@ -53,62 +53,62 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.tvListCatatan.setText(data[position].getNama());
 
-//        Toast.makeText(context,crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getStiker_p4k(),Toast.LENGTH_LONG).show();
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getTempat_sampah() == null && data[position].getNama().equals("Tempat Sampah"))
+//        Toast.makeText(context,crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getStiker_p4k(),Toast.LENGTH_LONG).show();
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getTempat_sampah() == null && data[position].getNama().equals("Tempat Sampah"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.nik);
         }
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSaluran_pembuangan_air() == null && data[position].getNama().equals("Saluran Pembuangan Air"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getSaluran_pembuangan_air() == null && data[position].getNama().equals("Saluran Pembuangan Air"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.nik);
         }
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getStiker_p4k() == null && data[position].getNama().equals("Stiker P4K"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getStiker_p4k() == null && data[position].getNama().equals("Stiker P4K"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.nik);
         }
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getUp2k() == null && data[position].getNama().equals("Aktifitas UP2K"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getUp2k() == null && data[position].getNama().equals("Aktifitas UP2K"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.nik);
         }
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getKeg_sehat_lingkungan() == null && data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getKeg_sehat_lingkungan() == null && data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.nik);
         }
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getPtp() == null && data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getPtp() == null && data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.nik);
         }
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getIndustri_rt() == null && data[position].getNama().equals("Industri Rumah Tangga"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getIndustri_rt() == null && data[position].getNama().equals("Industri Rumah Tangga"))
         {
-            crudPkk.update_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.no_rtm);
+            crudPkk.update_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.nik);
         }
 
 
-        if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getTempat_sampah().equalsIgnoreCase("Ya") && data[position].getNama().equals("Tempat Sampah"))
+        if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getTempat_sampah().equalsIgnoreCase("Ya") && data[position].getNama().equals("Tempat Sampah"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getSaluran_pembuangan_air().equalsIgnoreCase("Ya") && data[position].getNama().equals("Saluran Pembuangan Air"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getSaluran_pembuangan_air().equalsIgnoreCase("Ya") && data[position].getNama().equals("Saluran Pembuangan Air"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getStiker_p4k().equalsIgnoreCase("Ya") && data[position].getNama().equals("Stiker P4K"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getStiker_p4k().equalsIgnoreCase("Ya") && data[position].getNama().equals("Stiker P4K"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getUp2k().equalsIgnoreCase("Ya") && data[position].getNama().equals("Aktifitas UP2K"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getUp2k().equalsIgnoreCase("Ya") && data[position].getNama().equals("Aktifitas UP2K"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getKeg_sehat_lingkungan().equalsIgnoreCase("Ya") && data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getKeg_sehat_lingkungan().equalsIgnoreCase("Ya") && data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getPtp().equalsIgnoreCase("Ya") && data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getPtp().equalsIgnoreCase("Ya") && data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
         {
             holder.cbListCatatan.setChecked(true);
         }
-        else if(crudPkk.getPkk_DataKeluarga_by_id(no_rtm).get(0).getIndustri_rt().equalsIgnoreCase("Ya") && data[position].getNama().equals("Industri Rumah Tangga"))
+        else if(crudPkk.getPkk_DataKeluarga_by_id(nik).get(0).getIndustri_rt().equalsIgnoreCase("Ya") && data[position].getNama().equals("Industri Rumah Tangga"))
         {
             holder.cbListCatatan.setChecked(true);
         }
@@ -123,41 +123,41 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
                     if(data[position].getNama().equals("Jamban"))
                     {
 
-                        crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.no_rtm);
-//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.nik);
+//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Tempat Sampah"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Ya",list_temporary.no_rtm);
-//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_TEMPAT_SAMPAH,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Ya",list_temporary.nik);
+//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_TEMPAT_SAMPAH,holder.etJml.getText().toString(),list_temporary.nik);
                     }
                     else if (data[position].getNama().equals("Saluran Pembuangan Air"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Ya",list_temporary.no_rtm);
-//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_SALURAN_PEMBUANGAN_AIR,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Ya",list_temporary.nik);
+//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_SALURAN_PEMBUANGAN_AIR,holder.etJml.getText().toString(),list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Stiker P4K"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Ya",list_temporary.no_rtm);
-//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_STIKER_P4K,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Ya",list_temporary.nik);
+//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_STIKER_P4K,holder.etJml.getText().toString(),list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Aktifitas UP2K"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Ya",list_temporary.no_rtm);
-//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_UP2K,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Ya",list_temporary.nik);
+//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_UP2K,holder.etJml.getText().toString(),list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Ya",list_temporary.no_rtm);
-//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_KEG_SEHAT_LINGKUNGAN,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Ya",list_temporary.nik);
+//                        crudPkk.Input_pkk_data_keluarga(Helper.JML_KEG_SEHAT_LINGKUNGAN,holder.etJml.getText().toString(),list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Ya",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Ya",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Industri Rumah Tangga"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Ya",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Ya",list_temporary.nik);
                     }
                 }
                 else
@@ -165,35 +165,35 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
 //                    holder.etJml.setEnabled(false);
                     if(data[position].getNama().equals("Jamban"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Tempat Sampah"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.nik);
                     }
                     else if (data[position].getNama().equals("Saluran Pembuangan Air"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Stiker P4K"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Aktifitas UP2K"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.nik);
                     }
                     else if(data[position].getNama().equals("Industri Rumah Tangga"))
                     {
-                        crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.no_rtm);
+                        crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.nik);
                     }
                 }
             }
@@ -206,35 +206,35 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
 
                 if(data[position].getNama().equals("Jamban"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Tidak",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Tempat Sampah"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Tidak",list_temporary.nik);
                 }
                 else if (data[position].getNama().equals("Saluran Pembuangan Air"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Tidak",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Stiker P4K"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Tidak",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Aktifitas UP2K"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Tidak",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Tidak",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Tidak",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Industri Rumah Tangga"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Tidak",list_temporary.nik);
                 }
             }
             else
@@ -245,45 +245,45 @@ public class Fasilitas_rtm_Edit_Adapter extends RecyclerView.Adapter<Fasilitas_r
 //                holder.etJml.setEnabled(true);
                 if(data[position].getNama().equals("Jamban"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.no_rtm);
-//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.JAMBAN,"Ya",list_temporary.nik);
+//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_JAMBAN,holder.etJml.getText().toString(),list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Tempat Sampah"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Ya",list_temporary.no_rtm);
-//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_TEMPAT_SAMPAH,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.TEMPAT_SAMPAH,"Ya",list_temporary.nik);
+//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_TEMPAT_SAMPAH,holder.etJml.getText().toString(),list_temporary.nik);
                 }
                 else if (data[position].getNama().equals("Saluran Pembuangan Air"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Ya",list_temporary.no_rtm);
-//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_SALURAN_PEMBUANGAN_AIR,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.SALURAN_PEMBUANGAN_AIR,"Ya",list_temporary.nik);
+//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_SALURAN_PEMBUANGAN_AIR,holder.etJml.getText().toString(),list_temporary.nik);
 
                 }
                 else if(data[position].getNama().equals("Stiker P4K"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Ya",list_temporary.no_rtm);
-//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_STIKER_P4K,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.STIKER_P4K,"Ya",list_temporary.nik);
+//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_STIKER_P4K,holder.etJml.getText().toString(),list_temporary.nik);
 
                 }
                 else if(data[position].getNama().equals("Aktifitas UP2K"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Ya",list_temporary.no_rtm);
-//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_UP2K,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.UP2K,"Ya",list_temporary.nik);
+//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_UP2K,holder.etJml.getText().toString(),list_temporary.nik);
 
                 }
                 else if(data[position].getNama().equals("Aktifitas Kegiatan Sehat Lingkungan"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Ya",list_temporary.no_rtm);
-//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_KEG_SEHAT_LINGKUNGAN,holder.etJml.getText().toString(),list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.KEG_SEHAT_LINGKUNGAN,"Ya",list_temporary.nik);
+//                    crudPkk.Input_pkk_data_keluarga(Helper.JML_KEG_SEHAT_LINGKUNGAN,holder.etJml.getText().toString(),list_temporary.nik);
 
                 }
                 else if(data[position].getNama().equals("PTP (Pemanfaatan Tanah Pekarangan)"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Ya",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.PTP,"Ya",list_temporary.nik);
                 }
                 else if(data[position].getNama().equals("Industri Rumah Tangga"))
                 {
-                    crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Ya",list_temporary.no_rtm);
+                    crudPkk.Input_pkk_data_keluarga(Helper.INDUSTRI_RT,"Ya",list_temporary.nik);
                 }
             }
 

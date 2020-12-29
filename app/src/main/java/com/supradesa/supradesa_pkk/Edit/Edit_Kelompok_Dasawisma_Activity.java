@@ -78,7 +78,7 @@ public class Edit_Kelompok_Dasawisma_Activity extends AppCompatActivity {
 
 
         tvNext.setOnClickListener(l->{
-            if(crudPkk.Input_kelompok_dasawisma(helper.ID_DASAWISMA,list_temporary.id_dasawisma,list_temporary.getNo_rtm()) > 0)
+            if(crudPkk.Input_kelompok_dasawisma(helper.ID_DASAWISMA,list_temporary.id_dasawisma,list_temporary.nik) > 0)
             {
                 Toast.makeText(getApplicationContext(),"Sukses Input",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, Catatan_Keluarga_Edit_Activity.class);

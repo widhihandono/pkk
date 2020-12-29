@@ -268,7 +268,6 @@ public class Profile_Activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         list_temporary.listAllAnggota_sementara.clear();
                         list_temporary.list_no_kk.clear();
-                        list_temporary.no_rtm = "";
                         list_temporary.listAnggotaRtm.clear();
                         list_temporary.listAllAnggota.clear();
                         list_temporary.dasawismaPosition = -1;

@@ -56,7 +56,7 @@ List_Temporary list_temporary;
             selectedPosition = position;
             list_temporary.id_penduduk = list_anggota_rtm.get(position).getId();
             list_temporary.id_kk = list_anggota_rtm.get(position).getId_kk();
-            list_temporary.nik = list_anggota_rtm.get(position).getNik();
+            list_temporary.nik = list_anggota_rtm.get(position).getNik(); /// Nik kepala RTM
 //            Toast.makeText(context,"Selected Item : "+ list_temporary.kepalaRtm,Toast.LENGTH_LONG).show();
             notifyDataSetChanged();
         });

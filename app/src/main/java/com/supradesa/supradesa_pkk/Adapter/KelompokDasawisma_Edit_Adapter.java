@@ -53,14 +53,14 @@ List_Temporary list_temporary;
             selectedPosition = position;
             list_temporary.id_dasawisma = list_kelompok_dasawisma.get(position).getId_dasa_wisma();
             crud.updateData_rtm(list_temporary.getNo_rtm_edit(),"no");
-            crudPkk.update_pkk_kelompok_dasawisma("id_dasa_wisma",list_kelompok_dasawisma.get(position).getId_dasa_wisma(),list_temporary.getNo_rtm());
+            crudPkk.update_pkk_kelompok_dasawisma("id_dasa_wisma",list_kelompok_dasawisma.get(position).getId_dasa_wisma(),list_temporary.nik);
             //            Toast.makeText(context,"Selected Item : "+ selectedPosition,Toast.LENGTH_LONG).show();
             notifyDataSetChanged();
         });
 
         //harus update. ketika di pilih radio button langsung update pkk kelompok dasawisma.sehingga nanti radio button pindah.
 //        Toast.makeText(context,crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(no_rtm).get(0).getId_dasa_wisma()+" "+list_kelompok_dasawisma.get(position).getId_dasa_wisma(),Toast.LENGTH_LONG).show();
-        if(crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(list_temporary.getNo_rtm()).get(0).getId_dasa_wisma().equals(list_kelompok_dasawisma.get(position).getId_dasa_wisma()))
+        if(crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(list_temporary.nik).get(0).getId_dasa_wisma().equals(list_kelompok_dasawisma.get(position).getId_dasa_wisma()))
         {
             last_selected = position;
             selectedPosition = position;

@@ -19,6 +19,8 @@ import com.supradesa.supradesa_pkk.Model.Ent_twebPenduduk;
 import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
+import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
+import com.supradesa.supradesa_pkk.SQLite.Helper;
 import com.supradesa.supradesa_pkk.Util.List_Temporary;
 
 import java.text.SimpleDateFormat;
@@ -33,14 +35,18 @@ List_Temporary list_temporary;
     public int selectedPosition = -1;
     Ent_twebRtm rtm;
     Crud crud;
+    Crud_pkk crud_pkk;
     public int last_selected = -1;
+    String no_rtm_sebelumnya;
 
     public Edit_Kepala_Rtm_Adapter(Context context, List<Ent_twebPenduduk> list_anggota_rtm) {
         this.context = context;
         this.list_anggota_rtm = list_anggota_rtm;
         list_temporary = new List_Temporary();
         this.rtm = new Ent_twebRtm();
+        this.no_rtm_sebelumnya="";
         crud = new Crud(context);
+        crud_pkk = new Crud_pkk(context);
     }
 
     @NonNull
@@ -56,7 +62,10 @@ List_Temporary list_temporary;
         holder.tvNik.setText(list_anggota_rtm.get(position).getNik());
         holder.tvNama.setText(list_anggota_rtm.get(position).getNama());
 
+
         holder.rb_kepala_rtm.setOnClickListener(l->{
+
+////            Toast.makeText(context,no_rtm_sebelumnya,Toast.LENGTH_LONG).show();
             list_temporary.listAnggotaRtm_Edit.get(last_selected).setRtm_level("0");
             list_temporary.kepalaRtm = position;
             list_temporary.kepalaRtm_edit = list_anggota_rtm.get(position).getId();
@@ -65,6 +74,8 @@ List_Temporary list_temporary;
             list_temporary.id_kk = list_anggota_rtm.get(position).getId_kk();
             list_temporary.nik = list_anggota_rtm.get(position).getNik();
 
+            crud_pkk.update_pkk_data_keluarga_no_kk(no_rtm_sebelumnya,Helper.NO_KK,list_anggota_rtm.get(position).getNik());
+            crud_pkk.update_pkk_kelompok_dasawisma_no_kk(no_rtm_sebelumnya,Helper.NO_KK,list_anggota_rtm.get(position).getNik());
             crud.updateData_rtm(list_temporary.getNo_rtm_edit(),"no");
             list_temporary.listAnggotaRtm_Edit.get(position).setRtm_level("1");
 
@@ -91,6 +102,11 @@ List_Temporary list_temporary;
 //            holder.rb_kepala_rtm.setChecked(selectedPosition == position);
 //        }
         holder.rb_kepala_rtm.setChecked(selectedPosition == position);
+
+        if(holder.rb_kepala_rtm.isChecked())
+        {
+            no_rtm_sebelumnya = list_anggota_rtm.get(position).getNik();
+        }
 //        holder.rb_kepala_rtm.setTag(position);
 //        holder.rb_kepala_rtm.setOnClickListener(new View.OnClickListener() {
 //            @Override

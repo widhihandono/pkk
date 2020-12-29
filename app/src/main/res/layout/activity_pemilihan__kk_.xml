@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Anggota Rumah Tangga"
+            android:text="Tambah Rumah Tangga"
             android:textStyle="bold"
             android:textSize="18dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tambah KK"
+            android:drawableLeft="@drawable/ic_add_18"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:layout_centerVertical="true"
@@ -61,16 +61,28 @@
             android:id="@+id/tvTambahKK"/>
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rvPemilihanAnggota"
-        android:layout_below="@id/lnTambahKk"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="55dp"
+        android:layout_below="@id/lnTambahKk">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rvPemilihanAnggota">
 
-    </androidx.recyclerview.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 
     <TextView
         android:layout_width="wrap_content"

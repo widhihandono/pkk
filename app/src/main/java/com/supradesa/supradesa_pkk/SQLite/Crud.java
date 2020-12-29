@@ -443,6 +443,26 @@ public class Crud {
 
     }
 
+    public long UpdateData_tweb_rtm(Ent_twebRtm rtm)
+    {
+
+        SQLiteDatabase dbb = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Helper.ID_RTM,rtm.getId());
+        contentValues.put(Helper.NIK_KEPALA,rtm.getNik_kepala());
+        contentValues.put(Helper.NO_KK,rtm.getNo_kk());
+        contentValues.put(Helper.TGL_DAFTAR,rtm.getTgl_daftar());
+        contentValues.put(Helper.KELAS_SOSIAL,rtm.getKelas_sosial());
+        contentValues.put(Helper.UPLOAD,"no");
+
+        long update = dbb.update(Helper.TABLE_TWEB_RTM,contentValues,Helper.NO_KK + " = ? OR " + Helper.ID_RTM + " = ?",
+                    new String[]{rtm.getNo_kk(), rtm.getId()});
+        return update;
+
+
+    }
+
+
     public long InsertData_tweb_rtm(Ent_twebRtm rtm)
     {
 
@@ -697,6 +717,12 @@ public class Crud {
         return no_kk;
     }
 
+
+    public boolean delete_rtm_by_no_rtm(String no_rtm)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        return db.delete(Helper.TABLE_TWEB_RTM,"no_kk=?",new String[]{no_rtm}) != -1;
+    }
 
     public boolean delete_rtm_by_id(String id)
     {

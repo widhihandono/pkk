@@ -133,6 +133,7 @@ public class Helper extends SQLiteOpenHelper {
     //PKK_KELOMPOK_DASAWISMA
     public static final String ID_KELOMPOK_DASAWISMA = "id_kelompok_dasawisma";
     public static final String ID_DASAWISMA = "id_dasa_wisma";
+    public static final String NO_RTM_SEBELUMNYA = "no_rtm_sebelumnya";
 
     //PKK_DASA_WISMA
     public static final String ID_KEPALA = "id_kepala"; // atau id_penduduk
@@ -233,7 +234,7 @@ public class Helper extends SQLiteOpenHelper {
     //NO KK == NO RTM
     public static final String CREATE_TABLE_PKK_KELOMPOK_DASAWISMA= "CREATE TABLE "+TABLE_PKK_KELOMPOK_DASAWISMA+
             "("+ID_KELOMPOK_DASAWISMA+" VARCHAR(50) PRIMARY KEY, "+NO_KK+" VARCHAR(30), "+
-            ID_DASAWISMA+" VARCHAR(11), "+UPLOAD+" VARCHAR(8));";
+            ID_DASAWISMA+" VARCHAR(11)," +NO_RTM_SEBELUMNYA+" VARCHAR(30), "+UPLOAD+" VARCHAR(8));";
     public static final String DROP_TABLE_PKK_KELOMPOK_DASAWISMA = "DROP TABLE IF EXISTS "+TABLE_PKK_KELOMPOK_DASAWISMA;
 
     //pkk_dasawisma

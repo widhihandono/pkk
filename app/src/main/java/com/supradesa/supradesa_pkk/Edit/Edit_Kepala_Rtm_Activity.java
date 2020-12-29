@@ -100,16 +100,16 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                 Ent_twebRtm rtm = new Ent_twebRtm();
                 rtm.setId(list_temporary.id_rtm);
                 rtm.setNik_kepala(list_temporary.id_penduduk);
-                rtm.setNo_kk(list_temporary.getNo_rtm()); //no_kk atau no_rtm
+                rtm.setNo_kk(list_temporary.nik); //no_kk atau no_rtm
                 rtm.setTgl_daftar(tanggal());
                 rtm.setKelas_sosial("0");
 
-                if(crud.InsertData_tweb_rtm(rtm) > 0)
+                if(crud.UpdateData_tweb_rtm(rtm) > 0)
                 {
                     Toast.makeText(this,"Sukses Simpan Data",Toast.LENGTH_LONG).show();
                     for (int i=0;i<list_temporary.listAnggotaRtm_Edit.size();i++)
                     {
-                        if (crud.updateData_tweb_penduduk_id_rtm(list_temporary.getNo_rtm(),
+                        if (crud.updateData_tweb_penduduk_id_rtm(list_temporary.nik,
                                 list_temporary.listAnggotaRtm_Edit.get(i).getNik(),list_temporary.listAnggotaRtm_Edit.get(i).getId()) > 0)
                         {
                             Ent_PkkCatatanKeluargaDetail ep = new Ent_PkkCatatanKeluargaDetail();
@@ -178,7 +178,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
 
                             Toast.makeText(this, "Sukses Simpan Data dan update data", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(this, Edit_Kelompok_Dasawisma_Activity.class);
-                            intent.putExtra("no_rtm",list_temporary.getNo_rtm());
+                            intent.putExtra("no_rtm",list_temporary.nik);
                             startActivity(intent);
                         } else {
                             Toast.makeText(this, "Gagal Simpan Data dan update data", Toast.LENGTH_LONG).show();
@@ -188,7 +188,7 @@ public class Edit_Kepala_Rtm_Activity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this,crud.cek_data_rtm_by_id(list_temporary.getNo_rtm()).get(0).getId(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,crud.cek_data_rtm_by_id(list_temporary.nik).get(0).getId(),Toast.LENGTH_LONG).show();
                 }
 
 

@@ -60,6 +60,15 @@
             android:text="Detail"
             android:src="@drawable/cloud_upload"
             android:textColor="#fff"
+            android:visibility="gone"
+            android:id="@+id/imgUpload_hapus"
+            android:background="@drawable/background_lingkaran_hapus" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detail"
+            android:src="@drawable/cloud_upload"
+            android:textColor="#fff"
             android:id="@+id/imgUpload"
             android:background="@drawable/background_lingkaran_save" />
         <ImageButton
@@ -70,6 +79,7 @@
             android:id="@+id/imgDelete"
             android:layout_marginLeft="15dp"
             android:layout_below="@+id/imgUpload"
+            android:visibility="gone"
             android:background="@drawable/background_lingkaran_see" />
     </LinearLayout>
 

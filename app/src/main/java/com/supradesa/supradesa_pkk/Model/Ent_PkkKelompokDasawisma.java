@@ -19,6 +19,10 @@ public class Ent_PkkKelompokDasawisma {
     @Expose
     private String id_dasa_wisma;
 
+    @SerializedName("no_rtm_sebelumnya")
+    @Expose
+    private String no_rtm_sebelumnya;
+
     @SerializedName("response")
     @Expose
     private int response;
@@ -30,6 +34,14 @@ public class Ent_PkkKelompokDasawisma {
     @SerializedName("upload")
     @Expose
     private String upload;
+
+    public String getNo_rtm_sebelumnya() {
+        return no_rtm_sebelumnya;
+    }
+
+    public void setNo_rtm_sebelumnya(String no_rtm_sebelumnya) {
+        this.no_rtm_sebelumnya = no_rtm_sebelumnya;
+    }
 
     public String getUpload() {
         return upload;

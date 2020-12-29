@@ -96,9 +96,9 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
 
         stepView.go(4,false);
 
-        no_rtm = list_temporary.getNo_rtm();
+        no_rtm = list_temporary.nik;
 
-        Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,no_rtm,Toast.LENGTH_LONG).show();
 
         tvBack.setOnClickListener(l->{
             super.onBackPressed();
@@ -195,7 +195,6 @@ public class Fasilitas_Rtm_Edit_Activity extends AppCompatActivity {
 
                         list_temporary.listAllAnggota_sementara.clear();
                         list_temporary.list_no_kk.clear();
-                        list_temporary.no_rtm = "";
                         list_temporary.listAnggotaRtm.clear();
                         list_temporary.listAllAnggota.clear();
                         list_temporary.dasawismaPosition = -1;

@@ -108,7 +108,7 @@ private List<Ent_twebRtm> filterList;
 
         holder.itemView.setOnClickListener(l->{
             list_temporary.listAnggotaRtm_Edit.addAll(crud.getData_tweb_penduduk(listRtm.get(position).getNo_kk()));
-            list_temporary.no_rtm = listRtm.get(position).getNo_kk();
+            list_temporary.nik = listRtm.get(position).getNo_kk();
             list_temporary.id_rtm = listRtm.get(position).getId();
             list_temporary.no_rtm_edit = listRtm.get(position).getNo_kk();
             list_temporary.kepalaRtm_edit = listRtm.get(position).getNik_kepala();
@@ -122,121 +122,132 @@ private List<Ent_twebRtm> filterList;
             showDialogHapus("Yakin Hapus Data ini ? ",listRtm.get(position).getNo_kk());
         });
 
+        holder.imgUpload_hapus.setOnClickListener(l->{
+            setProgressDialog();
+            Hapus_Rtm_Async hapus = new Hapus_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),
+                    crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                    listRtm.get(position).getNo_kk(),
+                    "https://pkk.magelangkab.go.id/Api_pkk_upload/hapus_rtm");
+            hapus.execute();
+        });
 
         holder.imgUpload.setOnClickListener(l->{
-            setProgressDialog();
+                setProgressDialog();
+
 //            Toast.makeText(context,""+crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getNo_kk(),Toast.LENGTH_LONG).show();
-            Upload_Rtm_Async upload = new Upload_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),
-                    crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                    listRtm.get(position).getNik_kepala(),
-                    listRtm.get(position).getNo_kk(),listRtm.get(position).getTgl_daftar(),
-                    listRtm.get(position).getKelas_sosial(),listRtm.get(position).getId(),
-                    "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_rtm");
+                Upload_Rtm_Async upload = new Upload_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),
+                        crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                        listRtm.get(position).getNik_kepala(),
+                        listRtm.get(position).getNo_kk(),listRtm.get(position).getTgl_daftar(),
+                        listRtm.get(position).getKelas_sosial(),listRtm.get(position).getId(),
+                        "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_rtm");
 
 
-            try {
-                upload.execute().get().getInt("response");
+                try {
+                    upload.execute().get().getInt("response");
 //                Toast.makeText(context,upload.get().getString("no_rtm"),Toast.LENGTH_LONG).show();
-                if(upload.getResponse() == 1)
-                {
-                    crud.updateData_rtm(listRtm.get(position).getNo_kk(),"yes");
-//                    Toast.makeText(context,listRtm.get(position).getNo_kk(),Toast.LENGTH_LONG).show();
-                    crud.updateData_rtm_by_value(listRtm.get(position).getNo_kk(), Helper.NO_KK,upload.get().getString("no_rtm"));
-                    for(int a=0;a<crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).size(); a++)
+                    if(upload.getResponse() == 1)
                     {
+                        crud.updateData_rtm(listRtm.get(position).getNo_kk(),"yes");
+//                    Toast.makeText(context,listRtm.get(position).getNo_kk(),Toast.LENGTH_LONG).show();
+                        crud.updateData_rtm_by_value(listRtm.get(position).getNo_kk(), Helper.NO_KK,upload.get().getString("no_rtm"));
+                        for(int a=0;a<crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).size(); a++)
+                        {
 //                        if(crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getHapus_id_rtm().equals("ya"))
 //                        {
 ////                            Toast.makeText(context,crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNik(),Toast.LENGTH_LONG).show();
 //                        }
 //                        Toast.makeText(context,crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),Toast.LENGTH_LONG).show();
-                        Upload_tweb_penduduk_Async upload_pdd = new Upload_tweb_penduduk_Async(context,sharedPref.sp.getString("kode_desa",""),
+                            Upload_tweb_penduduk_Async upload_pdd = new Upload_tweb_penduduk_Async(context,sharedPref.sp.getString("kode_desa",""),
+                                    crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNik(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_kk(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getKk_level(),
+                                    upload.get().getString("no_rtm"),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getRtm_level(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getSex(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getTempatlahir(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getTanggallahir(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getAgama_id(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getPendidikan_kk_id(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getPekerjaan_id(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getStatus_kawin(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_cluster(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getAlamat_sekarang(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getCacat_id(),
+                                    crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getHapus_id_rtm(),
+                                    "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_tweb_penduduk");
+                            upload_pdd.execute();
+
+
+                        }
+
+                        Upload_PkkKelompokDasawisma_Async upload_pkd = new Upload_PkkKelompokDasawisma_Async(context,sharedPref.sp.getString("kode_desa",""),
                                 crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                                crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNama(),
-                                crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getNik(),
-                                crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_kk(),
-                                crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getKk_level(),
                                 upload.get().getString("no_rtm"),
-                                crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getRtm_level(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getSex(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getTempatlahir(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getTanggallahir(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getAgama_id(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getPendidikan_kk_id(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getPekerjaan_id(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getStatus_kawin(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getId_cluster(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getAlamat_sekarang(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getCacat_id(),
-                                        crud.getData_tweb_penduduk_by_id_rtm_and_rtm_level(listRtm.get(position).getNo_kk()).get(a).getHapus_id_rtm(),
-                                        "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_tweb_penduduk");
-                        upload_pdd.execute();
+                                crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getId_dasa_wisma(),
+                                "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_kelompok_dasawisma");
+                        upload_pkd.execute();
+                        crudPkk.update_pkk_kelompok_dasawisma(Helper.NO_KK,upload.get().getString("no_rtm"),listRtm.get(position).getNo_kk());
 
+                        Upload_PkkDataKeluarga upload_dk = new Upload_PkkDataKeluarga(context, sharedPref.sp.getString("kode_desa", ""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                                upload.get().getString("no_rtm"), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getMakanan_pokok(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_makanan_pokok(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJamban(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_jamban(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getSumber_air(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_sumber_air(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getTempat_sampah(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_tempat_sampah(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getSaluran_pembuangan_air(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_saluran_pembuangan_air(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getStiker_p4k(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_stiker_p4k(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getKriteria_rumah(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_kriteria_rumah(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getUp2k(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_up2k(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getKeg_sehat_lingkungan(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_keg_sehat_lingkungan(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getPtp(),
+                                crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getIndustri_rt(), "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_data_keluarga");
+                        upload_dk.execute();
+                        crudPkk.update_pkk_data_keluarga(Helper.NO_KK,upload.get().getString("no_rtm"),listRtm.get(position).getNo_kk());
 
-                    }
-
-                    Upload_PkkKelompokDasawisma_Async upload_pkd = new Upload_PkkKelompokDasawisma_Async(context,sharedPref.sp.getString("kode_desa",""),
-                            crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                            upload.get().getString("no_rtm"),
-                            crudPkk.getPkk_kelompok_dasa_wisma_no_rtm(listRtm.get(position).getNo_kk()).get(0).getId_dasa_wisma(),
-                            "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_kelompok_dasawisma");
-                    upload_pkd.execute();
-                    crudPkk.update_pkk_kelompok_dasawisma(Helper.NO_KK,upload.get().getString("no_rtm"),listRtm.get(position).getNo_kk());
-
-                    Upload_PkkDataKeluarga upload_dk = new Upload_PkkDataKeluarga(context, sharedPref.sp.getString("kode_desa", ""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                            upload.get().getString("no_rtm"), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getMakanan_pokok(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_makanan_pokok(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJamban(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_jamban(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getSumber_air(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_sumber_air(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getTempat_sampah(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_tempat_sampah(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getSaluran_pembuangan_air(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_saluran_pembuangan_air(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getStiker_p4k(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_stiker_p4k(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getKriteria_rumah(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_kriteria_rumah(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getUp2k(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_up2k(), crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getKeg_sehat_lingkungan(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getJml_keg_sehat_lingkungan(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getPtp(),
-                            crudPkk.getPkk_DataKeluarga_by_id(listRtm.get(position).getNo_kk()).get(0).getIndustri_rt(), "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_data_keluarga");
-                    upload_dk.execute();
-                    crudPkk.update_pkk_data_keluarga(Helper.NO_KK,upload.get().getString("no_rtm"),listRtm.get(position).getNo_kk());
-
-                    for(int a=0 ; a < crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).size() ; a++)
-                    {
-                        Upload_pkk_catatan_keluarga_detail upload_ckd = new Upload_pkk_catatan_keluarga_detail(context,sharedPref.sp.getString("kode_desa",""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                                crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNik(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getBerkebutuhan_khusus(),
-                                crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPenghayatan_dan_pengamalan_pancasila(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getGotong_royong(),
-                                crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPendidikan_ketrampilan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPengembangan_kehidupan_berkoperasi()
-                                ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPangan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getSandang()
-                                ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getKesehatan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPerencanaan_sehat()
-                                ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getId_kelompok_umur(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getUsia_subur()
-                                ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getIbu_hamil(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getMenyusui()
-                                ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNifas(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_baca()
-                                ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_tulis(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_hitung(),
-                                crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getId_detail_cat(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getStunting(),
-                                crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getHapus(),
-                                "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_catatan_keluarga_detail");
-                        upload_ckd.execute();
+                        for(int a=0 ; a < crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).size() ; a++)
+                        {
+                            Upload_pkk_catatan_keluarga_detail upload_ckd = new Upload_pkk_catatan_keluarga_detail(context,sharedPref.sp.getString("kode_desa",""),crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
+                                    crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNik(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getBerkebutuhan_khusus(),
+                                    crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPenghayatan_dan_pengamalan_pancasila(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getGotong_royong(),
+                                    crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPendidikan_ketrampilan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPengembangan_kehidupan_berkoperasi()
+                                    ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPangan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getSandang()
+                                    ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getKesehatan(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getPerencanaan_sehat()
+                                    ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getId_kelompok_umur(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getUsia_subur()
+                                    ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getIbu_hamil(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getMenyusui()
+                                    ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNifas(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_baca()
+                                    ,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_tulis(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getButa_hitung(),
+                                    crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getId_detail_cat(),crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getStunting(),
+                                    crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getHapus(),
+                                    "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_catatan_keluarga_detail");
+                            upload_ckd.execute();
 
 //                        if(crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getHapus().equals("ya"))
 //                        {
 //                            Toast.makeText(context,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNik(),Toast.LENGTH_LONG).show();
 //                        }
-                    }
+                        }
 
 
 //                    get_data_from_server.getAll();
-                    notifyItemChanged(position);
-                    notifyItemChanged(position,listRtm.size());
-                    notifyDataSetChanged();
+                        notifyItemChanged(position);
+                        notifyItemChanged(position,listRtm.size());
+                        notifyDataSetChanged();
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
-            context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
-            ((Activity) context).finish();
+                context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+                Animatoo.animateFade(context);
+                ((Activity) context).finish();
+
 
         });
 
@@ -244,7 +255,7 @@ private List<Ent_twebRtm> filterList;
         if(listRtm.get(position).getUpload().equals("sync"))
         {
             holder.imgUpload.setVisibility(View.INVISIBLE);
-            holder.imgDelete.setVisibility(View.GONE);
+            holder.imgDelete.setVisibility(View.VISIBLE);
         }
 
         if(listRtm.get(position).getUpload().equals("yes"))
@@ -254,8 +265,194 @@ private List<Ent_twebRtm> filterList;
             holder.itemView.setBackgroundColor(ContextCompat.getColor(context,R.color.young_blue));
         }
 
+        if(listRtm.get(position).getUpload().equals("hapus"))
+        {
+            holder.imgUpload.setVisibility(View.GONE);
+            holder.imgUpload_hapus.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
+    class Hapus_Rtm_Async extends AsyncTask<String, String, JSONObject>
+    {
+        private Context context;
+        private Exception exception;
+        private ProgressDialog progressDialog = null;
+        String keterangan = "";
+        String SERVER_PATH;
+        String kd_desa,kd_kecamatan,kd_kabupaten,id_rtm;
+        int response;
+        String no_rtm_fix;
+
+        private Hapus_Rtm_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String id_rtm,String SERVER_PATH) {
+            this.context = context;
+            this.kd_desa = kd_desa;
+            this.kd_kecamatan = kd_kecamatan;
+            this.kd_kabupaten = kd_kabupaten;
+            this.id_rtm = id_rtm;
+            this.response = 0;
+
+            this.SERVER_PATH = SERVER_PATH;
+        }
+
+        public void setResponse(int response) {
+            this.response = response;
+        }
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+//            dialog = new ProgressDialog(context);
+//            dialog.setMessage("Upload Data. Please wait . . .");
+//            dialog.setIndeterminate(false);
+//            dialog.setCancelable(false);
+//            dialog.show();
+        }
+
+        protected JSONObject doInBackground(String... args)
+        {
+            JSONObject json = null;
+            OutputStream os = null;
+            InputStream is = null;
+            HttpURLConnection conn = null;
+            try {
+                //constants
+                URL url = new URL(SERVER_PATH);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("kd_desa", kd_desa);
+                jsonObject.put("kd_kecamatan", kd_kecamatan);
+                jsonObject.put("kd_kabupaten", kd_kabupaten);
+                jsonObject.put("id_rtm", id_rtm);
+                String message = jsonObject.toString();
+
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout( 10000 /*milliseconds*/ );
+                conn.setConnectTimeout( 15000 /* milliseconds */ );
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+                conn.setFixedLengthStreamingMode(message.getBytes().length);
+
+                //make some HTTP header nicety
+                conn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+                conn.setRequestProperty("KEY","25f9e794323b453885f5181f1b624d0b");
+                conn.setRequestProperty("X-Requested-With", "XMLHttpRequest");
+
+                //open
+                conn.connect();
+
+                //setup send
+                os = new BufferedOutputStream(conn.getOutputStream());
+                os.write(message.getBytes());
+                //clean up
+                os.flush();
+
+                //do somehting with response
+                is = conn.getInputStream();
+
+                BufferedReader br = new BufferedReader(new InputStreamReader( (conn.getInputStream())));
+
+                String output;
+                StringBuffer response = new StringBuffer();
+                String line;
+                while ((line = br.readLine()) != null)
+                {
+                    response.append(line);
+                }
+
+//                    Log.v("Response","Kode : "+new JSONObject(response.toString()).getString("data"));
+//                    Log.v("Response","Kode : "+new JSONObject(br.readLine()).getString("data"));
+                json = new JSONObject(response.toString());
+
+                setResponse(json.getInt("response"));
+                Log.v("Response","Kode : "+json.getInt("response"));
+
+
+                //String contentAsString = readIt(is,len);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                //clean up
+                try {
+                    os.close();
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                conn.disconnect();
+            }
+
+
+            return json;
+        }
+
+
+        public int getResponse() {
+            return response;
+        }
+
+        protected void onPostExecute(JSONObject result)
+        {
+            dialog.dismiss();
+            //this assumes that the response looks like this:
+            //{"success" : true }
+            String message = null;
+            try {
+                message = result.getString("pesan");
+            } catch (JSONException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            int success = 0;
+            String no_rtm = "";
+            try {
+                success = result.getInt("response");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            if (success == 1) {
+//                dialog.dismiss();
+                setResponse(success);
+                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+
+                if(crud.delete_rtm_by_no_rtm(id_rtm))
+                {
+                    crudPkk.delete_pkk_kelompok_dasa_wisma_by_no_rtm(id_rtm);
+                    crudPkk.delete_pkk_data_keluarga_by_No_KK(id_rtm);
+                    context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+                    Animatoo.animateFade(context);
+                    ((Activity)context).finish();
+                }
+
+
+            }
+            else if (success == 2) {
+                setResponse(success);
+                showDialogKeyAccess(message);
+//                this.progressDialog.dismiss();
+            }
+            else if(success == 0)
+            {
+                showDialogKeyAccess(message);
+            }
+            else
+            {
+                setResponse(success);
+                Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                dialog.dismiss();
+            }
+
+
+
+//            Toast.makeText(getBaseContext(), success ? "We are good to go." : "Something went wrong!",
+//                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+        }
+    }
 
     class Upload_Rtm_Async extends AsyncTask<String, String, JSONObject>
     {
@@ -1229,8 +1426,8 @@ private List<Ent_twebRtm> filterList;
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                     public void onClick(DialogInterface dialog, int id) {
                         crud.updateData_rtm(no_rtm,"hapus");
-                        crudPkk.delete_pkk_kelompok_dasa_wisma_by_no_rtm(no_rtm);
-                        crudPkk.delete_pkk_data_keluarga_by_No_KK(no_rtm);
+//                        crudPkk.delete_pkk_kelompok_dasa_wisma_by_no_rtm(no_rtm);
+//                        crudPkk.delete_pkk_data_keluarga_by_No_KK(no_rtm);
                         context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
                         Animatoo.animateFade(context);
                         ((Activity)context).finish();
@@ -1311,13 +1508,14 @@ private List<Ent_twebRtm> filterList;
 
     public class Holder extends RecyclerView.ViewHolder {
         private TextView tvNoRtm,tvNamaKepalaKeluarga,tvJumlah;
-        private ImageButton imgUpload,imgDelete;
+        private ImageButton imgUpload,imgUpload_hapus,imgDelete;
         public Holder(@NonNull View itemView) {
             super(itemView);
 
             tvJumlah = itemView.findViewById(R.id.tvJumlah);
             tvNamaKepalaKeluarga = itemView.findViewById(R.id.tvNamaKepalaKeluarga);
             tvNoRtm = itemView.findViewById(R.id.tvNoRtm);
+            imgUpload_hapus = itemView.findViewById(R.id.imgUpload_hapus);
             imgUpload = itemView.findViewById(R.id.imgUpload);
             imgDelete = itemView.findViewById(R.id.imgDelete);
         }
