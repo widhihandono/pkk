@@ -97,7 +97,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="Balita"
                                 android:gravity="center"/>
                             <TextView
@@ -107,7 +107,7 @@
                                 android:textColor="#000"
                                 android:textSize="24dp"
                                 android:id="@+id/tvJmlBalita"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -132,7 +132,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="PUS"
                                 android:gravity="center"/>
                             <TextView
@@ -142,7 +142,7 @@
                                 android:textColor="#000"
                                 android:textSize="24dp"
                                 android:id="@+id/tvJmlPUS"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -179,7 +179,7 @@
                                 android:gravity="center"
                                 android:text="WUS"
                                 android:textColor="#000"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -188,7 +188,7 @@
                                 android:textColor="#000"
                                 android:textSize="24dp"
                                 android:id="@+id/tvJmlWUS"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -213,7 +213,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="Buta"
                                 android:gravity="center"/>
                             <TextView
@@ -223,7 +223,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlButa"
                                 android:textSize="24dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -258,7 +258,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="Hamil"
                                 android:gravity="center"/>
                             <TextView
@@ -268,7 +268,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlHamil"
                                 android:textSize="24dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -296,7 +296,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="Menyusui"
                                 android:gravity="center"/>
                             <TextView
@@ -306,7 +306,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlMenuyusi"
                                 android:textSize="24dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -322,7 +322,7 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="80dp"
+                        android:layout_marginRight="00dp"
                         android:padding="60dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
@@ -341,7 +341,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="Lansia"
                                 android:gravity="center"/>
                             <TextView
@@ -351,7 +351,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlLansia"
                                 android:textSize="24dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -377,7 +377,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textStyle="bold"
-                                android:textSize="28dp"
+                                android:textSize="20dp"
                                 android:text="Lansia"
                                 android:gravity="center"/>
                             <TextView
@@ -385,8 +385,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
-                                android:textSize="28dp"
-                                android:text="Jumlah : 8"
+                                android:textSize="20dp"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -423,25 +423,25 @@
 
         <TextView
             android:id="@+id/tvHome"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="left|bottom"
             android:drawableTop="@drawable/ic_home"
             android:text="Home"
             android:gravity="center"
             android:layout_marginBottom="6dp"
-            android:layout_marginLeft="80dp"/>
+            android:layout_marginLeft="00dp"/>
 
         <TextView
             android:id="@+id/tvProfile"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:drawableTop="@drawable/ic_profile"
             android:gravity="center"
             android:layout_gravity="right|bottom"
             android:text="Profile"
             android:layout_marginBottom="6dp"
-            android:layout_marginRight="80dp"/>
+            android:layout_marginRight="00dp"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -459,8 +459,8 @@
             android:layout_marginBottom="30dp">
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabPendataan"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:pressedTranslationZ="24dp"
                 app:fabSize="normal"
                 app:tint="@color/white"

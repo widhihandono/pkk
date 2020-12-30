@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.supradesa.supradesa_pkk.Api.Api_Client;
 import com.supradesa.supradesa_pkk.Api.Api_Interface;
+import com.supradesa.supradesa_pkk.SQLite.Crud;
+import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
 import com.supradesa.supradesa_pkk.Util.MyHttpEntity;
 import com.supradesa.supradesa_pkk.Util.MySSLSocketFactory;
 import com.supradesa.supradesa_pkk.Util.SharedPref;
@@ -64,6 +66,8 @@ private TextView tvForgotPass;
 private ImageView imgLogin;
 private Api_Interface apiInterface;
 private SharedPref sharedPref;
+Crud crud;
+Crud_pkk crud_pkk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,8 @@ private SharedPref sharedPref;
         apiInterface = Api_Client.getClient().create(Api_Interface.class);
 
         sharedPref = new SharedPref(this);
+        crud = new Crud(this);
+        crud_pkk = new Crud_pkk(this);
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
@@ -98,18 +104,69 @@ private SharedPref sharedPref;
                 {
                     if(response.body().isResponse())
                     {
-                        Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
-                        sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
-                        sharedPref.saveSPString("nik",response.body().getNik());
-                        sharedPref.saveSPString("kode_desa",response.body().getKode_desa());
-                        sharedPref.saveSPString("dusun",response.body().getDusun());
-                        sharedPref.saveSPString("nama_desa",response.body().getNama_desa());
-                        sharedPref.saveSPString("nama_kecamatan",response.body().getNama_kecamatan());
-                        sharedPref.saveSPString("no_hp",response.body().getNo_hp());
-                        sharedPref.saveSPString("email",response.body().getEmail());
 
-                        startActivity(new Intent(Login_Activity.this,MainActivity.class));
-                        finish();
+
+                        if(response.body().getKode_desa().equals(crud.getData_config_code().get(0).getKode_desa()) &&
+                                response.body().getDusun().equals(sharedPref.sp.getString("dusun","")))
+                        {
+                            Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
+                            sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
+                            sharedPref.saveSPString("nik",response.body().getNik());
+                            sharedPref.saveSPString("kode_desa",response.body().getKode_desa());
+                            sharedPref.saveSPString("dusun",response.body().getDusun());
+                            sharedPref.saveSPString("nama_desa",response.body().getNama_desa());
+                            sharedPref.saveSPString("nama_kecamatan",response.body().getNama_kecamatan());
+                            sharedPref.saveSPString("no_hp",response.body().getNo_hp());
+                            sharedPref.saveSPString("email",response.body().getEmail());
+                            startActivity(new Intent(Login_Activity.this,MainActivity.class));
+                            finish();
+                        }
+                        else
+                        {
+                            crud.delete_all_config_code();
+                            crud.delete_all_keluarga();
+                            crud.delete_all_penduduk();
+                            crud.delete_all_keluarga();
+                            crud.delete_all_rtm();
+                            crud_pkk.delete_all_pkk_catatan_keluarga();
+                            crud_pkk.delete_all_pkk_catatan_keluarga_detail();
+                            crud_pkk.delete_all_pkk_dasa_wisma();
+                            crud_pkk.delete_all_pkk_data_keluarga();
+                            crud_pkk.delete_all_pkk_kelompok_dasa_wisma();
+
+                            Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
+                            sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
+                            sharedPref.saveSPString("nik",response.body().getNik());
+                            sharedPref.saveSPString("kode_desa",response.body().getKode_desa());
+                            sharedPref.saveSPString("dusun",response.body().getDusun());
+                            sharedPref.saveSPString("nama_desa",response.body().getNama_desa());
+                            sharedPref.saveSPString("nama_kecamatan",response.body().getNama_kecamatan());
+                            sharedPref.saveSPString("no_hp",response.body().getNo_hp());
+                            sharedPref.saveSPString("email",response.body().getEmail());
+
+                            sharedPref.saveSPString("tgl_konf","");
+                            sharedPref.saveSPString("tglSync_penduduk","");
+                            sharedPref.saveSPString("tgl_rmhTgga","");
+                            sharedPref.saveSPString("tglSync_keluarga","");
+                            sharedPref.saveSPString("tglSync_catKeluarga","");
+                            sharedPref.saveSPString("tglSync_catKeluargaDet","");
+                            sharedPref.saveSPString("tglSync_pkkKeluarga","");
+                            sharedPref.saveSPString("tglSync_kelompok_dasawiswa","");
+                            sharedPref.saveSPString("tglSync_pkkDasawisma","");
+
+                            sharedPref.saveSPInt("count_pkkData_keluarga",0);
+                            sharedPref.saveSPInt("count_pkkCatatanKeluargaDetail",0);
+                            sharedPref.saveSPInt("count_pkkCatatanKeluarga.",0);
+                            sharedPref.saveSPInt("count_rtm",0);
+                            sharedPref.saveSPInt("count_keluarga",0);
+                            sharedPref.saveSPInt("count_penduduk",0);
+                            sharedPref.saveSPInt("count_dasawisma",0);
+                            sharedPref.saveSPInt("count_kelompokDasawisma",0);
+
+                            startActivity(new Intent(Login_Activity.this,MainActivity.class));
+                            finish();
+                        }
+
                     }
                     else
                     {
@@ -249,17 +306,77 @@ private SharedPref sharedPref;
             // Close dialog
             if (result == 1) {
                 this.progressDialog.dismiss();
-                Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
-                sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
-                sharedPref.saveSPString("nik",nik);
-                sharedPref.saveSPString("kode_desa",kode_desa);
-                sharedPref.saveSPString("dusun",dusun);
-                sharedPref.saveSPString("no_hp",no_hp);
-                sharedPref.saveSPString("username",username);
-                sharedPref.saveSPString("email",email);
+//                Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
+//                sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
+//                sharedPref.saveSPString("nik",nik);
+//                sharedPref.saveSPString("kode_desa",kode_desa);
+//                sharedPref.saveSPString("dusun",dusun);
+//                sharedPref.saveSPString("no_hp",no_hp);
+//                sharedPref.saveSPString("username",username);
+//                sharedPref.saveSPString("email",email);
+//
+//                startActivity(new Intent(Login_Activity.this,MainActivity.class));
+//                finish();
 
-                startActivity(new Intent(Login_Activity.this,MainActivity.class));
-                finish();
+
+                if(kode_desa.equals(crud.getData_config_code().get(0).getKode_desa()) &&
+                        dusun.equals(sharedPref.sp.getString("dusun","")))
+                {
+                    Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
+                    sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
+                    sharedPref.saveSPString("nik",nik);
+                    sharedPref.saveSPString("kode_desa",kode_desa);
+                    sharedPref.saveSPString("dusun",dusun);
+                    sharedPref.saveSPString("no_hp",no_hp);
+                    sharedPref.saveSPString("username",username);
+                    sharedPref.saveSPString("email",email);
+                    startActivity(new Intent(Login_Activity.this,MainActivity.class));
+                    finish();
+                }
+                else
+                {
+                    crud.delete_all_config_code();
+                    crud.delete_all_keluarga();
+                    crud.delete_all_penduduk();
+                    crud.delete_all_keluarga();
+                    crud.delete_all_rtm();
+                    crud_pkk.delete_all_pkk_catatan_keluarga();
+                    crud_pkk.delete_all_pkk_catatan_keluarga_detail();
+                    crud_pkk.delete_all_pkk_dasa_wisma();
+                    crud_pkk.delete_all_pkk_data_keluarga();
+                    crud_pkk.delete_all_pkk_kelompok_dasa_wisma();
+
+                    Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();
+                    sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,true);
+                    sharedPref.saveSPString("nik",nik);
+                    sharedPref.saveSPString("kode_desa",kode_desa);
+                    sharedPref.saveSPString("dusun",dusun);
+                    sharedPref.saveSPString("no_hp",no_hp);
+                    sharedPref.saveSPString("username",username);
+                    sharedPref.saveSPString("email",email);
+
+                    sharedPref.saveSPString("tgl_konf","");
+                    sharedPref.saveSPString("tglSync_penduduk","");
+                    sharedPref.saveSPString("tgl_rmhTgga","");
+                    sharedPref.saveSPString("tglSync_keluarga","");
+                    sharedPref.saveSPString("tglSync_catKeluarga","");
+                    sharedPref.saveSPString("tglSync_catKeluargaDet","");
+                    sharedPref.saveSPString("tglSync_pkkKeluarga","");
+                    sharedPref.saveSPString("tglSync_kelompok_dasawiswa","");
+                    sharedPref.saveSPString("tglSync_pkkDasawisma","");
+
+                    sharedPref.saveSPInt("count_pkkData_keluarga",0);
+                    sharedPref.saveSPInt("count_pkkCatatanKeluargaDetail",0);
+                    sharedPref.saveSPInt("count_pkkCatatanKeluarga.",0);
+                    sharedPref.saveSPInt("count_rtm",0);
+                    sharedPref.saveSPInt("count_keluarga",0);
+                    sharedPref.saveSPInt("count_penduduk",0);
+                    sharedPref.saveSPInt("count_dasawisma",0);
+                    sharedPref.saveSPInt("count_kelompokDasawisma",0);
+
+                    startActivity(new Intent(Login_Activity.this,MainActivity.class));
+                    finish();
+                }
 
             }
             else if (result == 2) {

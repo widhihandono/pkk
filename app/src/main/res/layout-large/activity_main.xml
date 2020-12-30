@@ -107,7 +107,7 @@
                                 android:textColor="#000"
                                 android:textSize="12dp"
                                 android:id="@+id/tvJmlBalita"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -142,7 +142,7 @@
                                 android:textColor="#000"
                                 android:textSize="12dp"
                                 android:id="@+id/tvJmlPUS"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -188,7 +188,7 @@
                                 android:textColor="#000"
                                 android:textSize="12dp"
                                 android:id="@+id/tvJmlWUS"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -223,7 +223,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlButa"
                                 android:textSize="12dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -268,7 +268,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlHamil"
                                 android:textSize="12dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -277,8 +277,8 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="30dp"
                         android:paddingBottom="30dp"
-                        android:paddingLeft="28dp"
-                        android:paddingRight="28dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
                         android:background="@drawable/text_rounded">
                         <ImageView
                             android:layout_width="51dp"
@@ -306,7 +306,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlMenuyusi"
                                 android:textSize="12dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -351,7 +351,7 @@
                                 android:textColor="#000"
                                 android:id="@+id/tvJmlLansia"
                                 android:textSize="12dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>
@@ -386,7 +386,7 @@
                                 android:layout_gravity="left|bottom"
                                 android:textColor="#000"
                                 android:textSize="12dp"
-                                android:text="Jumlah : 8"
+                                android:text="Jumlah : 0"
                                 android:gravity="center"/>
                         </LinearLayout>
                     </RelativeLayout>

@@ -222,7 +222,8 @@ public class Profile_Activity extends AppCompatActivity {
         });
 
         fabDoc.setOnClickListener(l->{
-            Intent intent = new Intent(Profile_Activity.this, Data_Belum_Upload_Activity.class);
+            Intent intent = new Intent(Profile_Activity.this,Data_Belum_Upload_Activity.class);
+            intent.putExtra("pager",0);
             startActivity(intent);
             Animatoo.animateFade(Profile_Activity.this);
         });
@@ -291,39 +292,48 @@ public class Profile_Activity extends AppCompatActivity {
                         list_temporary.id_rtm = "";
                         list_temporary.no_rtm_edit = "no";
                         list_temporary.kepalaRtm_edit = "";
-
-                        crudSqlite.delete_all_config_code();
-                        crudSqlite.delete_all_keluarga();
-                        crudSqlite.delete_all_penduduk();
-                        crudSqlite.delete_all_keluarga();
-                        crudSqlite.delete_all_rtm();
-                        crudPkk.delete_all_pkk_catatan_keluarga();
-                        crudPkk.delete_all_pkk_catatan_keluarga_detail();
-                        crudPkk.delete_all_pkk_dasa_wisma();
-                        crudPkk.delete_all_pkk_data_keluarga();
-                        crudPkk.delete_all_pkk_kelompok_dasa_wisma();
+//
+//                        crudSqlite.delete_all_config_code();
+//                        crudSqlite.delete_all_keluarga();
+//                        crudSqlite.delete_all_penduduk();
+//                        crudSqlite.delete_all_keluarga();
+//                        crudSqlite.delete_all_rtm();
+//                        crudPkk.delete_all_pkk_catatan_keluarga();
+//                        crudPkk.delete_all_pkk_catatan_keluarga_detail();
+//                        crudPkk.delete_all_pkk_dasa_wisma();
+//                        crudPkk.delete_all_pkk_data_keluarga();
+//                        crudPkk.delete_all_pkk_kelompok_dasa_wisma();
 
 
                         Toast.makeText(Profile_Activity.this,"Sukses Logout",Toast.LENGTH_LONG).show();
                         sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,false);
                         sharedPref.saveSPString("nik","");
                         sharedPref.saveSPString("kode_desa","");
-                        sharedPref.saveSPString("dusun","");
+//                        sharedPref.saveSPString("dusun","");
                         sharedPref.saveSPString("nama_desa","");
                         sharedPref.saveSPString("nama_kecamatan","");
                         sharedPref.saveSPString("no_hp","");
                         sharedPref.saveSPString("email","");
                         sharedPref.saveSPString("username","");
 
-                        sharedPref.saveSPString("tgl_konf","");
-                        sharedPref.saveSPString("tglSync_penduduk","");
-                        sharedPref.saveSPString("tgl_rmhTgga","");
-                        sharedPref.saveSPString("tglSync_keluarga","");
-                        sharedPref.saveSPString("tglSync_catKeluarga","");
-                        sharedPref.saveSPString("tglSync_catKeluargaDet","");
-                        sharedPref.saveSPString("tglSync_pkkKeluarga","");
-                        sharedPref.saveSPString("tglSync_kelompok_dasawiswa","");
-                        sharedPref.saveSPString("tglSync_pkkDasawisma","");
+//                        sharedPref.saveSPString("tgl_konf","");
+//                        sharedPref.saveSPString("tglSync_penduduk","");
+//                        sharedPref.saveSPString("tgl_rmhTgga","");
+//                        sharedPref.saveSPString("tglSync_keluarga","");
+//                        sharedPref.saveSPString("tglSync_catKeluarga","");
+//                        sharedPref.saveSPString("tglSync_catKeluargaDet","");
+//                        sharedPref.saveSPString("tglSync_pkkKeluarga","");
+//                        sharedPref.saveSPString("tglSync_kelompok_dasawiswa","");
+//                        sharedPref.saveSPString("tglSync_pkkDasawisma","");
+//
+//                        sharedPref.saveSPInt("count_pkkData_keluarga",0);
+//                        sharedPref.saveSPInt("count_pkkCatatanKeluargaDetail",0);
+//                        sharedPref.saveSPInt("count_pkkCatatanKeluarga.",0);
+//                        sharedPref.saveSPInt("count_rtm",0);
+//                        sharedPref.saveSPInt("count_keluarga",0);
+//                        sharedPref.saveSPInt("count_penduduk",0);
+//                        sharedPref.saveSPInt("count_dasawisma",0);
+//                        sharedPref.saveSPInt("count_kelompokDasawisma",0);
 
 
                         startActivity(new Intent(Profile_Activity.this,Login_Activity.class));

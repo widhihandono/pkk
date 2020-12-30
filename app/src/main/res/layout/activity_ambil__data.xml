@@ -99,6 +99,7 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -137,6 +138,14 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_penduduk"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -152,7 +161,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/pekerjaan"/>
+                    android:src="@drawable/penduduk"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -175,6 +184,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_rmhTgga"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -212,6 +228,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_keluarga"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -252,6 +275,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_catKeluarga"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -290,6 +320,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_catKeluargaDet"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -327,6 +364,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_pkkKeluarga"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -364,6 +408,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_kelompok_dasawisma"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -400,6 +451,13 @@
                         android:text="Tgl. Sync."
                         android:textSize="12dp"
                         android:textColor="#A8A7A7"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvJumlah_pkkDasawisma"
+                        android:text="0"
+                        android:textSize="15dp"
+                        android:textColor="#272727"/>
                 </LinearLayout>
             </LinearLayout>
 

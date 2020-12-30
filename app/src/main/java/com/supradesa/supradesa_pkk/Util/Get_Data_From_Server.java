@@ -693,8 +693,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_kelompokDasawisma",count);
 //                Toast.makeText(context,"Sukses Ambil Data Kelompok Dasawisma",Toast.LENGTH_LONG).show();
 
             }
@@ -837,7 +847,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_dasawisma",count);
 
                 Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
 
@@ -1200,8 +1220,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_penduduk",count);
 //                Toast.makeText(context,"Sukses Ambil Data "+respon_penduduk,Toast.LENGTH_LONG).show();
 
             }
@@ -1358,8 +1388,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_keluarga",count);
 //                Toast.makeText(context,"Sukses Ambil Data Keluarga",Toast.LENGTH_LONG).show();
 
             }
@@ -1506,8 +1546,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_rtm",count);
 //                Toast.makeText(context,"Sukses Ambil Data Rumah Tangga",Toast.LENGTH_LONG).show();
 
             }
@@ -1651,8 +1701,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_pkkCatatanKeluarga",count);
 //                Toast.makeText(context,"Sukses Ambil Data Catatan Keluarga",Toast.LENGTH_LONG).show();
 
             }
@@ -1820,8 +1880,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_pkkCatatanKeluargaDetail",count);
 //                Toast.makeText(context,"Sukses Ambil Data Catatan Keluarga Detail",Toast.LENGTH_LONG).show();
 
             }
@@ -1984,8 +2054,18 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_pkkData_keluarga",count);
 //                Toast.makeText(context,"Sukses Ambil Data Keluarga",Toast.LENGTH_LONG).show();
 
             }

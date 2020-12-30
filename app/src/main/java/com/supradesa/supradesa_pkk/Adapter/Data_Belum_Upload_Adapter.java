@@ -33,8 +33,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.supradesa.supradesa_pkk.Data_Belum_Upload_Activity;
 import com.supradesa.supradesa_pkk.Edit.Edit_Rtm_Activity;
+import com.supradesa.supradesa_pkk.MainActivity;
 import com.supradesa.supradesa_pkk.Model.Ent_twebKeluarga;
 import com.supradesa.supradesa_pkk.Model.Ent_twebRtm;
+import com.supradesa.supradesa_pkk.Pemilihan_KK_Activity;
 import com.supradesa.supradesa_pkk.R;
 import com.supradesa.supradesa_pkk.SQLite.Crud;
 import com.supradesa.supradesa_pkk.SQLite.Crud_pkk;
@@ -126,7 +128,7 @@ private List<Ent_twebRtm> filterList;
             setProgressDialog();
             Hapus_Rtm_Async hapus = new Hapus_Rtm_Async(context,sharedPref.sp.getString("kode_desa",""),
                     crud.getData_config_code().get(0).getKode_kecamatan(),crud.getData_config_code().get(0).getKode_kabupaten(),
-                    listRtm.get(position).getNo_kk(),
+                    listRtm.get(position).getNo_kk(),listRtm.get(position).getId(),listRtm.get(position).getNik_kepala(),
                     "https://pkk.magelangkab.go.id/Api_pkk_upload/hapus_rtm");
             hapus.execute();
         });
@@ -224,10 +226,15 @@ private List<Ent_twebRtm> filterList;
                                     "https://pkk.magelangkab.go.id/Api_pkk_upload/upload_pkk_catatan_keluarga_detail");
                             upload_ckd.execute();
 
-//                        if(crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getHapus().equals("ya"))
-//                        {
-//                            Toast.makeText(context,crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).get(a).getNik(),Toast.LENGTH_LONG).show();
-//                        }
+                            if(a == crudPkk.getData_pkk_catatan_keluarga_detail_by_no_rtm(listRtm.get(position).getNo_kk()).size()-1)
+                            {
+                                Intent intent = new Intent(context,Data_Belum_Upload_Activity.class);
+                                intent.putExtra("id_kk","0");
+                                intent.putExtra("pager",1);
+                                context.startActivity(intent);
+                                Animatoo.animateFade(context);
+                                ((Activity) context).finish();
+                            }
                         }
 
 
@@ -244,9 +251,9 @@ private List<Ent_twebRtm> filterList;
                     e.printStackTrace();
                 }
 
-                context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
-                Animatoo.animateFade(context);
-                ((Activity) context).finish();
+//                context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+//                Animatoo.animateFade(context);
+//                ((Activity) context).finish();
 
 
         });
@@ -281,16 +288,18 @@ private List<Ent_twebRtm> filterList;
         private ProgressDialog progressDialog = null;
         String keterangan = "";
         String SERVER_PATH;
-        String kd_desa,kd_kecamatan,kd_kabupaten,id_rtm;
+        String kd_desa,kd_kecamatan,kd_kabupaten,id_rtm,id_kepala,nik_kepala;
         int response;
         String no_rtm_fix;
 
-        private Hapus_Rtm_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String id_rtm,String SERVER_PATH) {
+        private Hapus_Rtm_Async(Context context,String kd_desa,String kd_kecamatan,String kd_kabupaten,String id_rtm,String id_kepala,String nik_kepala,String SERVER_PATH) {
             this.context = context;
             this.kd_desa = kd_desa;
             this.kd_kecamatan = kd_kecamatan;
             this.kd_kabupaten = kd_kabupaten;
             this.id_rtm = id_rtm;
+            this.id_kepala = id_kepala;
+            this.nik_kepala = nik_kepala;
             this.response = 0;
 
             this.SERVER_PATH = SERVER_PATH;
@@ -323,6 +332,8 @@ private List<Ent_twebRtm> filterList;
                 jsonObject.put("kd_kecamatan", kd_kecamatan);
                 jsonObject.put("kd_kabupaten", kd_kabupaten);
                 jsonObject.put("id_rtm", id_rtm);
+                jsonObject.put("id_kepala", id_kepala);
+                jsonObject.put("nik_kepala", nik_kepala);
                 String message = jsonObject.toString();
 
                 conn = (HttpURLConnection) url.openConnection();
@@ -423,7 +434,9 @@ private List<Ent_twebRtm> filterList;
                 {
                     crudPkk.delete_pkk_kelompok_dasa_wisma_by_no_rtm(id_rtm);
                     crudPkk.delete_pkk_data_keluarga_by_No_KK(id_rtm);
-                    context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+                    Intent intent = new Intent(context,Data_Belum_Upload_Activity.class);
+                    intent.putExtra("pager",3);
+                    context.startActivity(intent);
                     Animatoo.animateFade(context);
                     ((Activity)context).finish();
                 }
@@ -1428,7 +1441,9 @@ private List<Ent_twebRtm> filterList;
                         crud.updateData_rtm(no_rtm,"hapus");
 //                        crudPkk.delete_pkk_kelompok_dasa_wisma_by_no_rtm(no_rtm);
 //                        crudPkk.delete_pkk_data_keluarga_by_No_KK(no_rtm);
-                        context.startActivity(new Intent(context,Data_Belum_Upload_Activity.class));
+                        Intent intent = new Intent(context,Data_Belum_Upload_Activity.class);
+                        intent.putExtra("pager",3);
+                        context.startActivity(intent);
                         Animatoo.animateFade(context);
                         ((Activity)context).finish();
                     }

@@ -41,6 +41,7 @@ public class Data_Belum_Upload_Activity extends AppCompatActivity implements Fg_
         viewPager.setAdapter(myPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.setCurrentItem(getIntent().getIntExtra("pager",0));
     }
 
     @Override

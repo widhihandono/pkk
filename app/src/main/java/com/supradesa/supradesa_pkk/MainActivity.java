@@ -179,7 +179,8 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
         });
 
         fabDoc.setOnClickListener(l->{
-            Intent intent = new Intent(MainActivity.this, Data_Belum_Upload_Activity.class);
+            Intent intent = new Intent(MainActivity.this,Data_Belum_Upload_Activity.class);
+            intent.putExtra("pager",0);
             startActivity(intent);
             Animatoo.animateFade(MainActivity.this);
         });
@@ -374,7 +375,7 @@ FloatingActionButton fabPendataan,fabSync,fabDoc,myFab;
                 .setPositiveButton("Lanjutkan Download",new DialogInterface.OnClickListener() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
                     public void onClick(DialogInterface dialog, int id) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://pkk.magelangkab.go.id/download")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.supradesa.supradesa_pkk")));
                         finish();
                     }
                 });

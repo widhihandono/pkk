@@ -120,6 +120,10 @@ public class Ambil_DataActivity extends AppCompatActivity {
             tvTglSync_catKeluarga,tvTglSync_catKeluargaDet,tvTglSync_pkkKeluarga,tvTglSync_kelompok_dasawisma,
             tvTglSync_pkkDasawisma,tvBack;
 
+    private TextView tvJumlah_penduduk,tvJumlah_rmhTgga,tvJumlah_keluarga,
+            tvJumlah_catKeluarga,tvJumlah_catKeluargaDet,tvJumlah_pkkKeluarga,tvJumlah_kelompok_dasawisma,
+            tvJumlah_pkkDasawisma;
+
     private Dialog dialog;
 
     Get_Data_From_Server get_data_from_server;
@@ -175,6 +179,14 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvTglSync_pkkKeluarga = findViewById(R.id.tvTglSync_pkkKeluarga);
         tvTglSync_kelompok_dasawisma = findViewById(R.id.tvTglSync_kelompok_dasawisma);
         tvTglSync_pkkDasawisma = findViewById(R.id.tvTglSync_pkkDasawisma);
+        tvJumlah_penduduk = findViewById(R.id.tvJumlah_penduduk);
+        tvJumlah_rmhTgga = findViewById(R.id.tvJumlah_rmhTgga);
+        tvJumlah_keluarga = findViewById(R.id.tvJumlah_keluarga);
+        tvJumlah_catKeluarga = findViewById(R.id.tvJumlah_catKeluarga);
+        tvJumlah_catKeluargaDet = findViewById(R.id.tvJumlah_catKeluargaDet);
+        tvJumlah_pkkKeluarga = findViewById(R.id.tvJumlah_pkkKeluarga);
+        tvJumlah_kelompok_dasawisma = findViewById(R.id.tvJumlah_kelompok_dasawisma);
+        tvJumlah_pkkDasawisma = findViewById(R.id.tvJumlah_pkkDasawisma);
         tvBack = findViewById(R.id.tvBack);
 
         lnConfigCode.setOnClickListener(l->{
@@ -228,6 +240,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_penduduk",tgl());
                     tvTglSync_penduduk.setText("Last Sync : "+sharedPref.sp.getString("tglSync_penduduk",""));
+                    tvJumlah_penduduk.setText("Total : "+sharedPref.sp.getInt("count_penduduk",0));
 //                    }
 //                    else
 //                    {
@@ -272,6 +285,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tgl_rmhTgga", tgl());
                     tvTglSync_rmhTgga.setText("Last Sync : " + sharedPref.sp.getString("tgl_rmhTgga", ""));
+                     tvJumlah_rmhTgga.setText("Total : "+sharedPref.sp.getInt("count_rtm",0));
 //                    }
 //                    else
 //                    {
@@ -304,6 +318,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_keluarga", tgl());
                     tvTglSync_keluarga.setText("Last Sync : " + sharedPref.sp.getString("tglSync_keluarga", ""));
+                    tvJumlah_keluarga.setText("Total : "+sharedPref.sp.getInt("count_keluarga",0));
 //                    }
 //                    else
 //                    {
@@ -336,6 +351,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_catKeluarga",tgl());
                     tvTglSync_catKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluarga",""));
+                    tvJumlah_catKeluarga.setText("Total : "+sharedPref.sp.getInt("count_pkkCatatanKeluarga",0));
 //                    }
 //                    else
 //                    {
@@ -369,6 +385,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
                     tvTglSync_catKeluargaDet.setText("Last Sync : "+sharedPref.sp.getString("tglSync_catKeluargaDet",""));
+                    tvJumlah_catKeluargaDet.setText("Total : "+sharedPref.sp.getInt("count_pkkCatatanKeluargaDetail",0));
 //                    }
 //                    else
 //                    {
@@ -402,6 +419,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
                     tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
+                    tvJumlah_pkkKeluarga.setText("Total: "+sharedPref.sp.getInt("count_pkkData_keluarga",0));
 //                    }
 //                    else
 //                    {
@@ -435,6 +453,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
                     tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
+                    tvJumlah_kelompok_dasawisma.setText("Total : "+sharedPref.sp.getInt("count_kelompokDasawisma",0));
 //                    }
 //                    else
 //                    {
@@ -468,6 +487,7 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     hapus_static_list();
                     sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
                     tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+                    tvJumlah_pkkDasawisma.setText("Total : "+sharedPref.sp.getInt("count_dasawisma",0));
 //                    }
 //                    else
 //                    {
@@ -510,6 +530,15 @@ public class Ambil_DataActivity extends AppCompatActivity {
                     tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
                     tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
                     tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+
+                    tvJumlah_penduduk.setText("Total : "+sharedPref.sp.getInt("count_penduduk",0));
+                    tvJumlah_rmhTgga.setText("Total : "+sharedPref.sp.getInt("count_rtm",0));
+                    tvJumlah_keluarga.setText("Total : "+sharedPref.sp.getInt("count_keluarga",0));
+                    tvJumlah_catKeluarga.setText("Total : "+sharedPref.sp.getInt("count_pkkCatatanKeluarga",0));
+                    tvJumlah_catKeluargaDet.setText("Total : "+sharedPref.sp.getInt("count_pkkCatatanKeluargaDetail",0));
+                    tvJumlah_pkkKeluarga.setText("Total: "+sharedPref.sp.getInt("count_pkkData_keluarga",0));
+                    tvJumlah_kelompok_dasawisma.setText("Total : "+sharedPref.sp.getInt("count_kelompokDasawisma",0));
+                    tvJumlah_pkkDasawisma.setText("Total : "+sharedPref.sp.getInt("count_dasawisma",0));
                 }
 
 //                    }
@@ -584,6 +613,15 @@ public class Ambil_DataActivity extends AppCompatActivity {
         tvTglSync_pkkKeluarga.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkKeluarga",""));
         tvTglSync_kelompok_dasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_kelompok_dasawiswa",""));
         tvTglSync_pkkDasawisma.setText("Last Sync : "+sharedPref.sp.getString("tglSync_pkkDasawisma",""));
+
+        tvJumlah_penduduk.setText("Total : "+sharedPref.sp.getInt("count_penduduk",0));
+        tvJumlah_rmhTgga.setText("Total : "+sharedPref.sp.getInt("count_rtm",0));
+        tvJumlah_keluarga.setText("Total : "+sharedPref.sp.getInt("count_keluarga",0));
+        tvJumlah_catKeluarga.setText("Total : "+sharedPref.sp.getInt("count_pkkCatatanKeluarga",0));
+        tvJumlah_catKeluargaDet.setText("Total : "+sharedPref.sp.getInt("count_pkkCatatanKeluargaDetail",0));
+        tvJumlah_pkkKeluarga.setText("Total: "+sharedPref.sp.getInt("count_pkkData_keluarga",0));
+        tvJumlah_kelompok_dasawisma.setText("Total : "+sharedPref.sp.getInt("count_kelompokDasawisma",0));
+        tvJumlah_pkkDasawisma.setText("Total : "+sharedPref.sp.getInt("count_dasawisma",0));
 
     }
 

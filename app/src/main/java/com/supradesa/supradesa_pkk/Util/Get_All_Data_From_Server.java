@@ -466,7 +466,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_kelompokDasawisma",count);
                 sharedPref.saveSPString("tglSync_kelompok_dasawiswa",tgl());
 
                 Pkk_Dasawisma_Async dasawisma_async = new Pkk_Dasawisma_Async();
@@ -610,7 +620,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_dasawisma",count);
 //                Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
                 sharedPref.saveSPString("tglSync_pkkDasawisma",tgl());
 
@@ -965,7 +985,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_penduduk",count);
 
                 sharedPref.saveSPString("tglSync_penduduk",tgl());
 
@@ -1123,7 +1153,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_keluarga",count);
                 sharedPref.saveSPString("tglSync_keluarga",tgl());
 
                 Get_PkkDataKeluarga pkkDataKeluarga = new Get_PkkDataKeluarga();
@@ -1266,7 +1306,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_rtm",count);
                 sharedPref.saveSPString("tgl_rmhTgga",tgl());
 
                 GetPenduduk penduduk = new GetPenduduk();
@@ -1410,7 +1460,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_pkkCatatanKeluarga",count);
                 sharedPref.saveSPString("tglSync_catKeluarga",tgl());
 
                 get_PkkCatatanKeluargaDetail catatanKeluargaDetail = new get_PkkCatatanKeluargaDetail();
@@ -1578,8 +1638,19 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+
                 dialog.dismiss();
+                sharedPref.saveSPInt("count_pkkCatatanKeluargaDetail",count);
                 sharedPref.saveSPString("tglSync_catKeluargaDet",tgl());
                 Toast.makeText(context,"Sukses Ambil Data",Toast.LENGTH_LONG).show();
                 context.startActivity(new Intent(context, Ambil_DataActivity.class));
@@ -1742,7 +1813,17 @@ Context context;
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+
+            int count = 0;
+            try {
+                count = result.getInt("count");
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
             if (success == 1) {
+                sharedPref.saveSPInt("count_pkkData_keluarga",count);
                 sharedPref.saveSPString("tglSync_pkkKeluarga",tgl());
 
                 Pkk_kelomDasawisma_Async kelomDasawisma_async = new Pkk_kelomDasawisma_Async();
