@@ -319,7 +319,7 @@ Crud_pkk crud_pkk;
 //                finish();
 
 
-                if(kode_desa.equals(crud.getData_config_code().get(0).getKode_desa()) &&
+                if(kode_desa.equals(sharedPref.sp.getString("kode_desa","")) &&
                         dusun.equals(sharedPref.sp.getString("dusun","")))
                 {
                     Toast.makeText(Login_Activity.this,"Sukses Login",Toast.LENGTH_LONG).show();

@@ -308,7 +308,7 @@ public class Profile_Activity extends AppCompatActivity {
                         Toast.makeText(Profile_Activity.this,"Sukses Logout",Toast.LENGTH_LONG).show();
                         sharedPref.saveSPBoolean(sharedPref.SP_SUDAH_LOGIN,false);
                         sharedPref.saveSPString("nik","");
-                        sharedPref.saveSPString("kode_desa","");
+//                        sharedPref.saveSPString("kode_desa","");
 //                        sharedPref.saveSPString("dusun","");
                         sharedPref.saveSPString("nama_desa","");
                         sharedPref.saveSPString("nama_kecamatan","");
